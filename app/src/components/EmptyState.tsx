@@ -1,25 +1,27 @@
-import { panels, typography } from "../ui/classNames";
+import { SuggestionChip } from "./SuggestionChip";
 
 type EmptyStateProps = {
   title: string;
   description?: string;
   suggestions?: string[];
+  onSuggestionClick?: (suggestion: string) => void;
 };
 
-export function EmptyState({ title, description, suggestions }: EmptyStateProps) {
+export function EmptyState({ title, description, suggestions, onSuggestionClick }: EmptyStateProps) {
   return (
-    <div className={`${panels.subtle} p-8 flex flex-col items-center justify-center text-center h-64`}>
-      <h3 className={`${typography.sectionTitle} mb-2`}>{title}</h3>
-      {description && <p className="text-slate-400 text-sm max-w-md mb-6">{description}</p>}
+    <div className="empty-state-lab">
+      <div className="empty-state-lab__icon">
+        🔍
+      </div>
+      <h3 className="empty-state-lab__title">{title}</h3>
+      {description && <p className="empty-state-lab__description">{description}</p>}
       
       {suggestions && suggestions.length > 0 && (
-        <div>
-          <div className={`${typography.eyebrow} mb-3`}>Versuche</div>
-          <div className="flex flex-wrap gap-2 justify-center">
+        <div style={{ marginTop: '1rem' }}>
+          <div className="hero-kicker" style={{ marginBottom: '0.75rem' }}>Versuche</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center' }}>
             {suggestions.map(s => (
-              <span key={s} className="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-medium text-slate-300">
-                {s}
-              </span>
+              <SuggestionChip key={s} suggestion={s} onClick={onSuggestionClick} />
             ))}
           </div>
         </div>

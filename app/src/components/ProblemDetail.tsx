@@ -1,7 +1,8 @@
 import type { Atom, Problem } from "@logos-table/domain";
 import { CodeBlock } from "./CodeBlock";
-import { typography, buttons } from "../ui/classNames";
-import { getFamilyStyle } from "../ui/familyStyles";
+import { typography } from "../ui/classNames";
+import { ProblemHero } from "./ProblemHero";
+import { AtomRoleCard } from "./AtomRoleCard";
 
 type ProblemDetailProps = {
   problem: Problem;
@@ -10,74 +11,40 @@ type ProblemDetailProps = {
 };
 
 export function ProblemDetail({ problem, atomRoles, onSelectAtom }: ProblemDetailProps) {
-  const diff = problem.difficulty ?? "medium";
-  const diffColors = {
-    easy: "text-green-400",
-    medium: "text-yellow-400",
-    hard: "text-red-400",
-  };
-
   return (
-    <div className="w-full">
-      <header className="mb-8 border-b border-slate-700 pb-6">
-        <h2 className="text-3xl font-bold text-slate-50 mb-3">{problem.title}</h2>
-        <div className="flex items-center gap-3 text-sm font-medium uppercase tracking-wider">
-          <span className={diffColors[diff]}>{diff}</span>
-          {problem.source && (
-            <>
-              <span className="text-slate-600">&bull;</span>
-              <span className="text-slate-400">{problem.source}</span>
-            </>
-          )}
-        </div>
-      </header>
+    <div className="w-full animate-[fadeIn_180ms_ease-out]">
+      <ProblemHero problem={problem} activeAtomCount={atomRoles.length} />
 
-      <section className="mb-8">
+      <section className="mb-12">
         <h3 className={typography.sectionTitle}>Oberfläche</h3>
-        <p className="text-slate-300 leading-relaxed text-base">{problem.surface}</p>
-      </section>
-
-      <section className="mb-8">
-        <h3 className={typography.sectionTitle}>Tiefenstruktur</h3>
-        <p className="text-slate-100 text-lg font-serif italic border-l-4 border-blue-500 pl-4 py-1">
-          {problem.deep_structure}
-        </p>
+        <p className="text-[var(--lab-text)] leading-[1.75] text-[1.05rem]">{problem.surface}</p>
       </section>
 
       {atomRoles.length > 0 && (
-        <section className="mb-8 bg-slate-900/30 p-5 rounded-lg border border-slate-700/30">
+        <section className="mb-12 bg-[var(--lab-surface-deep)] p-6 rounded-xl border border-[var(--lab-stroke)]">
           <h3 className={typography.sectionTitle + " mb-4"}>Aktive Atome</h3>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             {atomRoles.map(({ atom, role }) => (
-              <div key={atom.id} className="flex flex-col gap-2">
-                <div className="flex items-start">
-                  <button
-                    type="button"
-                    onClick={() => onSelectAtom?.(atom.id)}
-                    className={`${buttons.chip} ${getFamilyStyle(atom.family).chip} text-left flex items-center`}
-                  >
-                    <span className="text-slate-500 font-normal mr-1.5">[{atom.family}]</span>
-                    {atom.name}
-                  </button>
-                </div>
-                <p className="text-slate-400 text-sm italic pl-2 border-l-2 border-slate-700">
-                  {role}
-                </p>
-              </div>
+              <AtomRoleCard
+                key={atom.id}
+                atom={atom}
+                role={role}
+                onSelectAtom={onSelectAtom}
+              />
             ))}
           </div>
         </section>
       )}
 
-      <section className="mb-8">
+      <section className="mb-12">
         <h3 className={typography.sectionTitle}>Beweisskizze</h3>
-        <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">{problem.proof_sketch}</p>
+        <p className="text-[var(--lab-text)] leading-[1.75] whitespace-pre-wrap text-[1.05rem]">{problem.proof_sketch}</p>
       </section>
 
       {problem.reflection_questions && problem.reflection_questions.length > 0 && (
-        <section className="mb-10">
+        <section className="mb-12">
           <h3 className={typography.sectionTitle}>Reflexionsfragen</h3>
-          <ul className="list-disc space-y-2 pl-5 text-slate-300">
+          <ul className="list-disc space-y-2 pl-5 text-[var(--lab-text)]">
             {problem.reflection_questions.map((q, i) => (
               <li key={i}>{q}</li>
             ))}
@@ -86,7 +53,7 @@ export function ProblemDetail({ problem, atomRoles, onSelectAtom }: ProblemDetai
       )}
 
       {problem.python_solution && (
-        <section className="mb-8">
+        <section className="mb-12">
           <h3 className={typography.sectionTitle}>Python Lösung</h3>
           <CodeBlock code={problem.python_solution} language="python" />
         </section>

@@ -100,7 +100,7 @@ function App() {
       onClearSearch={() => setSearchQuery("")}
       onSwitchViewMode={switchViewMode}
       explorer={
-        <ExplorerPane variant={viewMode}>
+        <ExplorerPane>
           {viewMode === "atoms" ? (
             filteredAtoms.length > 0 ? (
               <PeriodicTable 
@@ -114,6 +114,7 @@ function App() {
                 title="Keine Atome gefunden"
                 description="Versuche einen Begriff aus Struktur, Familie oder Algorithmus."
                 suggestions={["Graph", "Grenze", "Rekursion", "Heap"]}
+                onSuggestionClick={setSearchQuery}
               />
             )
           ) : (
@@ -128,6 +129,7 @@ function App() {
                 title="Keine Probleme gefunden"
                 description="Suche nach einem Problemnamen oder einer Tiefenstruktur."
                 suggestions={["Median", "Binary", "Graph", "DP"]}
+                onSuggestionClick={setSearchQuery}
               />
             )
           )}

@@ -1,11 +1,11 @@
 export const panels = {
-  base: "rounded-lg border border-slate-700 bg-slate-800 shadow-xl",
-  subtle: "rounded-lg border border-slate-700/30 bg-slate-900/30",
+  base: "rounded-lg border border-[var(--lab-stroke)] bg-[var(--lab-surface-strong)] shadow-sm",
+  subtle: "rounded-lg border border-[var(--lab-stroke)] bg-[var(--lab-surface)]",
 };
 
 export const typography = {
-  sectionTitle: "text-lg font-semibold text-slate-300 mb-3",
-  eyebrow: "text-xs font-semibold uppercase tracking-wider text-slate-400",
+  sectionTitle: "text-lg font-bold text-[var(--lab-text)] mb-3",
+  eyebrow: "text-xs font-semibold uppercase tracking-wider text-[var(--lab-text-dim)]",
 };
 
 export const buttons = {

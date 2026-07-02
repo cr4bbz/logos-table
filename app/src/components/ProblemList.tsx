@@ -11,7 +11,7 @@ export function ProblemList({ problems, selectedProblemId, onSelectProblem }: Pr
   return (
     <div className="flex flex-col gap-4 w-full">
       {problems.length === 0 ? (
-        <div className="flex items-center justify-center p-6 text-center text-sm text-slate-500 italic border border-slate-800/50 rounded-lg bg-slate-900/20">
+        <div className="flex items-center justify-center p-6 text-center text-sm text-[var(--lab-text-muted)] italic border border-[var(--lab-stroke)] rounded-lg bg-[var(--lab-surface-deep)]">
           Keine Probleme gefunden.<br/>Versuche einen anderen Begriff.
         </div>
       ) : (

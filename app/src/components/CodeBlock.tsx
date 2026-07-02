@@ -43,20 +43,20 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
   };
 
   return (
-    <div className="rounded-lg overflow-hidden border border-slate-700/80 shadow-sm bg-slate-950">
-      <div className="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
-        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+    <div className="rounded-lg overflow-hidden border border-[var(--lab-stroke)] shadow-sm bg-[var(--lab-bg-deep)]">
+      <div className="flex items-center justify-between px-4 py-2 bg-[var(--lab-surface-deep)] border-b border-[var(--lab-stroke)]">
+        <span className="text-xs font-semibold text-[var(--lab-text-muted)] uppercase tracking-wider">
           {languageLabel[language]}
         </span>
         <button
           type="button"
           onClick={handleCopy}
-          className="text-xs font-medium text-slate-400 hover:text-slate-200 transition-colors bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded-md border border-slate-700"
+          className="text-xs font-medium text-[var(--lab-text-soft)] hover:text-[var(--lab-text)] transition-colors bg-white hover:bg-[var(--lab-surface-deep)] px-2.5 py-1 rounded-md border border-[var(--lab-stroke)] shadow-sm"
         >
           {copyState === "copied" ? "Kopiert! ✓" : copyState === "error" ? "Fehler" : "Kopieren"}
         </button>
       </div>
-      <pre className="p-4 overflow-x-auto text-sm text-slate-300 font-mono">
+      <pre className="p-4 overflow-x-auto text-sm text-[var(--lab-text)] font-mono">
         <code>{code}</code>
       </pre>
     </div>

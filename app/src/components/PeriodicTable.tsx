@@ -1,6 +1,7 @@
 import type { Atom } from "@logos-table/domain";
 import { AtomTile } from "./AtomTile";
 import { type AtomFamilyGroup } from "../content/contentStore";
+import { familyCssVars } from "../ui/familyStyles";
 
 type PeriodicTableProps = {
   groups: AtomFamilyGroup[];
@@ -13,18 +14,20 @@ export function PeriodicTable({ groups, allAtoms, selectedAtomId, onSelectAtom }
   const getAtomIndex = (atomId: string) => allAtoms.findIndex(a => a.id === atomId);
 
   return (
-    <div className="flex flex-col gap-10 w-full pb-8">
+    <div className="atom-matrix pb-8">
       {groups.length === 0 ? (
-        <div className="flex flex-col items-center justify-center h-48 text-slate-500 italic">
+        <div className="flex flex-col items-center justify-center h-48 text-[var(--lab-text-muted)] italic">
           Keine Atome gefunden.<br/>Versuche einen anderen Begriff.
         </div>
       ) : (
         groups.map((group) => (
-          <section key={group.family} className="flex flex-col gap-4">
-            <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-widest pl-1">
-              {group.family}
-            </h3>
-            <div className="flex flex-wrap gap-4">
+          <section 
+            key={group.family} 
+            className="atom-family"
+            style={familyCssVars(group.family)}
+          >
+            <h2 className="atom-family__heading">{group.family}</h2>
+            <div className="atom-family__grid">
               {group.atoms.map((atom) => (
                 <AtomTile
                   key={atom.id}

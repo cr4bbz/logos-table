@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { ViewMode } from "../types/ui";
-import { Header } from "./Header";
+import { CommandBar } from "./CommandBar";
 import type { ContentMeta } from "../content/contentStore";
 
 type AppShellProps = {
@@ -27,8 +27,8 @@ export function AppShell({
   onSwitchViewMode
 }: AppShellProps) {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 flex flex-col h-screen overflow-hidden">
-      <Header 
+    <div className="app-scene">
+      <CommandBar 
         viewMode={viewMode}
         searchQuery={searchQuery}
         resultCount={resultCount}
@@ -38,11 +38,9 @@ export function AppShell({
         onSwitchViewMode={onSwitchViewMode}
       />
       
-      <main className="flex-1 overflow-hidden p-4 md:p-6">
-        <div className="h-full max-w-[1600px] mx-auto flex flex-col lg:flex-row gap-6">
-          {explorer}
-          {detail}
-        </div>
+      <main className="app-workspace">
+        {explorer}
+        {detail}
       </main>
     </div>
   );
