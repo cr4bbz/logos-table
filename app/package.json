@@ -4,11 +4,16 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "predev": "pnpm -w generate:content",
     "dev": "vite",
+    "prebuild": "pnpm -w generate:content",
     "build": "tsc && vite build",
+    "pretypecheck": "pnpm -w generate:content",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "tauri:dev": "pnpm -w generate:content && tauri dev",
+    "tauri:build": "pnpm -w generate:content && tauri build"
   },
   "dependencies": {
     "@logos-table/domain": "workspace:*",

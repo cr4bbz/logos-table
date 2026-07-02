@@ -4,10 +4,13 @@
   "private": true,
   "packageManager": "pnpm@9.4.0",
   "scripts": {
+    "build:domain": "pnpm --filter @logos-table/domain build",
     "typecheck": "tsc --noEmit",
     "validate:content": "tsx scripts/validate-content.ts data",
     "validate:fixtures": "tsx scripts/validate-content.ts fixtures/valid",
-    "check": "pnpm typecheck && pnpm validate:content"
+    "generate:content": "pnpm build:domain && tsx scripts/generate-app-content.ts data app/src/generated/content.ts",
+    "check": "pnpm build:domain && pnpm typecheck && pnpm validate:content",
+    "build": "pnpm build:domain && pnpm generate:content && pnpm --filter app build"
   },
   "devDependencies": {
     "typescript": "^5.5.0",
