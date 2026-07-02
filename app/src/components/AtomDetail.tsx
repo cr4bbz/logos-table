@@ -5,9 +5,10 @@ type AtomDetailProps = {
   relatedAtoms: Atom[];
   relatedProblems: Problem[];
   onSelectAtom?: (atomId: string) => void;
+  onSelectProblem?: (problemId: string) => void;
 };
 
-export function AtomDetail({ atom, relatedAtoms, relatedProblems, onSelectAtom }: AtomDetailProps) {
+export function AtomDetail({ atom, relatedAtoms, relatedProblems, onSelectAtom, onSelectProblem }: AtomDetailProps) {
   return (
     <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 md:p-10 shadow-xl w-full h-full overflow-y-auto">
       <header className="mb-8 border-b border-slate-700 pb-6">
@@ -101,13 +102,18 @@ export function AtomDetail({ atom, relatedAtoms, relatedProblems, onSelectAtom }
         {relatedProblems.length > 0 && (
           <section>
             <h3 className="text-lg font-semibold text-slate-300 mb-3">Verwandte Probleme</h3>
-            <ul className="space-y-2">
+            <div className="flex flex-wrap gap-2">
               {relatedProblems.map((problem) => (
-                <li key={problem.id} className="text-slate-400 cursor-default">
-                  &bull; {problem.title}
-                </li>
+                <button
+                  key={problem.id}
+                  type="button"
+                  onClick={() => onSelectProblem?.(problem.id)}
+                  className="bg-slate-800 border border-slate-600 hover:border-yellow-400 hover:bg-slate-700 text-yellow-300 px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
+                >
+                  {problem.title}
+                </button>
               ))}
-            </ul>
+            </div>
           </section>
         )}
       </div>

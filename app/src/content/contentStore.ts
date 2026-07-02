@@ -39,11 +39,37 @@ export function getRelatedAtoms(atomId: string): Atom[] {
 }
 
 export function getProblemsForAtom(atomId: string): Problem[] {
-  return problems.filter((p) => p.atoms.includes(atomId));
+  return sortedProblems.filter((p) => p.atoms.includes(atomId));
 }
 
+const difficultyOrder = {
+  easy: 0,
+  medium: 1,
+  hard: 2
+} as const;
+
+const sortedProblems = [...problems].sort((a, b) => {
+  const diffA = difficultyOrder[a.difficulty ?? "medium"];
+  const diffB = difficultyOrder[b.difficulty ?? "medium"];
+  if (diffA !== diffB) return diffA - diffB;
+  return a.title.localeCompare(b.title, "en");
+});
+
 export function getProblems() {
-  return problems;
+  return sortedProblems;
+}
+
+export function getProblemById(id: string): Problem | null {
+  return problems.find((p) => p.id === id) ?? null;
+}
+
+export function getAtomsForProblem(problemId: string): Atom[] {
+  const problem = getProblemById(problemId);
+  if (!problem) return [];
+  
+  return problem.atoms
+    .map((atomId) => getAtomById(atomId))
+    .filter((a): a is Atom => a !== null);
 }
 
 export function getContentMeta() {
