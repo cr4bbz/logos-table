@@ -1,0 +1,13 @@
+{
+  "id": "test-problem",
+  "title": "Test Problem",
+  "surface": "Test Surface",
+  "deep_structure": "Test Deep Structure",
+  "atoms": ["test-atom"],
+  "proof_sketch": "Proof",
+  "python_solution": "def test(): return True",
+  "lean_sketch": "def test := true",
+  "reflection_questions": ["Why?"],
+  "source": "leetcode",
+  "difficulty": "easy"
+}

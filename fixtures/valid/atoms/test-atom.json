@@ -1,0 +1,12 @@
+{
+  "id": "test-atom",
+  "name": "Test Atom",
+  "family": "Ordnung",
+  "core_sentence": "Das ist ein Test-Satz.",
+  "description": "Test Beschreibung.",
+  "requirements": ["Req 1", "Req 2"],
+  "python_template": "def foo(): pass",
+  "lean_sketch": "def foo := 1",
+  "related_atoms": [],
+  "tags": ["test"]
+}

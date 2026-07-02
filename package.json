@@ -1,0 +1,19 @@
+{
+  "name": "logos-table-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.4.0",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "validate:content": "tsx scripts/validate-content.ts data",
+    "validate:fixtures": "tsx scripts/validate-content.ts fixtures/valid",
+    "check": "pnpm typecheck && pnpm validate:content"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "zod": "^3.23.8",
+    "tsx": "^4.16.0",
+    "@types/node": "^20.14.0",
+    "@logos-table/domain": "workspace:*"
+  }
+}
