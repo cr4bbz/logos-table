@@ -1,5 +1,6 @@
 {
   "id": "memoization",
+  "symbol": "Me",
   "name": "Memoisierung",
   "family": "Wissen",
   "core_sentence": "Wiederkehrende Teilfragen werden gespeichert.",

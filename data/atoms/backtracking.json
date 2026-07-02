@@ -1,5 +1,6 @@
 {
   "id": "backtracking",
+  "symbol": "Bt",
   "name": "Backtracking",
   "family": "Möglichkeit",
   "core_sentence": "Möglichkeitswelten werden konstruiert und verworfen.",

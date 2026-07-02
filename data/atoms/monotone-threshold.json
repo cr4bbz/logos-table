@@ -1,5 +1,6 @@
 {
   "id": "monotone-threshold",
+  "symbol": "Ms",
   "name": "Monotone Schwelle",
   "family": "Ordnung",
   "core_sentence": "Wenn Wahrheit entlang einer Ordnung nur einmal kippt, suche die Kippstelle.",

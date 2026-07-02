@@ -1,5 +1,6 @@
 {
   "id": "sliding-window",
+  "symbol": "Fe",
   "name": "Fenster",
   "family": "Lokalität",
   "core_sentence": "Eine Eigenschaft wird über ein bewegliches Intervall erhalten.",

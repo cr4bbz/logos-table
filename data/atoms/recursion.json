@@ -1,5 +1,6 @@
 {
   "id": "recursion",
+  "symbol": "Re",
   "name": "Rekursion",
   "family": "Zeit",
   "core_sentence": "Ein Problem enthält kleinere Versionen seiner selbst.",

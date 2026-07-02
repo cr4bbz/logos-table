@@ -3,6 +3,7 @@ import type { Atom, Problem } from "@logos-table/domain";
 export const atoms: Atom[] = [
   {
     "id": "backtracking",
+    "symbol": "Bt",
     "name": "Backtracking",
     "family": "Möglichkeit",
     "core_sentence": "Möglichkeitswelten werden konstruiert und verworfen.",
@@ -30,6 +31,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "boundary",
+    "symbol": "Gr",
     "name": "Grenze",
     "family": "Ordnung",
     "core_sentence": "Eine Lösung kann eine korrekt gesetzte Trennlinie sein.",
@@ -57,6 +59,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "component",
+    "symbol": "Ko",
     "name": "Komponente",
     "family": "Relation",
     "core_sentence": "Verbundene Dinge bilden einen zusammenhängenden Bereich.",
@@ -84,6 +87,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "cycle",
+    "symbol": "Zy",
     "name": "Zyklus",
     "family": "Relation",
     "core_sentence": "Eine Relation kann auf sich selbst zurückführen.",
@@ -109,6 +113,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "equivalence-class",
+    "symbol": "Äk",
     "name": "Äquivalenzklasse",
     "family": "Identität",
     "core_sentence": "Mehrere Objekte gelten strukturell als dasselbe.",
@@ -136,6 +141,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "extremal-witness",
+    "symbol": "Ez",
     "name": "Extremwert-Zeuge",
     "family": "Ordnung",
     "core_sentence": "Unter Ordnung genügt oft ein Extremwert als Zeuge für eine ganze Menge.",
@@ -162,6 +168,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "greedy-choice",
+    "symbol": "Gw",
     "name": "Greedy-Wahl",
     "family": "Entscheidung",
     "core_sentence": "Eine lokale Wahl ist nur zulässig, wenn sie global nichts zerstört.",
@@ -188,6 +195,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "invariant",
+    "symbol": "Iv",
     "name": "Invariante",
     "family": "Bewegung",
     "core_sentence": "Ein Prozess ist kontrollierbar, wenn während seiner Veränderung eine Wahrheit erhalten bleibt.",
@@ -213,6 +221,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "memoization",
+    "symbol": "Me",
     "name": "Memoisierung",
     "family": "Wissen",
     "core_sentence": "Wiederkehrende Teilfragen werden gespeichert.",
@@ -239,6 +248,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "monotone-threshold",
+    "symbol": "Ms",
     "name": "Monotone Schwelle",
     "family": "Ordnung",
     "core_sentence": "Wenn Wahrheit entlang einer Ordnung nur einmal kippt, suche die Kippstelle.",
@@ -266,6 +276,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "order",
+    "symbol": "Or",
     "name": "Ordnung",
     "family": "Ordnung",
     "core_sentence": "Wenn Elemente vergleichbar geordnet sind, können lokale Randprüfungen globale Aussagen tragen.",
@@ -291,6 +302,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "partition",
+    "symbol": "Pa",
     "name": "Partition",
     "family": "Struktur",
     "core_sentence": "Ein Raum kann so geteilt werden, dass die Gültigkeit der Lösung aus der Relation der Teile folgt.",
@@ -315,6 +327,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "priority",
+    "symbol": "Pr",
     "name": "Priorität",
     "family": "Ordnung",
     "core_sentence": "Das jeweils relevante Extremum bestimmt den nächsten Schritt.",
@@ -341,6 +354,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "reachability",
+    "symbol": "Er",
     "name": "Erreichbarkeit",
     "family": "Relation",
     "core_sentence": "Eine Lösung ist ein Pfad durch Übergänge.",
@@ -368,6 +382,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "recursion",
+    "symbol": "Re",
     "name": "Rekursion",
     "family": "Zeit",
     "core_sentence": "Ein Problem enthält kleinere Versionen seiner selbst.",
@@ -393,6 +408,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "sliding-window",
+    "symbol": "Fe",
     "name": "Fenster",
     "family": "Lokalität",
     "core_sentence": "Eine Eigenschaft wird über ein bewegliches Intervall erhalten.",

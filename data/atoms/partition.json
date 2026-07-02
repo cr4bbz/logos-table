@@ -1,5 +1,6 @@
 {
   "id": "partition",
+  "symbol": "Pa",
   "name": "Partition",
   "family": "Struktur",
   "core_sentence": "Ein Raum kann so geteilt werden, dass die Gültigkeit der Lösung aus der Relation der Teile folgt.",

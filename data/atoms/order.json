@@ -1,5 +1,6 @@
 {
   "id": "order",
+  "symbol": "Or",
   "name": "Ordnung",
   "family": "Ordnung",
   "core_sentence": "Wenn Elemente vergleichbar geordnet sind, können lokale Randprüfungen globale Aussagen tragen.",

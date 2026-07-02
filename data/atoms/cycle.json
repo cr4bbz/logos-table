@@ -1,5 +1,6 @@
 {
   "id": "cycle",
+  "symbol": "Zy",
   "name": "Zyklus",
   "family": "Relation",
   "core_sentence": "Eine Relation kann auf sich selbst zurückführen.",

@@ -78,6 +78,16 @@ async function main() {
     console.warn(`Warning: Could not read problems directory ${problemsDir}`);
   }
 
+  // Symbol Uniqueness
+  const symbols = new Map<string, string>(); // symbol -> atomId
+  for (const [id, atom] of atoms.entries()) {
+    if (symbols.has(atom.symbol)) {
+      errors.push(`✗ ${rootDir}/atoms/${id}.json: symbol "${atom.symbol}" is already used by another atom ("${symbols.get(atom.symbol)}")`);
+    } else {
+      symbols.set(atom.symbol, id);
+    }
+  }
+
   // Referential Integrity
   let atomRefsCount = 0;
   for (const [id, atom] of atoms.entries()) {

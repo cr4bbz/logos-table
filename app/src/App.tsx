@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { getAtoms, getAtomById, getRelatedAtoms, getProblemsForAtom, getContentMeta, getProblems, getProblemById, getAtomsForProblem } from "./content/contentStore";
-import { AtomList } from "./components/AtomList";
+import { getAtoms, getAtomById, getRelatedAtoms, getProblemsForAtom, getContentMeta, getProblems, getProblemById, getAtomsForProblem, getAtomsGroupedByFamily } from "./content/contentStore";
+import { PeriodicTable } from "./components/PeriodicTable";
 import { AtomDetail } from "./components/AtomDetail";
 import { ProblemList } from "./components/ProblemList";
 import { ProblemDetail } from "./components/ProblemDetail";
@@ -10,6 +10,7 @@ type ViewMode = "atoms" | "problems";
 function App() {
   const meta = getContentMeta();
   const atoms = getAtoms();
+  const atomGroups = getAtomsGroupedByFamily();
   const problems = getProblems();
   
   const [viewMode, setViewMode] = useState<ViewMode>("atoms");
@@ -71,18 +72,19 @@ function App() {
         </div>
       </header>
       
-      <main className="flex-1 flex flex-col md:flex-row overflow-hidden w-full mx-auto">
+      <main className="flex-1 flex flex-col xl:flex-row overflow-hidden w-full mx-auto">
         {viewMode === "atoms" ? (
           <>
-            <div className="w-full md:w-1/3 lg:w-1/4 p-4 overflow-y-auto border-r border-slate-800 bg-slate-900/30 custom-scrollbar">
-              <AtomList 
-                atoms={atoms} 
+            <div className="w-full xl:w-[60%] p-6 overflow-y-auto border-r border-slate-800 bg-[#0B1120] custom-scrollbar">
+              <PeriodicTable 
+                groups={atomGroups}
+                allAtoms={atoms}
                 selectedAtomId={selectedAtomId} 
-                onSelectAtom={setSelectedAtomId} 
+                onSelectAtom={navigateToAtom} 
               />
             </div>
             
-            <div className="w-full md:w-2/3 lg:w-3/4 p-4 overflow-y-auto bg-slate-900 custom-scrollbar">
+            <div className="w-full xl:w-[40%] p-4 lg:p-6 overflow-y-auto bg-slate-900 custom-scrollbar">
               {selectedAtom ? (
                 <AtomDetail 
                   atom={selectedAtom} 
@@ -100,7 +102,7 @@ function App() {
           </>
         ) : (
           <>
-            <div className="w-full md:w-1/3 lg:w-1/4 p-4 overflow-y-auto border-r border-slate-800 bg-slate-900/30 custom-scrollbar">
+            <div className="w-full xl:w-[35%] p-4 overflow-y-auto border-r border-slate-800 bg-slate-900/30 custom-scrollbar">
               <ProblemList 
                 problems={problems} 
                 selectedProblemId={selectedProblemId} 
@@ -108,7 +110,7 @@ function App() {
               />
             </div>
             
-            <div className="w-full md:w-2/3 lg:w-3/4 p-4 overflow-y-auto bg-slate-900 custom-scrollbar">
+            <div className="w-full xl:w-[65%] p-4 overflow-y-auto bg-slate-900 custom-scrollbar">
               {selectedProblem ? (
                 <ProblemDetail 
                   problem={selectedProblem} 

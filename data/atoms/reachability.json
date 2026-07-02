@@ -1,5 +1,6 @@
 {
   "id": "reachability",
+  "symbol": "Er",
   "name": "Erreichbarkeit",
   "family": "Relation",
   "core_sentence": "Eine Lösung ist ein Pfad durch Übergänge.",

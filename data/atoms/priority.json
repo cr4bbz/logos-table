@@ -1,5 +1,6 @@
 {
   "id": "priority",
+  "symbol": "Pr",
   "name": "Priorität",
   "family": "Ordnung",
   "core_sentence": "Das jeweils relevante Extremum bestimmt den nächsten Schritt.",

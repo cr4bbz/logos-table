@@ -1,5 +1,6 @@
 {
   "id": "invariant",
+  "symbol": "Iv",
   "name": "Invariante",
   "family": "Bewegung",
   "core_sentence": "Ein Prozess ist kontrollierbar, wenn während seiner Veränderung eine Wahrheit erhalten bleibt.",

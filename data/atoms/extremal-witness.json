@@ -1,5 +1,6 @@
 {
   "id": "extremal-witness",
+  "symbol": "Ez",
   "name": "Extremwert-Zeuge",
   "family": "Ordnung",
   "core_sentence": "Unter Ordnung genügt oft ein Extremwert als Zeuge für eine ganze Menge.",

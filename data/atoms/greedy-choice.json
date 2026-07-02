@@ -1,5 +1,6 @@
 {
   "id": "greedy-choice",
+  "symbol": "Gw",
   "name": "Greedy-Wahl",
   "family": "Entscheidung",
   "core_sentence": "Eine lokale Wahl ist nur zulässig, wenn sie global nichts zerstört.",

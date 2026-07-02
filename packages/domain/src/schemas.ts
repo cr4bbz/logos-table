@@ -22,6 +22,7 @@ export const AtomFamilySchema = z.enum([
 
 export const AtomSchema = z.object({
   id: IdSchema,
+  symbol: z.string().trim().min(1).max(3),
   name: NonEmptyString,
   family: AtomFamilySchema,
   core_sentence: NonEmptyString,

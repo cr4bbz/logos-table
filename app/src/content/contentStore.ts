@@ -1,7 +1,7 @@
 import type { Atom, Problem } from "@logos-table/domain";
 import { atoms, problems, contentMeta } from "../generated/content";
 
-const familyOrder = [
+const familyOrder: Atom["family"][] = [
   "Ordnung",
   "Struktur",
   "Bewegung",
@@ -36,6 +36,28 @@ export function getRelatedAtoms(atomId: string): Atom[] {
   return atom.related_atoms
     .map((id) => getAtomById(id))
     .filter((a): a is Atom => a !== null);
+}
+
+export type AtomFamilyGroup = {
+  family: Atom["family"];
+  atoms: Atom[];
+};
+
+export function getAtomsGroupedByFamily(): AtomFamilyGroup[] {
+  const groups = new Map<Atom["family"], Atom[]>();
+  for (const atom of atoms) {
+    if (!groups.has(atom.family)) {
+      groups.set(atom.family, []);
+    }
+    groups.get(atom.family)!.push(atom);
+  }
+
+  return familyOrder
+    .filter(f => groups.has(f))
+    .map(f => ({
+      family: f,
+      atoms: groups.get(f)!
+    }));
 }
 
 export function getProblemsForAtom(atomId: string): Problem[] {
