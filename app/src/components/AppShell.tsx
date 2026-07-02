@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import type { ViewMode } from "../types/ui";
 import { Header } from "./Header";
-import { ContentMeta } from "../content/contentStore";
+import type { ContentMeta } from "../content/contentStore";
 
 type AppShellProps = {
   viewMode: ViewMode;

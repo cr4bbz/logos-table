@@ -1,7 +1,7 @@
 import type { ViewMode } from "../types/ui";
 import { ModeTabs } from "./ModeTabs";
 import { SearchBox } from "./SearchBox";
-import { ContentMeta } from "../content/contentStore";
+import type { ContentMeta } from "../content/contentStore";
 
 type HeaderProps = {
   viewMode: ViewMode;

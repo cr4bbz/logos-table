@@ -100,7 +100,7 @@ function App() {
       onClearSearch={() => setSearchQuery("")}
       onSwitchViewMode={switchViewMode}
       explorer={
-        <ExplorerPane>
+        <ExplorerPane variant={viewMode}>
           {viewMode === "atoms" ? (
             filteredAtoms.length > 0 ? (
               <PeriodicTable 
@@ -134,7 +134,10 @@ function App() {
         </ExplorerPane>
       }
       detail={
-        <DetailPane isEmpty={viewMode === "atoms" ? !selectedAtom : !selectedProblem}>
+        <DetailPane 
+          isEmpty={viewMode === "atoms" ? !selectedAtom : !selectedProblem}
+          emptyTitle={searchQuery ? "Kein Treffer ausgewählt" : "Nichts ausgewählt"}
+        >
           {viewMode === "atoms" ? (
             selectedAtom && (
               <AtomDetail 
