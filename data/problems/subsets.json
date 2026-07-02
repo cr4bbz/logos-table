@@ -1,0 +1,19 @@
+{
+  "id": "subsets",
+  "title": "Subsets",
+  "surface": "Erzeuge alle möglichen Teilmengen eines Arrays (die Potenzmenge).",
+  "deep_structure": "Systematische Konstruktion des gesamten Möglichkeitsraums.",
+  "atoms": [
+    "backtracking",
+    "recursion"
+  ],
+  "proof_sketch": "Für jedes Element gibt es genau zwei Möglichkeiten: Es ist Teil der Menge oder nicht. Eine rekursive Suche baut diesen Binärbaum an Möglichkeiten vollständig auf.",
+  "python_solution": "from typing import List\n\ndef subsets(nums: List[int]) -> List[List[int]]:\n    result = []\n    def backtrack(start, current_subset):\n        result.append(current_subset[:])\n        for i in range(start, len(nums)):\n            current_subset.append(nums[i])\n            backtrack(i + 1, current_subset)\n            current_subset.pop()\n    backtrack(0, [])\n    return result\n",
+  "lean_sketch": "inductive Powerset {α : Type} (S : Set α) : Set (Set α) where\n  | inc (A : Set α) : A ⊆ S → Powerset S A\n",
+  "reflection_questions": [
+    "Warum repräsentiert der Backtracking-Baum exakt 2^n Blätter?",
+    "Welchen Zustand stellt `current_subset` an jedem Knoten dar?"
+  ],
+  "source": "leetcode",
+  "difficulty": "medium"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "greedy-choice",
+  "name": "Greedy-Wahl",
+  "family": "Entscheidung",
+  "core_sentence": "Eine lokale Wahl ist nur zulässig, wenn sie global nichts zerstört.",
+  "description": "Ein Greedy-Algorithmus wählt stets die Option, die im Moment am besten erscheint. Dies ist nur dann global optimal, wenn die Problemstruktur eine Matroid-Eigenschaft oder ähnliche Unabhängigkeit aufweist.",
+  "formal_shape": "Opt(S) = Opt(S - {x}) ∪ {x}",
+  "algorithmic_patterns": [
+    "Greedy Algorithm"
+  ],
+  "requirements": [
+    "Optimalitätsprinzip",
+    "unabhängige Teilprobleme"
+  ],
+  "python_template": "def greedy(items):\n    items.sort(key=greedy_criterion)\n    solution = []\n    for item in items:\n        if can_add(solution, item):\n            solution.append(item)\n    return solution\n",
+  "lean_sketch": "def IsGreedyChoice {α : Type} (S : Set α) (choice : α) : Prop :=\n  ∃ subset ⊆ S, choice ∈ subset ∧ IsOptimal subset\n",
+  "related_atoms": [
+    "priority",
+    "order",
+    "extremal-witness"
+  ],
+  "tags": [
+    "optimierung",
+    "auswahl"
+  ]
+}

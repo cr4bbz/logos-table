@@ -1,0 +1,27 @@
+{
+  "id": "component",
+  "name": "Komponente",
+  "family": "Relation",
+  "core_sentence": "Verbundene Dinge bilden einen zusammenhängenden Bereich.",
+  "description": "Eine Komponente fasst alle Elemente zusammen, die untereinander erreichbar sind. Sie reduziert eine Vielzahl an Objekten auf ein einzelnes makroskopisches Gebilde.",
+  "formal_shape": "C = {x | Reachable(a, x)}",
+  "algorithmic_patterns": [
+    "Connected Components",
+    "Union-Find",
+    "Flood Fill"
+  ],
+  "requirements": [
+    "symmetrische Erreichbarkeit",
+    "zusammenhängende Menge"
+  ],
+  "python_template": "def get_component(start, graph):\n    component = set()\n    # Traversiere von start und füge alles zu component hinzu\n    return component\n",
+  "lean_sketch": "def IsComponent {α : Type} (R : α → α → Prop) (C : Set α) : Prop :=\n  ∀ a b ∈ C, R a b ∧ ∀ x ∉ C, ¬R a x\n",
+  "related_atoms": [
+    "reachability",
+    "equivalence-class"
+  ],
+  "tags": [
+    "graph",
+    "menge"
+  ]
+}

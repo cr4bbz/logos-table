@@ -1,0 +1,25 @@
+{
+  "id": "cycle",
+  "name": "Zyklus",
+  "family": "Relation",
+  "core_sentence": "Eine Relation kann auf sich selbst zurückführen.",
+  "description": "Ein Pfad, dessen Ende wieder seinen Anfang erreicht. Er blockiert topologische Ordnungen und erzeugt Endlosschleifen.",
+  "formal_shape": "a ⟶ ... ⟶ a",
+  "algorithmic_patterns": [
+    "Cycle Detection",
+    "DFS"
+  ],
+  "requirements": [
+    "gerichtete Übergänge",
+    "geschlossener Pfad"
+  ],
+  "python_template": "def has_cycle(graph):\n    visited = set()\n    path = set()\n    def dfs(node):\n        if node in path: return True\n        if node in visited: return False\n        visited.add(node)\n        path.add(node)\n        for neighbor in graph[node]:\n            if dfs(neighbor): return True\n        path.remove(node)\n        return False\n    return any(dfs(node) for node in graph)\n",
+  "lean_sketch": "def HasCycle {α : Type} (step : α → α → Prop) : Prop :=\n  ∃ a, Reachable step a a ∧ ∃ b, step a b\n",
+  "related_atoms": [
+    "reachability",
+    "order"
+  ],
+  "tags": [
+    "graph"
+  ]
+}

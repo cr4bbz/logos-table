@@ -1,0 +1,27 @@
+{
+  "id": "reachability",
+  "name": "Erreichbarkeit",
+  "family": "Relation",
+  "core_sentence": "Eine Lösung ist ein Pfad durch Übergänge.",
+  "description": "Ein Zustand ist aus einem anderen ableitbar, wenn es eine Kette gültiger Übergänge gibt, die beide verbindet.",
+  "formal_shape": "a ⟶ b ⟶ ... ⟶ z",
+  "algorithmic_patterns": [
+    "BFS",
+    "DFS",
+    "Graph Traversal"
+  ],
+  "requirements": [
+    "Zustandsraum",
+    "Übergangsrelation"
+  ],
+  "python_template": "def can_reach(start, target, graph):\n    visited = set()\n    def dfs(node):\n        if node == target: return True\n        if node in visited: return False\n        visited.add(node)\n        return any(dfs(neighbor) for neighbor in graph[node])\n    return dfs(start)\n",
+  "lean_sketch": "inductive Reachable {α : Type} (step : α → α → Prop) : α → α → Prop where\n  | refl (a : α) : Reachable step a a\n  | step_trans {a b c : α} : step a b → Reachable step b c → Reachable step a c\n",
+  "related_atoms": [
+    "component",
+    "cycle"
+  ],
+  "tags": [
+    "graph",
+    "pfad"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "priority",
+  "name": "Priorität",
+  "family": "Ordnung",
+  "core_sentence": "Das jeweils relevante Extremum bestimmt den nächsten Schritt.",
+  "description": "Wenn Handlungen in Konkurrenz stehen, garantiert eine Prioritätsordnung, dass die lokal beste Wahl zuerst getroffen wird.",
+  "formal_shape": "x = max(S), S' = S \\ {x}",
+  "algorithmic_patterns": [
+    "Priority Queue",
+    "Heap"
+  ],
+  "requirements": [
+    "bewertbare Alternativen",
+    "dynamische Menge"
+  ],
+  "python_template": "import heapq\ndef process_by_priority(items):\n    heapq.heapify(items)\n    while items:\n        best = heapq.heappop(items)\n        yield best\n",
+  "lean_sketch": "def Priority {α : Type} [LinearOrder α] (S : Set α) (x : α) : Prop :=\n  x ∈ S ∧ ∀ y ∈ S, y ≤ x\n",
+  "related_atoms": [
+    "extremal-witness",
+    "greedy-choice"
+  ],
+  "tags": [
+    "ordnung",
+    "optimierung"
+  ]
+}

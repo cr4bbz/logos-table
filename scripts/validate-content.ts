@@ -99,6 +99,44 @@ async function main() {
     }
   }
 
+  // Placeholder Check in python_solution
+  const placeholders = ["...", "TODO", "pass", "raise NotImplementedError"];
+  for (const [id, problem] of problems.entries()) {
+    if (problem.python_solution) {
+      for (const ph of placeholders) {
+        if (problem.python_solution.includes(ph)) {
+          errors.push(`✗ ${rootDir}/problems/${id}.json: python_solution contains placeholder "${ph}"`);
+        }
+      }
+    }
+  }
+
+  // Atom Coverage Check
+  const atomUsage = new Map<string, number>();
+  for (const id of atoms.keys()) atomUsage.set(id, 0);
+
+  for (const atom of atoms.values()) {
+    for (const related of atom.related_atoms) {
+      if (atomUsage.has(related)) atomUsage.set(related, atomUsage.get(related)! + 1);
+    }
+  }
+  for (const problem of problems.values()) {
+    for (const atomId of problem.atoms) {
+      if (atomUsage.has(atomId)) atomUsage.set(atomId, atomUsage.get(atomId)! + 1);
+    }
+  }
+
+  for (const [id, count] of atomUsage.entries()) {
+    if (count === 0) {
+      errors.push(`✗ ${rootDir}/atoms/${id}.json: Atom is never referenced by any problem or other atom`);
+    }
+  }
+
+  if (rootDir === "data") {
+    if (atoms.size !== 16) errors.push(`✗ Expected exactly 16 atoms, found ${atoms.size}`);
+    if (problems.size !== 12 && problems.size > 1) errors.push(`✗ Expected exactly 12 problems, found ${problems.size}`);
+  }
+
   // Output
   if (errors.length > 0) {
     console.error(`\nValidation failed with ${errors.length} error(s):\n`);

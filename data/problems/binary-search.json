@@ -1,0 +1,20 @@
+{
+  "id": "binary-search",
+  "title": "Binary Search",
+  "surface": "Finde den Index eines Zielwerts in einem sortierten Array.",
+  "deep_structure": "Gezielte Reduktion des Suchraums durch Auswertung eines Prädikats auf einer Ordnung.",
+  "atoms": [
+    "order",
+    "monotone-threshold",
+    "boundary"
+  ],
+  "proof_sketch": "Da das Array sortiert ist, halbiert der Vergleich des Mittelwerts mit dem Zielwert den Suchraum systematisch.",
+  "python_solution": "from typing import List\n\ndef search(nums: List[int], target: int) -> int:\n    lo, hi = 0, len(nums) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n",
+  "lean_sketch": "def BinarySearch {α : Type} [LinearOrder α] (arr : Array α) (target : α) : Option Nat :=\n  none -- Implementierungssilhouette\n",
+  "reflection_questions": [
+    "Welche Monotonie wird hier ausgenutzt?",
+    "Wie verändern sich die Grenzen lo und hi?"
+  ],
+  "source": "leetcode",
+  "difficulty": "easy"
+}

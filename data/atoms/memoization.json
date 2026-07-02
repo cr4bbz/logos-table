@@ -1,0 +1,26 @@
+{
+  "id": "memoization",
+  "name": "Memoisierung",
+  "family": "Wissen",
+  "core_sentence": "Wiederkehrende Teilfragen werden gespeichert.",
+  "description": "Wenn ein Prozess mehrfach in denselben Zustand gerät, wird die einmal gefundene Antwort zwischengespeichert, um redundante Arbeit zu vermeiden.",
+  "formal_shape": "cache[n] falls vorhanden, sonst f(n)",
+  "algorithmic_patterns": [
+    "Top-Down DP",
+    "Caching"
+  ],
+  "requirements": [
+    "überlappende Teilprobleme",
+    "deterministische Struktur"
+  ],
+  "python_template": "cache = {}\ndef solve(n):\n    if n in cache:\n        return cache[n]\n    cache[n] = compute(n)\n    return cache[n]\n",
+  "lean_sketch": "structure MemoTable (α β : Type) :=\n  (lookup : α → Option β)\n  (insert : α → β → MemoTable α β)\n",
+  "related_atoms": [
+    "recursion",
+    "invariant",
+    "extremal-witness"
+  ],
+  "tags": [
+    "optimierung"
+  ]
+}

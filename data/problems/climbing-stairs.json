@@ -1,0 +1,19 @@
+{
+  "id": "climbing-stairs",
+  "title": "Climbing Stairs",
+  "surface": "Berechne die Anzahl der Wege, eine Treppe mit 1- oder 2-Schritt-Sprüngen zu erklimmen.",
+  "deep_structure": "Induktiver Aufbau einer Lösung aus exakt bestimmbaren Vorgängerzuständen.",
+  "atoms": [
+    "recursion",
+    "memoization"
+  ],
+  "proof_sketch": "Der letzte Schritt muss entweder 1 oder 2 Stufen groß sein. Die Gesamtzahl der Wege zur Stufe n ist exakt die Summe der Wege zu n-1 und n-2.",
+  "python_solution": "def climbStairs(n: int) -> int:\n    if n <= 2: return n\n    a, b = 1, 2\n    for _ in range(3, n + 1):\n        a, b = b, a + b\n    return b\n",
+  "lean_sketch": "def climb (n : Nat) : Nat :=\n  match n with\n  | 0 => 1\n  | 1 => 1\n  | n + 2 => climb (n + 1) + climb n\n",
+  "reflection_questions": [
+    "Warum ist dies äquivalent zur Fibonacci-Folge?",
+    "Warum können wir den Speicherbedarf auf O(1) reduzieren?"
+  ],
+  "source": "leetcode",
+  "difficulty": "easy"
+}

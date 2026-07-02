@@ -1,0 +1,27 @@
+{
+  "id": "equivalence-class",
+  "name": "Äquivalenzklasse",
+  "family": "Identität",
+  "core_sentence": "Mehrere Objekte gelten strukturell als dasselbe.",
+  "description": "Eine Äquivalenzrelation teilt eine Menge so auf, dass alle Elemente derselben Klasse unter einer bestimmten Eigenschaft ununterscheidbar sind.",
+  "formal_shape": "a ~ b",
+  "algorithmic_patterns": [
+    "Union-Find",
+    "Hashing"
+  ],
+  "requirements": [
+    "reflexive Relation",
+    "symmetrische Relation",
+    "transitive Relation"
+  ],
+  "python_template": "class UnionFind:\n    def __init__(self, n):\n        self.parent = list(range(n))\n    def find(self, i):\n        if self.parent[i] == i:\n            return i\n        return self.find(self.parent[i])\n",
+  "lean_sketch": "def IsEquivalence {α : Type} (R : α → α → Prop) : Prop :=\n  Reflexive R ∧ Symmetric R ∧ Transitive R\n",
+  "related_atoms": [
+    "component",
+    "partition"
+  ],
+  "tags": [
+    "struktur",
+    "menge"
+  ]
+}

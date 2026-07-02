@@ -1,0 +1,20 @@
+{
+  "id": "course-schedule",
+  "title": "Course Schedule",
+  "surface": "Prüfe, ob alle Kurse angesichts ihrer Voraussetzungen absolviert werden können.",
+  "deep_structure": "Topologische Ordnung ist nur möglich, wenn die Abhängigkeitsrelation azyklisch ist.",
+  "atoms": [
+    "reachability",
+    "cycle",
+    "order"
+  ],
+  "proof_sketch": "Kurse und Voraussetzungen bilden einen gerichteten Graphen. Ein Abschluss aller Kurse (totale Ordnung) ist genau dann möglich, wenn der Graph keinen gerichteten Zyklus enthält.",
+  "python_solution": "from typing import List\nfrom collections import defaultdict\n\ndef canFinish(numCourses: int, prerequisites: List[List[int]]) -> bool:\n    graph = defaultdict(list)\n    for dest, src in prerequisites:\n        graph[src].append(dest)\n    \n    state = [0] * numCourses\n    \n    def has_cycle(node):\n        if state[node] == 1: return True\n        if state[node] == 2: return False\n        state[node] = 1\n        for neighbor in graph[node]:\n            if has_cycle(neighbor):\n                return True\n        state[node] = 2\n        return False\n        \n    for i in range(numCourses):\n        if state[i] == 0:\n            if has_cycle(i):\n                return False\n    return True\n",
+  "lean_sketch": "def IsAcyclic {α : Type} (adj : α → α → Prop) : Prop :=\n  ¬ ∃ a, Reachable adj a a\n",
+  "reflection_questions": [
+    "Wie wird die Ordnung blockiert, wenn ein Zyklus auftritt?",
+    "Warum repräsentieren die drei Knoten-Zustände (unvisited, visiting, visited) eine Invariante?"
+  ],
+  "source": "leetcode",
+  "difficulty": "medium"
+}

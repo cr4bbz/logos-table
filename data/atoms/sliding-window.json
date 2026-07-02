@@ -1,0 +1,26 @@
+{
+  "id": "sliding-window",
+  "name": "Fenster",
+  "family": "Lokalität",
+  "core_sentence": "Eine Eigenschaft wird über ein bewegliches Intervall erhalten.",
+  "description": "Anstatt ein Intervall jedes Mal neu zu berechnen, wird nur die Differenz an den Rändern betrachtet, wenn es verschoben wird.",
+  "formal_shape": "window = window - left + right",
+  "algorithmic_patterns": [
+    "Sliding Window"
+  ],
+  "requirements": [
+    "lineare Struktur",
+    "aktualisierbarer Zustand",
+    "zwei bewegliche Grenzen"
+  ],
+  "python_template": "def sliding_window(arr):\n    left = 0\n    state = init_state()\n    for right in range(len(arr)):\n        state = add(state, arr[right])\n        while not valid(state):\n            state = remove(state, arr[left])\n            left += 1\n        record(state)\n",
+  "lean_sketch": "def Window (α : Type) (arr : Array α) (i j : Nat) : Array α :=\n  arr.extract i j\n",
+  "related_atoms": [
+    "invariant",
+    "boundary"
+  ],
+  "tags": [
+    "zeit",
+    "lokalität"
+  ]
+}

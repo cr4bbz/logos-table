@@ -16,7 +16,8 @@ export const AtomFamilySchema = z.enum([
   "Möglichkeit",
   "Entscheidung",
   "Struktur",
-  "Beweis"
+  "Beweis",
+  "Lokalität"
 ]);
 
 export const AtomSchema = z.object({

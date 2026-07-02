@@ -1,0 +1,27 @@
+{
+  "id": "backtracking",
+  "name": "Backtracking",
+  "family": "Möglichkeit",
+  "core_sentence": "Möglichkeitswelten werden konstruiert und verworfen.",
+  "description": "Der Lösungsraum wird systematisch abgesucht. Führt ein Pfad in einen Widerspruch, wird der letzte Schritt rückgängig gemacht, um Alternativen zu prüfen.",
+  "formal_shape": "state.add(c), dfs(), state.remove(c)",
+  "algorithmic_patterns": [
+    "Depth-First Search",
+    "Recursion Tree"
+  ],
+  "requirements": [
+    "diskreter Suchraum",
+    "Invariante zur Gültigkeitsprüfung",
+    "reversibler Zustand"
+  ],
+  "python_template": "def backtrack(state, options):\n    if is_solution(state):\n        record(state)\n        return\n    for opt in options:\n        if is_valid(state, opt):\n            state.append(opt)\n            backtrack(state, options)\n            state.pop()\n",
+  "lean_sketch": "inductive ValidPath {α : Type} (valid : List α → Prop) : List α → Prop where\n  | empty : ValidPath []\n  | step {p : List α} {x : α} : ValidPath p → valid (x :: p) → ValidPath (x :: p)\n",
+  "related_atoms": [
+    "recursion",
+    "invariant"
+  ],
+  "tags": [
+    "suche",
+    "raum"
+  ]
+}

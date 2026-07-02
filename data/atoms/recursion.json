@@ -1,0 +1,25 @@
+{
+  "id": "recursion",
+  "name": "Rekursion",
+  "family": "Zeit",
+  "core_sentence": "Ein Problem enthält kleinere Versionen seiner selbst.",
+  "description": "Indem eine komplexe Frage auf identische, aber simplere Teilfragen reduziert wird, lässt sich die Lösung induktiv aus einer Basisbedingung aufbauen.",
+  "formal_shape": "f(n) = g(f(n-1))",
+  "algorithmic_patterns": [
+    "Recursion",
+    "Divide & Conquer"
+  ],
+  "requirements": [
+    "selbstähnliche Teilstruktur",
+    "terminierende Basisbedingung"
+  ],
+  "python_template": "def solve(n):\n    if is_base_case(n):\n        return base_result\n    return combine(solve(n_minus_1))\n",
+  "lean_sketch": "def RecStep {α : Type} (base : α) (step : Nat → α → α) : Nat → α\n  | 0 => base\n  | n + 1 => step n (RecStep base step n)\n",
+  "related_atoms": [
+    "memoization",
+    "backtracking"
+  ],
+  "tags": [
+    "struktur"
+  ]
+}
