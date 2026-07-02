@@ -136,7 +136,7 @@ export const atoms: Atom[] = [
   },
   {
     "id": "extremal-witness",
-    "name": "Extremwert als Zeuge",
+    "name": "Extremwert-Zeuge",
     "family": "Ordnung",
     "core_sentence": "Unter Ordnung genügt oft ein Extremwert als Zeuge für eine ganze Menge.",
     "description": "Wenn eine Menge geordnet ist, reicht es zur Überprüfung von Relationen zwischen Mengen oft aus, nur ihre Extremwerte (Maximum, Minimum) zu vergleichen.",
@@ -292,7 +292,7 @@ export const atoms: Atom[] = [
   {
     "id": "partition",
     "name": "Partition",
-    "family": "Ordnung",
+    "family": "Struktur",
     "core_sentence": "Ein Raum kann so geteilt werden, dass die Gültigkeit der Lösung aus der Relation der Teile folgt.",
     "description": "Partition bedeutet, eine Menge nach einem Kriterium zu spalten. Oft ist die Suche nach der richtigen Partition gleichbedeutend mit der Lösung des Problems.",
     "formal_shape": "A = L ∪ R, L ∩ R = ∅",

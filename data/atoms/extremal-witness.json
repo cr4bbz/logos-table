@@ -1,6 +1,6 @@
 {
   "id": "extremal-witness",
-  "name": "Extremwert als Zeuge",
+  "name": "Extremwert-Zeuge",
   "family": "Ordnung",
   "core_sentence": "Unter Ordnung genügt oft ein Extremwert als Zeuge für eine ganze Menge.",
   "description": "Wenn eine Menge geordnet ist, reicht es zur Überprüfung von Relationen zwischen Mengen oft aus, nur ihre Extremwerte (Maximum, Minimum) zu vergleichen.",
