@@ -141,6 +141,8 @@ export function searchProblems(query: string): Problem[] {
   );
 }
 
+export type ContentMeta = typeof contentMeta;
+
 export function getContentMeta() {
   return contentMeta;
 }

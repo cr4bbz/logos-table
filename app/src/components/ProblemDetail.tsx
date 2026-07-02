@@ -1,5 +1,7 @@
 import type { Atom, Problem } from "@logos-table/domain";
 import { CodeBlock } from "./CodeBlock";
+import { typography, buttons } from "../ui/classNames";
+import { getFamilyStyle } from "../ui/familyStyles";
 
 type ProblemDetailProps = {
   problem: Problem;
@@ -16,7 +18,7 @@ export function ProblemDetail({ problem, atomRoles, onSelectAtom }: ProblemDetai
   };
 
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 md:p-10 shadow-xl w-full">
+    <div className="w-full">
       <header className="mb-8 border-b border-slate-700 pb-6">
         <h2 className="text-3xl font-bold text-slate-50 mb-3">{problem.title}</h2>
         <div className="flex items-center gap-3 text-sm font-medium uppercase tracking-wider">
@@ -31,12 +33,12 @@ export function ProblemDetail({ problem, atomRoles, onSelectAtom }: ProblemDetai
       </header>
 
       <section className="mb-8">
-        <h3 className="text-lg font-semibold text-slate-300 mb-3">Oberfläche</h3>
+        <h3 className={typography.sectionTitle}>Oberfläche</h3>
         <p className="text-slate-300 leading-relaxed text-base">{problem.surface}</p>
       </section>
 
       <section className="mb-8">
-        <h3 className="text-lg font-semibold text-slate-300 mb-3">Tiefenstruktur</h3>
+        <h3 className={typography.sectionTitle}>Tiefenstruktur</h3>
         <p className="text-slate-100 text-lg font-serif italic border-l-4 border-blue-500 pl-4 py-1">
           {problem.deep_structure}
         </p>
@@ -44,7 +46,7 @@ export function ProblemDetail({ problem, atomRoles, onSelectAtom }: ProblemDetai
 
       {atomRoles.length > 0 && (
         <section className="mb-8 bg-slate-900/30 p-5 rounded-lg border border-slate-700/30">
-          <h3 className="text-lg font-semibold text-slate-300 mb-4">Aktive Atome</h3>
+          <h3 className={typography.sectionTitle + " mb-4"}>Aktive Atome</h3>
           <div className="flex flex-col gap-4">
             {atomRoles.map(({ atom, role }) => (
               <div key={atom.id} className="flex flex-col gap-2">
@@ -52,7 +54,7 @@ export function ProblemDetail({ problem, atomRoles, onSelectAtom }: ProblemDetai
                   <button
                     type="button"
                     onClick={() => onSelectAtom?.(atom.id)}
-                    className="bg-slate-800 border border-slate-600 hover:border-blue-400 hover:bg-slate-700 text-blue-300 px-3 py-1.5 rounded-full text-sm font-medium transition-colors text-left"
+                    className={`${buttons.chip} ${getFamilyStyle(atom.family).chip} text-left flex items-center`}
                   >
                     <span className="text-slate-500 font-normal mr-1.5">[{atom.family}]</span>
                     {atom.name}
@@ -68,13 +70,13 @@ export function ProblemDetail({ problem, atomRoles, onSelectAtom }: ProblemDetai
       )}
 
       <section className="mb-8">
-        <h3 className="text-lg font-semibold text-slate-300 mb-3">Beweisskizze</h3>
+        <h3 className={typography.sectionTitle}>Beweisskizze</h3>
         <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">{problem.proof_sketch}</p>
       </section>
 
       {problem.reflection_questions && problem.reflection_questions.length > 0 && (
         <section className="mb-10">
-          <h3 className="text-lg font-semibold text-slate-300 mb-3">Reflexionsfragen</h3>
+          <h3 className={typography.sectionTitle}>Reflexionsfragen</h3>
           <ul className="list-disc space-y-2 pl-5 text-slate-300">
             {problem.reflection_questions.map((q, i) => (
               <li key={i}>{q}</li>
@@ -85,14 +87,14 @@ export function ProblemDetail({ problem, atomRoles, onSelectAtom }: ProblemDetai
 
       {problem.python_solution && (
         <section className="mb-8">
-          <h3 className="text-lg font-semibold text-slate-300 mb-3">Python Lösung</h3>
+          <h3 className={typography.sectionTitle}>Python Lösung</h3>
           <CodeBlock code={problem.python_solution} language="python" />
         </section>
       )}
 
       {problem.lean_sketch && (
         <section className="mb-8">
-          <h3 className="text-lg font-semibold text-slate-300 mb-3">Lean Skizze</h3>
+          <h3 className={typography.sectionTitle}>Lean Skizze</h3>
           <CodeBlock code={problem.lean_sketch} language="lean" />
         </section>
       )}
