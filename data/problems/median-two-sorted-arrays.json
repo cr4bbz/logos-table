@@ -1,0 +1,22 @@
+{
+  "id": "median-two-sorted-arrays",
+  "title": "Median of Two Sorted Arrays",
+  "surface": "Zwei sortierte Arrays sollen gemeinsam betrachtet werden. Gesucht ist der Median.",
+  "deep_structure": "Gesucht ist eine gültige Partition zweier geordneter Strukturen.",
+  "active_atoms": [
+    "order",
+    "boundary",
+    "partition",
+    "monotone-threshold",
+    "extremal-witness"
+  ],
+  "proof_sketch": "Eine Partition ist gültig, wenn die größten linken Randwerte kleiner oder gleich den kleinsten rechten Randwerten sind. Da beide Arrays sortiert sind, reichen vier Randwerte zur Prüfung. Ist der Schnitt falsch, zeigt die Verletzung der Randbedingung die Suchrichtung an.",
+  "python_solution": "from typing import List\n\ndef findMedianSortedArrays(nums1: List[int], nums2: List[int]) -> float:\n    if len(nums1) > len(nums2):\n        nums1, nums2 = nums2, nums1\n\n    A, B = nums1, nums2\n    m, n = len(A), len(B)\n    total = m + n\n    half = (total + 1) // 2\n\n    lo, hi = 0, m\n    while lo <= hi:\n        i = (lo + hi) // 2\n        j = half - i\n\n        A_left = A[i - 1] if i > 0 else float('-inf')\n        A_right = A[i] if i < m else float('inf')\n        B_left = B[j - 1] if j > 0 else float('-inf')\n        B_right = B[j] if j < n else float('inf')\n\n        if A_left <= B_right and B_left <= A_right:\n            if total % 2 == 1:\n                return float(max(A_left, B_left))\n            return (max(A_left, B_left) + min(A_right, B_right)) / 2\n        elif A_left > B_right:\n            hi = i - 1\n        else:\n            lo = i + 1\n\n    raise ValueError('Input arrays must be sorted')\n",
+  "lean_sketch": "def IsValidMedianPartition\n  (aLeft aRight bLeft bRight : Int) : Prop :=\n  aLeft ≤ bRight ∧ bLeft ≤ aRight\n",
+  "reflection_questions": [
+    "Warum ist der Median hier eine Konsequenz der Grenze?",
+    "Warum reichen vier Randwerte?",
+    "Welche Monotonie erlaubt die binäre Suche?",
+    "Was würde ohne Sortierung scheitern?"
+  ]
+}

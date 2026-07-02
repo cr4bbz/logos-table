@@ -1,0 +1,25 @@
+{
+  "id": "boundary",
+  "name": "Grenze",
+  "family": "Ordnung",
+  "core_sentence": "Eine Lösung kann eine korrekt gesetzte Trennlinie sein.",
+  "description": "Nicht immer wird ein einzelnes Objekt gesucht. Oft wird eine Grenze gesucht, durch die zwei Bereiche so getrennt werden, dass links und rechts eine Zielrelation erfüllen.",
+  "formal_shape": "links | rechts",
+  "requirements": [
+    "zwei unterscheidbare Bereiche",
+    "Kriterium für Gültigkeit",
+    "Randwerte oder Zeugen"
+  ],
+  "algorithmic_pattern": "Partition / Boundary Search",
+  "python_template": "def is_valid_boundary(left_max, right_min):\n    return left_max <= right_min\n",
+  "lean_sketch": "def IsBoundaryValid (leftMax rightMin : Int) : Prop :=\n  leftMax ≤ rightMin\n",
+  "related_atoms": [
+    "partition",
+    "monotone-threshold",
+    "order"
+  ],
+  "related_problems": [
+    "median-two-sorted-arrays",
+    "merge-intervals"
+  ]
+}
