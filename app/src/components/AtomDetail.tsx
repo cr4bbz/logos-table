@@ -10,7 +10,7 @@ type AtomDetailProps = {
 
 export function AtomDetail({ atom, relatedAtoms, relatedProblems, onSelectAtom, onSelectProblem }: AtomDetailProps) {
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 md:p-10 shadow-xl w-full h-full overflow-y-auto">
+    <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 md:p-10 shadow-xl w-full">
       <header className="mb-8 border-b border-slate-700 pb-6">
         <div className="text-blue-400 text-sm font-bold uppercase tracking-wider mb-1">
           [{atom.family}]

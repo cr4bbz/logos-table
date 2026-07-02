@@ -43,9 +43,9 @@ export type AtomFamilyGroup = {
   atoms: Atom[];
 };
 
-export function getAtomsGroupedByFamily(): AtomFamilyGroup[] {
+export function getAtomsGroupedByFamily(atomsToGroup: Atom[] = sortedAtoms): AtomFamilyGroup[] {
   const groups = new Map<Atom["family"], Atom[]>();
-  for (const atom of atoms) {
+  for (const atom of atomsToGroup) {
     if (!groups.has(atom.family)) {
       groups.set(atom.family, []);
     }
@@ -92,6 +92,45 @@ export function getAtomsForProblem(problemId: string): Atom[] {
   return problem.atoms
     .map((atomId) => getAtomById(atomId))
     .filter((a): a is Atom => a !== null);
+}
+
+function normalizeSearch(value: string): string {
+  return value.trim().toLocaleLowerCase("de");
+}
+
+export function searchAtoms(query: string): Atom[] {
+  const normalizedQuery = normalizeSearch(query);
+  if (!normalizedQuery) return sortedAtoms;
+
+  return sortedAtoms.filter((atom) =>
+    [
+      atom.symbol,
+      atom.name,
+      atom.family,
+      atom.core_sentence,
+      atom.description,
+      atom.formal_shape || "",
+      ...(atom.tags || []),
+      ...(atom.algorithmic_patterns || []),
+    ].some((value) => normalizeSearch(value).includes(normalizedQuery))
+  );
+}
+
+export function searchProblems(query: string): Problem[] {
+  const normalizedQuery = normalizeSearch(query);
+  if (!normalizedQuery) return sortedProblems;
+
+  return sortedProblems.filter((problem) =>
+    [
+      problem.title,
+      problem.surface,
+      problem.deep_structure,
+      problem.proof_sketch,
+      problem.source || "",
+      problem.difficulty || "",
+      ...(problem.reflection_questions || []),
+    ].some((value) => normalizeSearch(value).includes(normalizedQuery))
+  );
 }
 
 export function getContentMeta() {

@@ -8,7 +8,7 @@
     "typecheck": "tsc --noEmit",
     "validate:content": "tsx scripts/validate-content.ts data",
     "validate:fixtures": "tsx scripts/validate-content.ts fixtures/valid",
-    "generate:content": "pnpm build:domain && tsx scripts/generate-app-content.ts data app/src/generated/content.ts",
+    "generate:content": "pnpm build:domain && pnpm validate:content && tsx scripts/generate-app-content.ts data app/src/generated/content.ts",
     "check": "pnpm build:domain && pnpm typecheck && pnpm validate:content",
     "build": "pnpm build:domain && pnpm generate:content && pnpm --filter app build"
   },

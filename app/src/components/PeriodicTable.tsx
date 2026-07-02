@@ -14,24 +14,30 @@ export function PeriodicTable({ groups, allAtoms, selectedAtomId, onSelectAtom }
 
   return (
     <div className="flex flex-col gap-10 w-full pb-8">
-      {groups.map((group) => (
-        <section key={group.family} className="flex flex-col gap-4">
-          <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-widest pl-1">
-            {group.family}
-          </h3>
-          <div className="flex flex-wrap gap-4">
-            {group.atoms.map((atom) => (
-              <AtomTile
-                key={atom.id}
-                atom={atom}
-                index={getAtomIndex(atom.id)}
-                isSelected={atom.id === selectedAtomId}
-                onSelect={onSelectAtom}
-              />
-            ))}
-          </div>
-        </section>
-      ))}
+      {groups.length === 0 ? (
+        <div className="flex flex-col items-center justify-center h-48 text-slate-500 italic">
+          Keine Atome gefunden.<br/>Versuche einen anderen Begriff.
+        </div>
+      ) : (
+        groups.map((group) => (
+          <section key={group.family} className="flex flex-col gap-4">
+            <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-widest pl-1">
+              {group.family}
+            </h3>
+            <div className="flex flex-wrap gap-4">
+              {group.atoms.map((atom) => (
+                <AtomTile
+                  key={atom.id}
+                  atom={atom}
+                  index={getAtomIndex(atom.id)}
+                  isSelected={atom.id === selectedAtomId}
+                  onSelect={onSelectAtom}
+                />
+              ))}
+            </div>
+          </section>
+        ))
+      )}
     </div>
   );
 }

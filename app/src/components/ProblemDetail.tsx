@@ -15,7 +15,7 @@ export function ProblemDetail({ problem, atoms, onSelectAtom }: ProblemDetailPro
   };
 
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 md:p-10 shadow-xl w-full h-full overflow-y-auto">
+    <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 md:p-10 shadow-xl w-full">
       <header className="mb-8 border-b border-slate-700 pb-6">
         <h2 className="text-3xl font-bold text-slate-50 mb-3">{problem.title}</h2>
         <div className="flex items-center gap-3 text-sm font-medium uppercase tracking-wider">
