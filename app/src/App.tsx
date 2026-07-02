@@ -19,7 +19,7 @@ function App() {
       <header className="pt-6 pb-4 px-6 border-b border-slate-800 bg-slate-950/50 shrink-0 flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-slate-50 tracking-tight">Logos Table</h1>
-          <p className="text-xs text-slate-400 font-light mt-1">Read-only content prototype</p>
+          <p className="text-xs text-slate-400 font-light mt-1">Ein Periodensystem algorithmischer Denkformen</p>
         </div>
         <div className="bg-slate-800 px-3 py-1 rounded-full border border-slate-700 text-xs font-medium text-slate-300">
           {meta.atomCount} atoms &middot; {meta.problemCount} problems

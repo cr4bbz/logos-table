@@ -10,19 +10,15 @@ type AtomDetailProps = {
 export function AtomDetail({ atom, relatedAtoms, relatedProblems, onSelectAtom }: AtomDetailProps) {
   return (
     <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 md:p-10 shadow-xl w-full h-full overflow-y-auto">
-      <header className="mb-6 border-b border-slate-700 pb-4">
+      <header className="mb-8 border-b border-slate-700 pb-6">
         <div className="text-blue-400 text-sm font-bold uppercase tracking-wider mb-1">
-          {atom.family}
+          [{atom.family}]
         </div>
-        <h2 className="text-3xl font-bold text-slate-50">{atom.name}</h2>
-      </header>
-
-      <section className="mb-8">
-        <h3 className="text-lg font-semibold text-slate-300 mb-3">Kernsatz</h3>
+        <h2 className="text-3xl font-bold text-slate-50 mb-4">{atom.name}</h2>
         <p className="text-slate-100 text-xl font-serif italic border-l-4 border-blue-500 pl-4 py-1">
           {atom.core_sentence}
         </p>
-      </section>
+      </header>
 
       <section className="mb-8">
         <h3 className="text-lg font-semibold text-slate-300 mb-3">Beschreibung</h3>
@@ -54,10 +50,14 @@ export function AtomDetail({ atom, relatedAtoms, relatedProblems, onSelectAtom }
         </div>
       )}
 
-      {atom.requirements && (
+      {atom.requirements && atom.requirements.length > 0 && (
         <section className="mb-8 bg-slate-900/30 p-5 rounded-lg border border-slate-700/30">
           <h3 className="text-lg font-semibold text-slate-300 mb-3">Voraussetzungen</h3>
-          <p className="text-slate-300 leading-relaxed">{atom.requirements}</p>
+          <ul className="list-disc space-y-1 pl-5 text-slate-300 leading-relaxed">
+            {atom.requirements.map((req, i) => (
+              <li key={i}>{req}</li>
+            ))}
+          </ul>
         </section>
       )}
 
@@ -83,19 +83,18 @@ export function AtomDetail({ atom, relatedAtoms, relatedProblems, onSelectAtom }
         {relatedAtoms.length > 0 && (
           <section>
             <h3 className="text-lg font-semibold text-slate-300 mb-3">Verwandte Atome</h3>
-            <ul className="space-y-2">
+            <div className="flex flex-wrap gap-2">
               {relatedAtoms.map((related) => (
-                <li key={related.id}>
-                  <button
-                    type="button"
-                    onClick={() => onSelectAtom?.(related.id)}
-                    className="text-blue-400 hover:text-blue-300 hover:underline transition-colors text-left font-medium"
-                  >
-                    {related.name}
-                  </button>
-                </li>
+                <button
+                  key={related.id}
+                  type="button"
+                  onClick={() => onSelectAtom?.(related.id)}
+                  className="bg-slate-800 border border-slate-600 hover:border-blue-400 hover:bg-slate-700 text-blue-300 px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
+                >
+                  {related.name}
+                </button>
               ))}
-            </ul>
+            </div>
           </section>
         )}
 
@@ -115,9 +114,10 @@ export function AtomDetail({ atom, relatedAtoms, relatedProblems, onSelectAtom }
 
       {atom.tags && atom.tags.length > 0 && (
         <section className="mt-10 pt-6 border-t border-slate-700/50">
+          <h3 className="text-sm font-semibold text-slate-400 mb-3 uppercase tracking-wider">Tags</h3>
           <div className="flex flex-wrap gap-2">
             {atom.tags.map((tag) => (
-              <span key={tag} className="bg-slate-900 text-slate-400 px-2 py-1 rounded text-xs font-medium uppercase tracking-wider">
+              <span key={tag} className="bg-slate-900 border border-slate-700 text-slate-400 px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider">
                 {tag}
               </span>
             ))}
