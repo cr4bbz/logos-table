@@ -101,8 +101,16 @@ async function main() {
 
   let problemRefsCount = 0;
   for (const [id, problem] of problems.entries()) {
+    const seenRoleAtomIds = new Set<string>();
+    
     for (const roleObj of problem.atom_roles) {
       const atomId = roleObj.atom_id;
+      
+      if (seenRoleAtomIds.has(atomId)) {
+        errors.push(`✗ ${rootDir}/problems/${id}.json: duplicate atom_roles entry for atom id "${atomId}"`);
+      }
+      seenRoleAtomIds.add(atomId);
+      
       problemRefsCount++;
       if (!atoms.has(atomId)) {
         errors.push(`✗ ${rootDir}/problems/${id}.json: atom_roles refers to unknown atom id "${atomId}"`);

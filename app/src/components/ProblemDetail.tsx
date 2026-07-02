@@ -86,14 +86,14 @@ export function ProblemDetail({ problem, atomRoles, onSelectAtom }: ProblemDetai
       {problem.python_solution && (
         <section className="mb-8">
           <h3 className="text-lg font-semibold text-slate-300 mb-3">Python Lösung</h3>
-          <CodeBlock code={problem.python_solution} language="Python" />
+          <CodeBlock code={problem.python_solution} language="python" />
         </section>
       )}
 
       {problem.lean_sketch && (
         <section className="mb-8">
           <h3 className="text-lg font-semibold text-slate-300 mb-3">Lean Skizze</h3>
-          <CodeBlock code={problem.lean_sketch} language="Lean 4" />
+          <CodeBlock code={problem.lean_sketch} language="lean" />
         </section>
       )}
     </div>

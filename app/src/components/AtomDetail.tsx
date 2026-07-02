@@ -66,14 +66,14 @@ export function AtomDetail({ atom, relatedAtoms, relatedProblems, onSelectAtom, 
       {atom.python_template && (
         <section className="mb-8">
           <h3 className="text-lg font-semibold text-slate-300 mb-3">Python Template</h3>
-          <CodeBlock code={atom.python_template} language="Python" />
+          <CodeBlock code={atom.python_template} language="python" />
         </section>
       )}
 
       {atom.lean_sketch && (
         <section className="mb-8">
           <h3 className="text-lg font-semibold text-slate-300 mb-3">Lean Skizze</h3>
-          <CodeBlock code={atom.lean_sketch} language="Lean 4" />
+          <CodeBlock code={atom.lean_sketch} language="lean" />
         </section>
       )}
 

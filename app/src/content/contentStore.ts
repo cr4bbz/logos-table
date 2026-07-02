@@ -133,6 +133,10 @@ export function searchProblems(query: string): Problem[] {
       problem.source || "",
       problem.difficulty || "",
       ...(problem.reflection_questions || []),
+      ...(problem.atom_roles || []).flatMap((role) => [
+        role.atom_id,
+        role.role,
+      ]),
     ].some((value) => normalizeSearch(value).includes(normalizedQuery))
   );
 }

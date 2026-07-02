@@ -36,17 +36,17 @@ export const AtomSchema = z.object({
   tags: z.array(NonEmptyString).default([])
 }).strict();
 
+export const ProblemAtomRoleSchema = z.object({
+  atom_id: IdSchema,
+  role: NonEmptyString
+}).strict();
+
 export const ProblemSchema = z.object({
   id: IdSchema,
   title: NonEmptyString,
   surface: NonEmptyString,
   deep_structure: NonEmptyString,
-  atom_roles: z.array(
-    z.object({
-      atom_id: IdSchema,
-      role: NonEmptyString,
-    })
-  ).min(1),
+  atom_roles: z.array(ProblemAtomRoleSchema).min(1),
   proof_sketch: NonEmptyString,
   python_solution: NonEmptyString,
   lean_sketch: NonEmptyString,
