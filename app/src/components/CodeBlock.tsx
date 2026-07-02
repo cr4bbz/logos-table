@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export type CodeLanguage = "python" | "lean";
 
@@ -16,16 +16,29 @@ type CopyState = "idle" | "copied" | "error";
 
 export function CodeBlock({ code, language }: CodeBlockProps) {
   const [copyState, setCopyState] = useState<CopyState>("idle");
+  const timeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current !== null) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleCopy = async () => {
+    if (timeoutRef.current !== null) {
+      window.clearTimeout(timeoutRef.current);
+    }
+    
     try {
       await navigator.clipboard.writeText(code);
       setCopyState("copied");
-      setTimeout(() => setCopyState("idle"), 2000);
+      timeoutRef.current = window.setTimeout(() => setCopyState("idle"), 2000);
     } catch (err) {
       console.error("Failed to copy!", err);
       setCopyState("error");
-      setTimeout(() => setCopyState("idle"), 3000);
+      timeoutRef.current = window.setTimeout(() => setCopyState("idle"), 3000);
     }
   };
 
@@ -36,6 +49,7 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
           {languageLabel[language]}
         </span>
         <button
+          type="button"
           onClick={handleCopy}
           className="text-xs font-medium text-slate-400 hover:text-slate-200 transition-colors bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded-md border border-slate-700"
         >
