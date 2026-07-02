@@ -3,11 +3,6 @@
   "title": "Merge Intervals",
   "surface": "Verschmelze alle sich überlappenden Intervalle zu einer disjunkten Liste.",
   "deep_structure": "Reduktion überlappender lokaler Grenzen auf globale disjunkte Partitionen.",
-  "atoms": [
-    "order",
-    "boundary",
-    "partition"
-  ],
   "proof_sketch": "Wenn Intervalle nach Startpunkten sortiert sind, kann jede Überlappung lokal gelöst werden, indem der Endpunkt des aktuellen Intervalls bei Bedarf erweitert wird.",
   "python_solution": "from typing import List\n\ndef merge(intervals: List[List[int]]) -> List[List[int]]:\n    if not intervals: return []\n    intervals.sort(key=lambda x: x[0])\n    merged = [intervals[0]]\n    for current in intervals[1:]:\n        last_merged = merged[-1]\n        if current[0] <= last_merged[1]:\n            last_merged[1] = max(last_merged[1], current[1])\n        else:\n            merged.append(current)\n    return merged\n",
   "lean_sketch": "def IsDisjoint (i1 i2 : (Int × Int)) : Prop :=\n  i1.2 < i2.1 ∨ i2.2 < i1.1\n",
@@ -16,5 +11,19 @@
     "Wie repräsentiert die Ausgabeliste eine gültige Partition des Zahlenstrahls?"
   ],
   "source": "leetcode",
-  "difficulty": "medium"
+  "difficulty": "medium",
+  "atom_roles": [
+    {
+      "atom_id": "order",
+      "role": "Die implizite oder explizite Sortierung der Elemente ist die Voraussetzung für den effizienten Algorithmus."
+    },
+    {
+      "atom_id": "boundary",
+      "role": "Die Lösung entsteht durch eine exakte Grenzziehung zwischen Teilbereichen."
+    },
+    {
+      "atom_id": "partition",
+      "role": "Der Lösungsraum oder die Datenstruktur wird logisch in disjunkte Bereiche unterteilt."
+    }
+  ]
 }

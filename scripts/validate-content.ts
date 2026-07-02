@@ -101,10 +101,11 @@ async function main() {
 
   let problemRefsCount = 0;
   for (const [id, problem] of problems.entries()) {
-    for (const atomId of problem.atoms) {
+    for (const roleObj of problem.atom_roles) {
+      const atomId = roleObj.atom_id;
       problemRefsCount++;
       if (!atoms.has(atomId)) {
-        errors.push(`✗ ${rootDir}/problems/${id}.json: atoms refers to unknown atom id "${atomId}"`);
+        errors.push(`✗ ${rootDir}/problems/${id}.json: atom_roles refers to unknown atom id "${atomId}"`);
       }
     }
   }
@@ -131,7 +132,8 @@ async function main() {
     }
   }
   for (const problem of problems.values()) {
-    for (const atomId of problem.atoms) {
+    for (const roleObj of problem.atom_roles) {
+      const atomId = roleObj.atom_id;
       if (atomUsage.has(atomId)) atomUsage.set(atomId, atomUsage.get(atomId)! + 1);
     }
   }

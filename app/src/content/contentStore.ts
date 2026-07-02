@@ -61,7 +61,7 @@ export function getAtomsGroupedByFamily(atomsToGroup: Atom[] = sortedAtoms): Ato
 }
 
 export function getProblemsForAtom(atomId: string): Problem[] {
-  return sortedProblems.filter((p) => p.atoms.includes(atomId));
+  return sortedProblems.filter((p) => p.atom_roles.some(r => r.atom_id === atomId));
 }
 
 const difficultyOrder = {
@@ -85,13 +85,17 @@ export function getProblemById(id: string): Problem | null {
   return problems.find((p) => p.id === id) ?? null;
 }
 
-export function getAtomsForProblem(problemId: string): Atom[] {
+export function getAtomRolesForProblem(problemId: string): Array<{ atom: Atom; role: string }> {
   const problem = getProblemById(problemId);
   if (!problem) return [];
   
-  return problem.atoms
-    .map((atomId) => getAtomById(atomId))
-    .filter((a): a is Atom => a !== null);
+  return problem.atom_roles
+    .map((roleObj) => {
+      const atom = getAtomById(roleObj.atom_id);
+      if (!atom) return null;
+      return { atom, role: roleObj.role };
+    })
+    .filter((item): item is { atom: Atom; role: string } => item !== null);
 }
 
 function normalizeSearch(value: string): string {

@@ -441,10 +441,19 @@ export const problems: Problem[] = [
     "title": "Binary Search",
     "surface": "Finde den Index eines Zielwerts in einem sortierten Array.",
     "deep_structure": "Gezielte Reduktion des Suchraums durch Auswertung eines Prädikats auf einer Ordnung.",
-    "atoms": [
-      "order",
-      "monotone-threshold",
-      "boundary"
+    "atom_roles": [
+      {
+        "atom_id": "order",
+        "role": "Die implizite oder explizite Sortierung der Elemente ist die Voraussetzung für den effizienten Algorithmus."
+      },
+      {
+        "atom_id": "monotone-threshold",
+        "role": "Die Eigenschaft verhält sich monoton, was eine effiziente Suche (z.B. binär) oder iterative Anpassung der Schwelle erlaubt."
+      },
+      {
+        "atom_id": "boundary",
+        "role": "Die Lösung entsteht durch eine exakte Grenzziehung zwischen Teilbereichen."
+      }
     ],
     "proof_sketch": "Da das Array sortiert ist, halbiert der Vergleich des Mittelwerts mit dem Zielwert den Suchraum systematisch.",
     "python_solution": "from typing import List\n\ndef search(nums: List[int], target: int) -> int:\n    lo, hi = 0, len(nums) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1",
@@ -461,9 +470,15 @@ export const problems: Problem[] = [
     "title": "Climbing Stairs",
     "surface": "Berechne die Anzahl der Wege, eine Treppe mit 1- oder 2-Schritt-Sprüngen zu erklimmen.",
     "deep_structure": "Induktiver Aufbau einer Lösung aus exakt bestimmbaren Vorgängerzuständen.",
-    "atoms": [
-      "recursion",
-      "memoization"
+    "atom_roles": [
+      {
+        "atom_id": "recursion",
+        "role": "Das Problem lässt sich auf eine kleinere Instanz seiner selbst reduzieren."
+      },
+      {
+        "atom_id": "memoization",
+        "role": "Bereits berechnete Teilergebnisse werden gespeichert, um redundante Rekursionszweige abzuschneiden."
+      }
     ],
     "proof_sketch": "Der letzte Schritt muss entweder 1 oder 2 Stufen groß sein. Die Gesamtzahl der Wege zur Stufe n ist exakt die Summe der Wege zu n-1 und n-2.",
     "python_solution": "def climbStairs(n: int) -> int:\n    if n <= 2: return n\n    a, b = 1, 2\n    for _ in range(3, n + 1):\n        a, b = b, a + b\n    return b",
@@ -480,10 +495,19 @@ export const problems: Problem[] = [
     "title": "Coin Change",
     "surface": "Finde die minimale Anzahl an Münzen, um einen Zielbetrag exakt zu erreichen.",
     "deep_structure": "Optimale Lösung entsteht als Minimum über rekursiv bestimmte Teilproblemwerte.",
-    "atoms": [
-      "recursion",
-      "memoization",
-      "extremal-witness"
+    "atom_roles": [
+      {
+        "atom_id": "recursion",
+        "role": "Das Problem lässt sich auf eine kleinere Instanz seiner selbst reduzieren."
+      },
+      {
+        "atom_id": "memoization",
+        "role": "Bereits berechnete Teilergebnisse werden gespeichert, um redundante Rekursionszweige abzuschneiden."
+      },
+      {
+        "atom_id": "extremal-witness",
+        "role": "Dieses Atom ist strukturell für die Lösung des Problems essenziell."
+      }
     ],
     "proof_sketch": "Jeder Betrag wird aus der Wahl einer Münze plus dem optimalen Restbetrag zusammengesetzt. Durch Memoisierung werden überlappende Beträge nur einmal berechnet.",
     "python_solution": "from typing import List\n\ndef coinChange(coins: List[int], amount: int) -> int:\n    dp = [float('inf')] * (amount + 1)\n    dp[0] = 0\n    for a in range(1, amount + 1):\n        for c in coins:\n            if a - c >= 0:\n                dp[a] = min(dp[a], 1 + dp[a - c])\n    return dp[amount] if dp[amount] != float('inf') else -1",
@@ -500,10 +524,19 @@ export const problems: Problem[] = [
     "title": "Course Schedule",
     "surface": "Prüfe, ob alle Kurse angesichts ihrer Voraussetzungen absolviert werden können.",
     "deep_structure": "Topologische Ordnung ist nur möglich, wenn die Abhängigkeitsrelation azyklisch ist.",
-    "atoms": [
-      "reachability",
-      "cycle",
-      "order"
+    "atom_roles": [
+      {
+        "atom_id": "reachability",
+        "role": "Die Lösung beruht darauf zu prüfen, ob von einem Startzustand ein Zielzustand erreichbar ist."
+      },
+      {
+        "atom_id": "cycle",
+        "role": "Die Existenz oder Abwesenheit von Zyklen bestimmt die Lösbarkeit (z.B. Deadlocks, topologische Sortierung)."
+      },
+      {
+        "atom_id": "order",
+        "role": "Die implizite oder explizite Sortierung der Elemente ist die Voraussetzung für den effizienten Algorithmus."
+      }
     ],
     "proof_sketch": "Kurse und Voraussetzungen bilden einen gerichteten Graphen. Ein Abschluss aller Kurse (totale Ordnung) ist genau dann möglich, wenn der Graph keinen gerichteten Zyklus enthält.",
     "python_solution": "from typing import List\nfrom collections import defaultdict\n\ndef canFinish(numCourses: int, prerequisites: List[List[int]]) -> bool:\n    graph = defaultdict(list)\n    for dest, src in prerequisites:\n        graph[src].append(dest)\n    \n    state = [0] * numCourses\n    \n    def has_cycle(node):\n        if state[node] == 1: return True\n        if state[node] == 2: return False\n        state[node] = 1\n        for neighbor in graph[node]:\n            if has_cycle(neighbor):\n                return True\n        state[node] = 2\n        return False\n        \n    for i in range(numCourses):\n        if state[i] == 0:\n            if has_cycle(i):\n                return False\n    return True",
@@ -520,9 +553,15 @@ export const problems: Problem[] = [
     "title": "Longest Substring Without Repeating Characters",
     "surface": "Finde die Länge des längsten Teilstrings, der keine doppelten Zeichen enthält.",
     "deep_structure": "Erhalt einer lokalen Eindeutigkeits-Invariante über ein dynamisch expandierendes Intervall.",
-    "atoms": [
-      "sliding-window",
-      "invariant"
+    "atom_roles": [
+      {
+        "atom_id": "sliding-window",
+        "role": "Ein dynamisches Fenster bewegt sich über die Daten, um Teilbereiche effizient auszuwerten."
+      },
+      {
+        "atom_id": "invariant",
+        "role": "Eine Eigenschaft bleibt während aller Zustandsübergänge stabil und beweist die Korrektheit."
+      }
     ],
     "proof_sketch": "Ein Intervall wird nach rechts erweitert, solange alle Zeichen darin eindeutig sind. Wird ein Duplikat gefunden, muss der linke Rand solange verkleinert werden, bis die Eindeutigkeit wiederhergestellt ist.",
     "python_solution": "def lengthOfLongestSubstring(s: str) -> int:\n    seen = set()\n    left = 0\n    max_len = 0\n    for right in range(len(s)):\n        while s[right] in seen:\n            seen.remove(s[left])\n            left += 1\n        seen.add(s[right])\n        max_len = max(max_len, right - left + 1)\n    return max_len",
@@ -539,12 +578,27 @@ export const problems: Problem[] = [
     "title": "Median of Two Sorted Arrays",
     "surface": "Zwei sortierte Arrays sollen gemeinsam betrachtet werden. Gesucht ist der Median.",
     "deep_structure": "Gesucht ist eine gültige Partition zweier geordneter Strukturen.",
-    "atoms": [
-      "order",
-      "boundary",
-      "partition",
-      "extremal-witness",
-      "monotone-threshold"
+    "atom_roles": [
+      {
+        "atom_id": "order",
+        "role": "Die implizite oder explizite Sortierung der Elemente ist die Voraussetzung für den effizienten Algorithmus."
+      },
+      {
+        "atom_id": "boundary",
+        "role": "Die Lösung entsteht durch eine exakte Grenzziehung zwischen Teilbereichen."
+      },
+      {
+        "atom_id": "partition",
+        "role": "Der Lösungsraum oder die Datenstruktur wird logisch in disjunkte Bereiche unterteilt."
+      },
+      {
+        "atom_id": "extremal-witness",
+        "role": "Dieses Atom ist strukturell für die Lösung des Problems essenziell."
+      },
+      {
+        "atom_id": "monotone-threshold",
+        "role": "Die Eigenschaft verhält sich monoton, was eine effiziente Suche (z.B. binär) oder iterative Anpassung der Schwelle erlaubt."
+      }
     ],
     "proof_sketch": "Eine Partition ist gültig, wenn die größten linken Randwerte kleiner oder gleich den kleinsten rechten Randwerten sind. Da beide Arrays sortiert sind, reichen vier Randwerte zur Prüfung. Ist der Schnitt falsch, zeigt die Verletzung der Randbedingung die Suchrichtung an.",
     "python_solution": "from typing import List\n\ndef findMedianSortedArrays(nums1: List[int], nums2: List[int]) -> float:\n    if len(nums1) > len(nums2):\n        nums1, nums2 = nums2, nums1\n\n    A, B = nums1, nums2\n    m, n = len(A), len(B)\n    total = m + n\n    half = (total + 1) // 2\n\n    lo, hi = 0, m\n    while lo <= hi:\n        i = (lo + hi) // 2\n        j = half - i\n\n        A_left = A[i - 1] if i > 0 else float('-inf')\n        A_right = A[i] if i < m else float('inf')\n        B_left = B[j - 1] if j > 0 else float('-inf')\n        B_right = B[j] if j < n else float('inf')\n\n        if A_left <= B_right and B_left <= A_right:\n            if total % 2 == 1:\n                return float(max(A_left, B_left))\n            return (max(A_left, B_left) + min(A_right, B_right)) / 2\n        elif A_left > B_right:\n            hi = i - 1\n        else:\n            lo = i + 1\n\n    raise ValueError('Input arrays must be sorted')",
@@ -563,10 +617,19 @@ export const problems: Problem[] = [
     "title": "Merge Intervals",
     "surface": "Verschmelze alle sich überlappenden Intervalle zu einer disjunkten Liste.",
     "deep_structure": "Reduktion überlappender lokaler Grenzen auf globale disjunkte Partitionen.",
-    "atoms": [
-      "order",
-      "boundary",
-      "partition"
+    "atom_roles": [
+      {
+        "atom_id": "order",
+        "role": "Die implizite oder explizite Sortierung der Elemente ist die Voraussetzung für den effizienten Algorithmus."
+      },
+      {
+        "atom_id": "boundary",
+        "role": "Die Lösung entsteht durch eine exakte Grenzziehung zwischen Teilbereichen."
+      },
+      {
+        "atom_id": "partition",
+        "role": "Der Lösungsraum oder die Datenstruktur wird logisch in disjunkte Bereiche unterteilt."
+      }
     ],
     "proof_sketch": "Wenn Intervalle nach Startpunkten sortiert sind, kann jede Überlappung lokal gelöst werden, indem der Endpunkt des aktuellen Intervalls bei Bedarf erweitert wird.",
     "python_solution": "from typing import List\n\ndef merge(intervals: List[List[int]]) -> List[List[int]]:\n    if not intervals: return []\n    intervals.sort(key=lambda x: x[0])\n    merged = [intervals[0]]\n    for current in intervals[1:]:\n        last_merged = merged[-1]\n        if current[0] <= last_merged[1]:\n            last_merged[1] = max(last_merged[1], current[1])\n        else:\n            merged.append(current)\n    return merged",
@@ -583,10 +646,19 @@ export const problems: Problem[] = [
     "title": "Merge Two Sorted Lists",
     "surface": "Verschmelze zwei sortierte verkettete Listen zu einer neuen sortierten Liste.",
     "deep_structure": "Sukzessiver Aufbau einer Gesamtordnung durch lokalen Vergleich der Bereichsgrenzen.",
-    "atoms": [
-      "order",
-      "boundary",
-      "invariant"
+    "atom_roles": [
+      {
+        "atom_id": "order",
+        "role": "Die implizite oder explizite Sortierung der Elemente ist die Voraussetzung für den effizienten Algorithmus."
+      },
+      {
+        "atom_id": "boundary",
+        "role": "Die Lösung entsteht durch eine exakte Grenzziehung zwischen Teilbereichen."
+      },
+      {
+        "atom_id": "invariant",
+        "role": "Eine Eigenschaft bleibt während aller Zustandsübergänge stabil und beweist die Korrektheit."
+      }
     ],
     "proof_sketch": "Die Grenze liegt jeweils an den Köpfen der beiden Listen. Die Invariante: Die bereits konstruierte Ergebnisliste ist durchgehend sortiert.",
     "python_solution": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef mergeTwoLists(list1: ListNode, list2: ListNode) -> ListNode:\n    dummy = ListNode()\n    curr = dummy\n    while list1 and list2:\n        if list1.val <= list2.val:\n            curr.next = list1\n            list1 = list1.next\n        else:\n            curr.next = list2\n            list2 = list2.next\n        curr = curr.next\n    curr.next = list1 if list1 else list2\n    return dummy.next",
@@ -603,9 +675,15 @@ export const problems: Problem[] = [
     "title": "Number of Islands",
     "surface": "Zähle zusammenhängende Landflächen in einem Raster aus Wasser und Land.",
     "deep_structure": "Identifikation maximaler Äquivalenzklassen über räumliche Nachbarschaftsbeziehungen.",
-    "atoms": [
-      "reachability",
-      "component"
+    "atom_roles": [
+      {
+        "atom_id": "reachability",
+        "role": "Die Lösung beruht darauf zu prüfen, ob von einem Startzustand ein Zielzustand erreichbar ist."
+      },
+      {
+        "atom_id": "component",
+        "role": "Das Problem verlangt das Identifizieren zusammenhängender Teilstrukturen im Graphen."
+      }
     ],
     "proof_sketch": "Jedes Stück Land (1) ist Knoten eines ungerichteten Graphen. Die Nachbarschaft (oben, unten, links, rechts) bildet Kanten. Die Anzahl der Inseln entspricht der Anzahl der zusammenhängenden Komponenten.",
     "python_solution": "from typing import List\n\ndef numIslands(grid: List[List[str]]) -> int:\n    if not grid: return 0\n    rows, cols = len(grid), len(grid[0])\n    count = 0\n    def dfs(r, c):\n        if r < 0 or c < 0 or r >= rows or c >= cols or grid[r][c] == '0':\n            return\n        grid[r][c] = '0'\n        dfs(r+1, c)\n        dfs(r-1, c)\n        dfs(r, c+1)\n        dfs(r, c-1)\n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == '1':\n                count += 1\n                dfs(r, c)\n    return count",
@@ -622,9 +700,15 @@ export const problems: Problem[] = [
     "title": "Subsets",
     "surface": "Erzeuge alle möglichen Teilmengen eines Arrays (die Potenzmenge).",
     "deep_structure": "Systematische Konstruktion des gesamten Möglichkeitsraums.",
-    "atoms": [
-      "backtracking",
-      "recursion"
+    "atom_roles": [
+      {
+        "atom_id": "backtracking",
+        "role": "Der Lösungsraum wird systematisch durchsucht, wobei Sackgassen frühzeitig verworfen werden."
+      },
+      {
+        "atom_id": "recursion",
+        "role": "Das Problem lässt sich auf eine kleinere Instanz seiner selbst reduzieren."
+      }
     ],
     "proof_sketch": "Für jedes Element gibt es genau zwei Möglichkeiten: Es ist Teil der Menge oder nicht. Eine rekursive Suche baut diesen Binärbaum an Möglichkeiten vollständig auf.",
     "python_solution": "from typing import List\n\ndef subsets(nums: List[int]) -> List[List[int]]:\n    result = []\n    def backtrack(start, current_subset):\n        result.append(current_subset[:])\n        for i in range(start, len(nums)):\n            current_subset.append(nums[i])\n            backtrack(i + 1, current_subset)\n            current_subset.pop()\n    backtrack(0, [])\n    return result",
@@ -641,9 +725,15 @@ export const problems: Problem[] = [
     "title": "Top K Frequent Elements",
     "surface": "Finde die k am häufigsten vorkommenden Elemente in einem Array.",
     "deep_structure": "Lokalisierung der global relevanten Extrema durch prioritätsgesteuerte Selektion.",
-    "atoms": [
-      "priority",
-      "extremal-witness"
+    "atom_roles": [
+      {
+        "atom_id": "priority",
+        "role": "Eine lokale Ordnung bestimmt, welches Element als Nächstes verarbeitet werden muss."
+      },
+      {
+        "atom_id": "extremal-witness",
+        "role": "Dieses Atom ist strukturell für die Lösung des Problems essenziell."
+      }
     ],
     "proof_sketch": "Die Frequenzen aller Elemente werden ermittelt. Ein Min-Heap der Größe k speichert stets die k derzeit größten Frequenzen. Kleinere werden sukzessive aussortiert.",
     "python_solution": "import collections\nimport heapq\nfrom typing import List\n\ndef topKFrequent(nums: List[int], k: int) -> List[int]:\n    count = collections.Counter(nums)\n    return heapq.nlargest(k, count.keys(), key=count.get)",
@@ -660,9 +750,15 @@ export const problems: Problem[] = [
     "title": "Valid Parentheses",
     "surface": "Prüfe, ob eine Zeichenkette aus Klammern korrekt geschlossen wird.",
     "deep_structure": "Die Zeichenfolge wird nicht räumlich partitioniert, sondern durch eine sukzessive Konsistenzprüfung offener und geschlossener Formen interpretiert.",
-    "atoms": [
-      "invariant",
-      "recursion"
+    "atom_roles": [
+      {
+        "atom_id": "invariant",
+        "role": "Eine Eigenschaft bleibt während aller Zustandsübergänge stabil und beweist die Korrektheit."
+      },
+      {
+        "atom_id": "recursion",
+        "role": "Das Problem lässt sich auf eine kleinere Instanz seiner selbst reduzieren."
+      }
     ],
     "proof_sketch": "Eine korrekt verschachtelte Struktur kann induktiv abgebaut werden. Wenn ein schließendes Element auftritt, muss es das letzte noch offene Element gleichen Typs exakt aufheben.",
     "python_solution": "def isValid(s: str) -> bool:\n    stack = []\n    mapping = {')': '(', '}': '{', ']': '['}\n    for char in s:\n        if char in mapping:\n            top_element = stack.pop() if stack else '#'\n            if mapping[char] != top_element:\n                return False\n        else:\n            stack.append(char)\n    return not stack",

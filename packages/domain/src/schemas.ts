@@ -41,7 +41,12 @@ export const ProblemSchema = z.object({
   title: NonEmptyString,
   surface: NonEmptyString,
   deep_structure: NonEmptyString,
-  atoms: z.array(IdSchema).min(1),
+  atom_roles: z.array(
+    z.object({
+      atom_id: IdSchema,
+      role: NonEmptyString,
+    })
+  ).min(1),
   proof_sketch: NonEmptyString,
   python_solution: NonEmptyString,
   lean_sketch: NonEmptyString,

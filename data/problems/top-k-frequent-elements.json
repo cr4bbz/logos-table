@@ -3,10 +3,6 @@
   "title": "Top K Frequent Elements",
   "surface": "Finde die k am häufigsten vorkommenden Elemente in einem Array.",
   "deep_structure": "Lokalisierung der global relevanten Extrema durch prioritätsgesteuerte Selektion.",
-  "atoms": [
-    "priority",
-    "extremal-witness"
-  ],
   "proof_sketch": "Die Frequenzen aller Elemente werden ermittelt. Ein Min-Heap der Größe k speichert stets die k derzeit größten Frequenzen. Kleinere werden sukzessive aussortiert.",
   "python_solution": "import collections\nimport heapq\nfrom typing import List\n\ndef topKFrequent(nums: List[int], k: int) -> List[int]:\n    count = collections.Counter(nums)\n    return heapq.nlargest(k, count.keys(), key=count.get)\n",
   "lean_sketch": "def TopK {α : Type} (freq : α → Nat) (k : Nat) (S : Set α) : Prop :=\n  ∀ x ∈ S, ∀ y ∉ S, freq y ≤ freq x\n",
@@ -15,5 +11,15 @@
     "Wie verhält sich der Heap als kontinuierlicher Extremwert-Zeuge?"
   ],
   "source": "leetcode",
-  "difficulty": "medium"
+  "difficulty": "medium",
+  "atom_roles": [
+    {
+      "atom_id": "priority",
+      "role": "Eine lokale Ordnung bestimmt, welches Element als Nächstes verarbeitet werden muss."
+    },
+    {
+      "atom_id": "extremal-witness",
+      "role": "Dieses Atom ist strukturell für die Lösung des Problems essenziell."
+    }
+  ]
 }

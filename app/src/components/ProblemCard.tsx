@@ -42,7 +42,7 @@ export function ProblemCard({ problem, isSelected = false, onSelect }: ProblemCa
       </p>
 
       <div className="mt-auto text-xs font-medium text-slate-400">
-        <span className="text-blue-400">{problem.atoms.length}</span> active atoms
+        <span className="text-blue-400">{problem.atom_roles.length}</span> active atoms
       </div>
     </button>
   );

@@ -1,12 +1,13 @@
 import type { Atom, Problem } from "@logos-table/domain";
+import { CodeBlock } from "./CodeBlock";
 
 type ProblemDetailProps = {
   problem: Problem;
-  atoms: Atom[];
+  atomRoles: Array<{ atom: Atom; role: string }>;
   onSelectAtom?: (atomId: string) => void;
 };
 
-export function ProblemDetail({ problem, atoms, onSelectAtom }: ProblemDetailProps) {
+export function ProblemDetail({ problem, atomRoles, onSelectAtom }: ProblemDetailProps) {
   const diff = problem.difficulty ?? "medium";
   const diffColors = {
     easy: "text-green-400",
@@ -41,20 +42,26 @@ export function ProblemDetail({ problem, atoms, onSelectAtom }: ProblemDetailPro
         </p>
       </section>
 
-      {atoms.length > 0 && (
+      {atomRoles.length > 0 && (
         <section className="mb-8 bg-slate-900/30 p-5 rounded-lg border border-slate-700/30">
           <h3 className="text-lg font-semibold text-slate-300 mb-4">Aktive Atome</h3>
-          <div className="flex flex-wrap gap-2">
-            {atoms.map((atom) => (
-              <button
-                key={atom.id}
-                type="button"
-                onClick={() => onSelectAtom?.(atom.id)}
-                className="bg-slate-800 border border-slate-600 hover:border-blue-400 hover:bg-slate-700 text-blue-300 px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
-              >
-                <span className="text-slate-500 font-normal mr-1.5">[{atom.family}]</span>
-                {atom.name}
-              </button>
+          <div className="flex flex-col gap-4">
+            {atomRoles.map(({ atom, role }) => (
+              <div key={atom.id} className="flex flex-col gap-2">
+                <div className="flex items-start">
+                  <button
+                    type="button"
+                    onClick={() => onSelectAtom?.(atom.id)}
+                    className="bg-slate-800 border border-slate-600 hover:border-blue-400 hover:bg-slate-700 text-blue-300 px-3 py-1.5 rounded-full text-sm font-medium transition-colors text-left"
+                  >
+                    <span className="text-slate-500 font-normal mr-1.5">[{atom.family}]</span>
+                    {atom.name}
+                  </button>
+                </div>
+                <p className="text-slate-400 text-sm italic pl-2 border-l-2 border-slate-700">
+                  {role}
+                </p>
+              </div>
             ))}
           </div>
         </section>
@@ -79,18 +86,14 @@ export function ProblemDetail({ problem, atoms, onSelectAtom }: ProblemDetailPro
       {problem.python_solution && (
         <section className="mb-8">
           <h3 className="text-lg font-semibold text-slate-300 mb-3">Python Lösung</h3>
-          <pre className="bg-slate-950 p-4 rounded-lg overflow-x-auto text-sm text-slate-300 font-mono border border-slate-800">
-            <code>{problem.python_solution}</code>
-          </pre>
+          <CodeBlock code={problem.python_solution} language="Python" />
         </section>
       )}
 
       {problem.lean_sketch && (
         <section className="mb-8">
           <h3 className="text-lg font-semibold text-slate-300 mb-3">Lean Skizze</h3>
-          <pre className="bg-slate-950 p-4 rounded-lg overflow-x-auto text-sm text-slate-300 font-mono border border-slate-800">
-            <code>{problem.lean_sketch}</code>
-          </pre>
+          <CodeBlock code={problem.lean_sketch} language="Lean 4" />
         </section>
       )}
     </div>

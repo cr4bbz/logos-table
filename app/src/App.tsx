@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAtoms, getAtomById, getRelatedAtoms, getProblemsForAtom, getContentMeta, getProblems, getProblemById, getAtomsForProblem, getAtomsGroupedByFamily, searchAtoms, searchProblems } from "./content/contentStore";
+import { getAtoms, getAtomById, getRelatedAtoms, getProblemsForAtom, getContentMeta, getProblems, getProblemById, getAtomRolesForProblem, getAtomsGroupedByFamily, searchAtoms, searchProblems } from "./content/contentStore";
 import { PeriodicTable } from "./components/PeriodicTable";
 import { AtomDetail } from "./components/AtomDetail";
 import { ProblemList } from "./components/ProblemList";
@@ -71,7 +71,7 @@ function App() {
 
   // Problem state
   const selectedProblem = selectedProblemId ? getProblemById(selectedProblemId) : null;
-  const activeAtomsForProblem = selectedProblemId ? getAtomsForProblem(selectedProblemId) : [];
+  const activeAtomRolesForProblem = selectedProblemId ? getAtomRolesForProblem(selectedProblemId) : [];
 
   return (
     <div className="h-screen bg-slate-900 text-slate-200 font-sans flex flex-col overflow-hidden">
@@ -166,7 +166,7 @@ function App() {
               {selectedProblem ? (
                 <ProblemDetail 
                   problem={selectedProblem} 
-                  atoms={activeAtomsForProblem}
+                  atomRoles={activeAtomRolesForProblem}
                   onSelectAtom={navigateToAtom}
                 />
               ) : (

@@ -1,4 +1,5 @@
 import type { Atom, Problem } from "@logos-table/domain";
+import { CodeBlock } from "./CodeBlock";
 
 type AtomDetailProps = {
   atom: Atom;
@@ -65,18 +66,14 @@ export function AtomDetail({ atom, relatedAtoms, relatedProblems, onSelectAtom, 
       {atom.python_template && (
         <section className="mb-8">
           <h3 className="text-lg font-semibold text-slate-300 mb-3">Python Template</h3>
-          <pre className="bg-slate-950 p-4 rounded-lg overflow-x-auto text-sm text-slate-300 font-mono border border-slate-800">
-            <code>{atom.python_template}</code>
-          </pre>
+          <CodeBlock code={atom.python_template} language="Python" />
         </section>
       )}
 
       {atom.lean_sketch && (
         <section className="mb-8">
           <h3 className="text-lg font-semibold text-slate-300 mb-3">Lean Skizze</h3>
-          <pre className="bg-slate-950 p-4 rounded-lg overflow-x-auto text-sm text-slate-300 font-mono border border-slate-800">
-            <code>{atom.lean_sketch}</code>
-          </pre>
+          <CodeBlock code={atom.lean_sketch} language="Lean 4" />
         </section>
       )}
 
