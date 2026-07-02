@@ -5,23 +5,23 @@
   "core_sentence": "Wenn Wahrheit entlang einer Ordnung nur einmal kippt, suche die Kippstelle.",
   "description": "Ein Prädikat P über einem geordneten Raum ist so beschaffen, dass aus P(a) und a ≤ b auch P(b) folgt. Dadurch wird die gesuchte Antwort als Grenze auffindbar.",
   "formal_shape": "F F F F T T T T",
+  "algorithmic_patterns": [
+    "Binary Search on Answer"
+  ],
   "requirements": [
     "geordneter Suchraum",
     "entscheidbares Prädikat",
     "Monotonie",
     "relevante Grenzstelle"
   ],
-  "algorithmic_pattern": "Binary Search on Answer",
   "python_template": "def first_true(lo, hi, predicate):\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if predicate(mid):\n            hi = mid\n        else:\n            lo = mid + 1\n    return lo\n",
   "lean_sketch": "def MonotonePredicate (P : Nat → Prop) : Prop :=\n  ∀ a b, a ≤ b → P a → P b\n",
   "related_atoms": [
     "boundary",
-    "invariant",
     "order"
   ],
-  "related_problems": [
-    "binary-search",
-    "koko-eating-bananas",
-    "median-two-sorted-arrays"
+  "tags": [
+    "suche",
+    "logik"
   ]
 }

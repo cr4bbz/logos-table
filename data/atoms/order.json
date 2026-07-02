@@ -1,0 +1,25 @@
+{
+  "id": "order",
+  "name": "Ordnung",
+  "family": "Ordnung",
+  "core_sentence": "Wenn Elemente vergleichbar geordnet sind, können lokale Randprüfungen globale Aussagen tragen.",
+  "description": "Ordnung strukturiert einen Raum so, dass die Position eines Elements Information über andere Elemente liefert.",
+  "formal_shape": "a ≤ b ≤ c",
+  "algorithmic_patterns": [
+    "Sorting",
+    "Binary Search"
+  ],
+  "requirements": [
+    "transitive Relation",
+    "antisymmetrische Relation"
+  ],
+  "python_template": "def is_sorted(arr):\n    return all(arr[i] <= arr[i+1] for i in range(len(arr)-1))\n",
+  "lean_sketch": "class Preorder (α : Type) :=\n  (le : α → α → Prop)\n  (le_refl : ∀ a, le a a)\n  (le_trans : ∀ a b c, le a b → le b c → le a c)\n",
+  "related_atoms": [
+    "extremal-witness",
+    "monotone-threshold"
+  ],
+  "tags": [
+    "struktur"
+  ]
+}

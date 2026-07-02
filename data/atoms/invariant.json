@@ -5,21 +5,21 @@
   "core_sentence": "Ein Prozess ist kontrollierbar, wenn während seiner Veränderung eine Wahrheit erhalten bleibt.",
   "description": "Eine Invariante ist eine Aussage, die vor, während und nach einer Operation wahr bleibt. Sie ist der Anker, der Bewegung logisch zulässig macht.",
   "formal_shape": "State₀ ⟶ State₁ ⟶ State₂, P bleibt wahr",
+  "algorithmic_patterns": [
+    "Loop Invariant",
+    "Sliding Window",
+    "Two Pointers"
+  ],
   "requirements": [
     "Zustandsraum",
     "Übergangsregel",
     "erhaltene Eigenschaft"
   ],
-  "algorithmic_pattern": "Loop Invariant / Sliding Window / Two Pointers",
   "python_template": "# Beispiel: window enthält niemals doppelte Zeichen\nseen = set()\nleft = 0\n",
-  "lean_sketch": "def Preserves (step : α → α) (P : α → Prop) : Prop :=\n  ∀ s, P s → P (step s)\n",
-  "related_atoms": [
-    "window",
-    "two-pointers",
-    "recursion"
-  ],
-  "related_problems": [
-    "longest-substring-without-repeating-characters",
-    "valid-parentheses"
+  "lean_sketch": "def Preserves {α : Type} (step : α → α) (P : α → Prop) : Prop :=\n  ∀ s, P s → P (step s)\n",
+  "related_atoms": [],
+  "tags": [
+    "beweis",
+    "zeit"
   ]
 }

@@ -1,0 +1,26 @@
+{
+  "id": "extremal-witness",
+  "name": "Extremwert als Zeuge",
+  "family": "Ordnung",
+  "core_sentence": "Unter Ordnung genügt oft ein Extremwert als Zeuge für eine ganze Menge.",
+  "description": "Wenn eine Menge geordnet ist, reicht es zur Überprüfung von Relationen zwischen Mengen oft aus, nur ihre Extremwerte (Maximum, Minimum) zu vergleichen.",
+  "formal_shape": "max(L) ≤ min(R)",
+  "algorithmic_patterns": [
+    "Greedy",
+    "Boundary Check"
+  ],
+  "requirements": [
+    "geordnete Menge",
+    "zu prüfende Relation auf der gesamten Menge"
+  ],
+  "python_template": "def is_valid_split(left_part, right_part):\n    return max(left_part) <= min(right_part)\n",
+  "lean_sketch": "def IsWitness {α : Type} [LinearOrder α] (L R : Set α) (l_max r_min : α) : Prop :=\n  (∀ x ∈ L, x ≤ l_max) ∧ (∀ y ∈ R, r_min ≤ y) ∧ l_max ≤ r_min\n",
+  "related_atoms": [
+    "order",
+    "boundary"
+  ],
+  "tags": [
+    "logik",
+    "beweis"
+  ]
+}
