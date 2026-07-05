@@ -1489,6 +1489,36 @@ export const problems: Problem[] = [
     ]
   },
   {
+    "id": "sudoku-solver",
+    "title": "Sudoku Solver (Gödels Unvollständigkeit)",
+    "surface": "Schreibe ein Programm, das ein Sudoku-Rätsel löst, indem es die leeren Zellen ausfüllt.",
+    "deep_structure": "Ein in sich geschlossenes, regelbasiertes System (NP-Complete). Es gibt keine einfache mathematische Formel, um die Lösung direkt zu 'berechnen'. Die Wahrheit muss durch Backtracking – also eine vollständige physische Simulation aller logischen Welten – gefunden werden.",
+    "atom_roles": [
+      {
+        "atom_id": "unentscheidbarkeit",
+        "role": "Die Unmöglichkeit, einen direkten, formelbasierten Lösungsweg zu finden, erzwingt die Brute-Force-Suche im Raum der Möglichkeiten."
+      },
+      {
+        "atom_id": "backtracking",
+        "role": "Die systematische Exploration von Hypothesen, die bei einem Widerspruch verworfen werden."
+      },
+      {
+        "atom_id": "globale-konsistenz",
+        "role": "Jede Zelle muss gleichzeitig die Regeln von Reihe, Spalte und Block erfüllen."
+      }
+    ],
+    "proof_sketch": "Da das Problem NP-Complete ist, bauen wir den Suchbaum rekursiv auf. Für jede leere Zelle probieren wir die Ziffern 1-9. Führt eine Ziffer in eine logische Sackgasse (Inkonsistenz), machen wir den Schritt rückgängig. Durch systematisches Ausschöpfen finden wir die Lösung, sofern sie existiert.",
+    "python_solution": "def solveSudoku(board):\n    def is_valid(r, c, k):\n        for i in range(9):\n            if board[r][i] == k or board[i][c] == k:\n                return False\n            if board[3 * (r // 3) + i // 3][3 * (c // 3) + i % 3] == k:\n                return False\n        return True\n\n    def backtrack():\n        for r in range(9):\n            for c in range(9):\n                if board[r][c] == '.':\n                    for k in '123456789':\n                        if is_valid(r, c, k):\n                            board[r][c] = k\n                            if backtrack(): return True\n                            board[r][c] = '.'\n                    return False\n        return True\n\n    backtrack()",
+    "lean_sketch": "-- Gödels erster Unvollständigkeitssatz besagt informell, dass es wahre Aussagen gibt,\n-- die innerhalb eines hinreichend starken Systems nicht beweisbar sind.\n-- Im Sudoku-Solver spiegelt sich dies wider: Das Überprüfen einer Lösung ist trivial (P),\n-- das Finden einer Lösung erfordert jedoch Exhaustion (NP).\n\ndef is_valid_sudoku (board : List (List Nat)) : Prop := sorry\n\n-- Wir können beweisen, dass WENN ein Board gültig ist, es konsistent ist.\n-- Aber es gibt keine einfache Funktion f(board) -> Lösung ohne Suche.\ntheorem sudoku_np_complete (board : List (List Nat)) : ∃ solution, is_valid_sudoku solution := \n  sorry -- Erfordert vollständige Instanziierung des Suchraums.",
+    "reflection_questions": [
+      "Warum gibt es für Sudoku keine direkte analytische Formel wie für Sqrt(x)?",
+      "Was hat Backtracking mit dem Konzept von 'Paralleluniversen' oder 'Möglichkeitswelten' zu tun?",
+      "Welche philosophische Aussage steckt darin, dass das Überprüfen einer Lösung (P) so viel einfacher ist als das Finden (NP)?"
+    ],
+    "source": "leetcode",
+    "difficulty": "hard"
+  },
+  {
     "id": "top-k-frequent-elements",
     "title": "Top K Frequent Elements",
     "surface": "Finde die k am häufigsten vorkommenden Elemente in einem Array.",
