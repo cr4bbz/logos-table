@@ -962,17 +962,7 @@ export const problems: Problem[] = [
       "Inwiefern beweist die Hash-Map, dass das Originalschiff und das Neuschiff isomorph zueinander sind?"
     ],
     "source": "leetcode",
-    "difficulty": "medium",
-    "test_cases": [
-      {
-        "input": "[[7,null],[13,0],[11,4],[10,2],[1,0]]",
-        "expected": "[[7,null],[13,0],[11,4],[10,2],[1,0]]"
-      },
-      {
-        "input": "[[1,1],[2,1]]",
-        "expected": "[[1,1],[2,1]]"
-      }
-    ]
+    "difficulty": "medium"
   },
   {
     "id": "count-primes",
