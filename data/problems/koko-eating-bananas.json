@@ -1,0 +1,39 @@
+{
+  "id": "koko-eating-bananas",
+  "title": "Koko Eating Bananas",
+  "surface": "Finde die minimale Geschwindigkeit, um alle Bananen innerhalb einer vorgegebenen Zeit H zu essen.",
+  "deep_structure": "Der Möglichkeitsraum für die Geschwindigkeit ist strikt monoton in Bezug auf die benötigte Zeit. Diese Monotonie erlaubt eine binäre Suche über den Lösungsraum.",
+  "proof_sketch": "Sei f(k) die benötigte Zeit bei Geschwindigkeit k. Es gilt: k1 < k2 => f(k1) >= f(k2). Wegen dieser Monotonie gibt es genau einen Schwellenwert k*, für den f(k*) <= H gilt. Durch binäre Suche zwischen 1 und max(piles) können wir k* in O(N log M) finden.",
+  "python_solution": "import math\nfrom typing import List\n\ndef minEatingSpeed(piles: List[int], h: int) -> int:\n    left, right = 1, max(piles)\n    res = right\n    \n    while left <= right:\n        k = (left + right) // 2\n        hours = sum(math.ceil(p / k) for p in piles)\n        \n        if hours <= h:\n            res = min(res, k)\n            right = k - 1\n        else:\n            left = k + 1\n            \n    return res\n",
+  "lean_sketch": "def IsMonotonicDecreasing (f : Nat → Nat) : Prop :=\n  ∀ a b, a ≤ b → f b ≤ f a\n\ntheorem const_monotonic (c : Nat) : IsMonotonicDecreasing (fun _ => c) :=\nby\n  intro a b h\n  exact Nat.le_refl c\n",
+  "reflection_questions": [
+    "Warum suchen wir hier nicht über das Array, sondern über den Lösungsraum der Antworten?",
+    "Was garantiert uns, dass die binäre Suche immer das optimale Minimum findet?"
+  ],
+  "source": "leetcode",
+  "difficulty": "medium",
+  "atom_roles": [
+    {
+      "atom_id": "order",
+      "role": "Die strikte monotone Ordnung zwischen Geschwindigkeit und Zeit ermöglicht erst das sichere Ausschließen ganzer Lösungsbereiche."
+    },
+    {
+      "atom_id": "monotone-threshold",
+      "role": "Das Problem reduziert sich exakt darauf, den ersten Wert (Schwellenwert) zu finden, bei dem das Kriterium (hours <= H) wahr wird."
+    }
+  ],
+  "test_cases": [
+    {
+      "input": "[3,6,7,11], 8",
+      "expected": "4"
+    },
+    {
+      "input": "[30,11,23,4,20], 5",
+      "expected": "30"
+    },
+    {
+      "input": "[30,11,23,4,20], 6",
+      "expected": "23"
+    }
+  ]
+}

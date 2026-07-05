@@ -1,0 +1,25 @@
+{
+  "id": "is-graph-bipartite",
+  "title": "Is Graph Bipartite?",
+  "surface": "Kann der Graph so in zwei Mengen geteilt werden, dass Kanten nur zwischen den Mengen verlaufen?",
+  "deep_structure": "Ein System ist genau dann strikt dual teilbar, wenn es in sich selbst keinen zirkulären ungeraden Konflikt birgt.",
+  "proof_sketch": "Versuche den Graphen mit zwei Farben zu färben, sodass keine zwei benachbarten Knoten dieselbe Farbe haben. Ein ungerader Zyklus macht dies unmöglich, da man bei der Rückkehr zum Startknoten die gleiche Farbe erzwingt.",
+  "python_solution": "from typing import List\n\ndef isBipartite(graph: List[List[int]]) -> bool:\n    color = {}\n    for node in range(len(graph)):\n        if node not in color:\n            stack = [node]\n            color[node] = 0\n            while stack:\n                curr = stack.pop()\n                for neighbor in graph[curr]:\n                    if neighbor not in color:\n                        stack.append(neighbor)\n                        color[neighbor] = color[curr] ^ 1\n                    elif color[neighbor] == color[curr]:\n                        return False\n    return True\n",
+  "lean_sketch": "def ValidColoring (adj : Nat → Nat → Prop) (color : Nat → Nat) : Prop :=\n  ∀ a b, adj a b → color a ≠ color b\n\ntheorem empty_graph_colorable (color : Nat → Nat) : ValidColoring (fun _ _ => False) color :=\nby\n  dsimp [ValidColoring]\n  intro a b h\n  contradiction\n",
+  "reflection_questions": [
+    "Warum führt ein Zyklus der Länge 3 zwingend zu einem Konflikt?",
+    "Wie repräsentiert das XOR `^ 1` den ständigen Seitenwechsel?"
+  ],
+  "source": "leetcode",
+  "difficulty": "medium",
+  "atom_roles": [
+    {
+      "atom_id": "zwei-faerbbarkeit",
+      "role": "Die Suche versucht eine gültige 2-Färbung aufzubauen und detektiert inhärente Widersprüche."
+    }
+  ],
+  "test_cases": [
+    {"input": "[[1,2,3],[0,2],[0,1,3],[0,2]]", "expected": "False"},
+    {"input": "[[1,3],[0,2],[1,3],[0,2]]", "expected": "True"}
+  ]
+}

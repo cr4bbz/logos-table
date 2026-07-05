@@ -5,7 +5,7 @@
   "deep_structure": "Gezielte Reduktion des Suchraums durch Auswertung eines Prädikats auf einer Ordnung.",
   "proof_sketch": "Da das Array sortiert ist, halbiert der Vergleich des Mittelwerts mit dem Zielwert den Suchraum systematisch.",
   "python_solution": "from typing import List\n\ndef search(nums: List[int], target: int) -> int:\n    lo, hi = 0, len(nums) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n",
-  "lean_sketch": "def BinarySearch {α : Type} [LinearOrder α] (arr : Array α) (target : α) : Option Nat :=\n  none -- Implementierungssilhouette\n",
+  "lean_sketch": "theorem monotonicity_preserves_order (f : Nat → Nat) (mono : ∀ a b, a ≤ b → f a ≤ f b) :\n  ∀ x y, x ≤ y → f x ≤ f y :=\nby\n  intro x y h\n  exact mono x y h\n",
   "reflection_questions": [
     "Welche Monotonie wird hier ausgenutzt?",
     "Wie verändern sich die Grenzen lo und hi?"
@@ -24,6 +24,16 @@
     {
       "atom_id": "boundary",
       "role": "Die Lösung entsteht durch eine exakte Grenzziehung zwischen Teilbereichen."
+    }
+  ],
+  "test_cases": [
+    {
+      "input": "[-1,0,3,5,9,12], 9",
+      "expected": "4"
+    },
+    {
+      "input": "[-1,0,3,5,9,12], 2",
+      "expected": "-1"
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "id": "globale-konsistenz",
+  "symbol": "Gk",
+  "name": "Globale Konsistenz",
+  "family": "Struktur",
+  "core_sentence": "Determinismus entsteht durch den strikten Schnittbereich lokaler Exklusionsregeln.",
+  "description": "Die globale Stabilität eines Systems entsteht, indem jedes isolierte Element durch absolute Regeln (Constraints) seinen Zustandswinkel einschränkt.",
+  "formal_shape": "∀ c ∈ Constraints, IsValid(State, c)",
+  "algorithmic_patterns": ["Backtracking", "Tiefensuche (DFS)"],
+  "requirements": ["Definierter Lösungsraum", "Inkrementelle Validierbarkeit"],
+  "python_template": "if is_valid(state, choice):\n    state.add(choice)\n    backtrack(state)\n    state.remove(choice)\n",
+  "lean_sketch": "def IsValidState (state : State) (constraints : List Constraint) : Prop :=\n  ∀ c ∈ constraints, satisfies state c\n",
+  "related_atoms": ["backtracking", "zustand"],
+  "tags": ["constraints", "suche"]
+}

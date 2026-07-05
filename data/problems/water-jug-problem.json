@@ -1,0 +1,26 @@
+{
+  "id": "water-jug-problem",
+  "title": "Water Jug Problem",
+  "surface": "Kann man mit zwei Krügen exakt eine bestimmte Wassermenge abmessen?",
+  "deep_structure": "Die Erreichbarkeit eines Zielzustands in einem additiven zyklischen System entspricht der Existenz einer Linearkombination seiner Komponenten (Bézouts Identität).",
+  "proof_sketch": "Jeder mögliche Wasserstand z ist eine Linearkombination von x und y (z = a*x + b*y). Nach dem Lemma von Bézout ist dies genau dann lösbar, wenn z ein Vielfaches des größten gemeinsamen Teilers von x und y ist.",
+  "python_solution": "import math\n\ndef canMeasureWater(x: int, y: int, target: int) -> bool:\n    if x + y < target:\n        return False\n    if x == target or y == target or x + y == target:\n        return True\n    return target % math.gcd(x, y) == 0\n",
+  "lean_sketch": "def IsMultiple (a b : Nat) : Prop := ∃ k, a = k * b\n\ntheorem zero_is_multiple (b : Nat) : IsMultiple 0 b :=\nby\n  apply Exists.intro 0\n  simp\n",
+  "reflection_questions": [
+    "Warum begrenzt die Summe x + y den Lösungsraum?",
+    "Wie spiegelt sich Bézouts Identität im Modulo-Operator wider?"
+  ],
+  "source": "leetcode",
+  "difficulty": "medium",
+  "atom_roles": [
+    {
+      "atom_id": "bezout-identitaet",
+      "role": "Die Lösung ist genau dann erreichbar, wenn das Ziel ein Vielfaches des größten gemeinsamen Teilers der Krüge ist."
+    }
+  ],
+  "test_cases": [
+    {"input": "3, 5, 4", "expected": "True"},
+    {"input": "2, 6, 5", "expected": "False"},
+    {"input": "1, 2, 3", "expected": "True"}
+  ]
+}

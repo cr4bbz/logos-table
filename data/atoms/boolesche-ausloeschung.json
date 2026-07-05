@@ -1,0 +1,15 @@
+{
+  "id": "boolesche-ausloeschung",
+  "symbol": "Bo",
+  "name": "Boolesche Auslöschung",
+  "family": "Identität",
+  "core_sentence": "Wenn Gleiches auf Gleiches trifft, resultiert ein Nullzustand.",
+  "description": "Das Prinzip der Informationsvernichtung durch strukturelle Symmetrie (Nilpotenz: A ⊕ A = 0). Übrig bleibt die reine Singularität.",
+  "formal_shape": "A ⊕ A = 0",
+  "algorithmic_patterns": ["Bitweises XOR", "Hash Set Parity"],
+  "requirements": ["Paarweise Invertierbarkeit", "Kommutativität"],
+  "python_template": "res = 0\nfor x in arr:\n    res ^= x\n",
+  "lean_sketch": "def XorSelfNilpotent (xor : Nat → Nat → Nat) : Prop :=\n  ∀ a, xor a a = 0\n",
+  "related_atoms": ["identitaet", "partition"],
+  "tags": ["bitmanipulation", "logik"]
+}

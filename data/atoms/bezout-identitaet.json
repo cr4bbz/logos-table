@@ -1,0 +1,15 @@
+{
+  "id": "bezout-identitaet",
+  "symbol": "Bz",
+  "name": "Bézouts Identität",
+  "family": "Relation",
+  "core_sentence": "Erreichbarkeit ist keine Frage von Schritten, sondern von Teiler-Struktur.",
+  "description": "Bézouts Identität beweist, dass jede lineare Kombination zweier zyklischer Prozesse exakt den Raum der Vielfachen ihres größten gemeinsamen Teilers aufspannt.",
+  "formal_shape": "∃ a b, a*x + b*y = gcd(x, y)",
+  "algorithmic_patterns": ["Euklidischer Algorithmus", "Breitensuche (BFS)"],
+  "requirements": ["Diskrete additive Prozesse", "Zyklen"],
+  "python_template": "import math\ndef is_reachable(x, y, target):\n    return target % math.gcd(x, y) == 0\n",
+  "lean_sketch": "def IsMultiple (a b : Nat) : Prop := ∃ k, a = k * b\n",
+  "related_atoms": ["reachability", "cycle"],
+  "tags": ["zahlentheorie", "diophantisch"]
+}

@@ -5,7 +5,7 @@
   "deep_structure": "Lokalisierung der global relevanten Extrema durch prioritätsgesteuerte Selektion.",
   "proof_sketch": "Die Frequenzen aller Elemente werden ermittelt. Ein Min-Heap der Größe k speichert stets die k derzeit größten Frequenzen. Kleinere werden sukzessive aussortiert.",
   "python_solution": "import collections\nimport heapq\nfrom typing import List\n\ndef topKFrequent(nums: List[int], k: int) -> List[int]:\n    count = collections.Counter(nums)\n    return heapq.nlargest(k, count.keys(), key=count.get)\n",
-  "lean_sketch": "def TopK {α : Type} (freq : α → Nat) (k : Nat) (S : Set α) : Prop :=\n  ∀ x ∈ S, ∀ y ∉ S, freq y ≤ freq x\n",
+  "lean_sketch": "def IsTopK (freq : Nat → Nat) (k : Nat) (S : List Nat) : Prop :=\n  ∀ x y, x ∈ S → y ∉ S → freq y ≤ freq x\n\ntheorem empty_is_topk (freq : Nat → Nat) : IsTopK freq 0 [] :=\nby\n  dsimp [IsTopK]\n  intro x y hx _\n  contradiction\n",
   "reflection_questions": [
     "Warum ist ein Min-Heap der Größe k effizienter als eine vollständige Sortierung?",
     "Wie verhält sich der Heap als kontinuierlicher Extremwert-Zeuge?"
@@ -20,6 +20,16 @@
     {
       "atom_id": "extremal-witness",
       "role": "Dieses Atom ist strukturell für die Lösung des Problems essenziell."
+    }
+  ],
+  "test_cases": [
+    {
+      "input": "[1,1,1,2,2,3], 2",
+      "expected": "[1, 2]"
+    },
+    {
+      "input": "[1], 1",
+      "expected": "[1]"
     }
   ]
 }

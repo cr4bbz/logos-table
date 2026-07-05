@@ -3,6 +3,7 @@ import { CodeBlock } from "./CodeBlock";
 import { typography } from "../ui/classNames";
 import { ProblemHero } from "./ProblemHero";
 import { AtomRoleCard } from "./AtomRoleCard";
+import { SolverPane } from "./SolverPane";
 
 type ProblemDetailProps = {
   problem: Problem;
@@ -52,18 +53,8 @@ export function ProblemDetail({ problem, atomRoles, onSelectAtom }: ProblemDetai
         </section>
       )}
 
-      {problem.python_solution && (
-        <section className="mb-12">
-          <h3 className={typography.sectionTitle}>Python Lösung</h3>
-          <CodeBlock code={problem.python_solution} language="python" />
-        </section>
-      )}
-
-      {problem.lean_sketch && (
-        <section className="mb-8">
-          <h3 className={typography.sectionTitle}>Lean Skizze</h3>
-          <CodeBlock code={problem.lean_sketch} language="lean" />
-        </section>
+      {(problem.python_solution || problem.lean_sketch) && (
+        <SolverPane problem={problem} />
       )}
     </div>
   );

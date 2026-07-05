@@ -1,0 +1,26 @@
+{
+  "id": "n-queens",
+  "title": "N-Queens",
+  "surface": "Finde alle gültigen Positionierungen von N Königinnen auf einem NxN Schachbrett.",
+  "deep_structure": "Der Lösungsraum ist die Schnittmenge absolut gültiger lokaler Exklusionsregeln.",
+  "proof_sketch": "Jede Königin blockiert eine Zeile, eine Spalte und zwei Diagonalen. Durch rekursives Backtracking wird der Baum aller Positionierungen aufgebaut, wobei ungültige Äste sofort durch diese Constraints abgeschnitten werden.",
+  "python_solution": "def totalNQueens(n: int) -> int:\n    cols = set()\n    posDiag = set()\n    negDiag = set()\n    res = 0\n\n    def backtrack(r):\n        nonlocal res\n        if r == n:\n            res += 1\n            return\n        for c in range(n):\n            if c in cols or (r + c) in posDiag or (r - c) in negDiag:\n                continue\n            cols.add(c)\n            posDiag.add(r + c)\n            negDiag.add(r - c)\n            backtrack(r + 1)\n            cols.remove(c)\n            posDiag.remove(r + c)\n            negDiag.remove(r - c)\n\n    backtrack(0)\n    return res\n",
+  "lean_sketch": "def QueensAttack (r1 c1 r2 c2 : Int) : Prop :=\n  r1 = r2 ∨ c1 = c2 ∨ r1 + c1 = r2 + c2 ∨ r1 - c1 = r2 - c2\n\ntheorem same_row_attacks (r c1 c2 : Int) : QueensAttack r c1 r c2 :=\nby\n  dsimp [QueensAttack]\n  exact Or.inl rfl\n",
+  "reflection_questions": [
+    "Wie verifizieren `r + c` und `r - c` die beiden Diagonalen in O(1)?",
+    "Warum ist Backtracking hier besser als rohe Gewalt (Brute Force)?"
+  ],
+  "source": "leetcode",
+  "difficulty": "hard",
+  "atom_roles": [
+    {
+      "atom_id": "globale-konsistenz",
+      "role": "Die rekursive Suche navigiert durch den Lösungsraum, indem sie Äste abschneidet, die die globalen Konsistenzregeln verletzen."
+    }
+  ],
+  "test_cases": [
+    {"input": "4", "expected": "2"},
+    {"input": "1", "expected": "1"},
+    {"input": "8", "expected": "92"}
+  ]
+}

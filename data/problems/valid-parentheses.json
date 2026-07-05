@@ -5,7 +5,7 @@
   "deep_structure": "Die Zeichenfolge wird nicht räumlich partitioniert, sondern durch eine sukzessive Konsistenzprüfung offener und geschlossener Formen interpretiert.",
   "proof_sketch": "Eine korrekt verschachtelte Struktur kann induktiv abgebaut werden. Wenn ein schließendes Element auftritt, muss es das letzte noch offene Element gleichen Typs exakt aufheben.",
   "python_solution": "def isValid(s: str) -> bool:\n    stack = []\n    mapping = {')': '(', '}': '{', ']': '['}\n    for char in s:\n        if char in mapping:\n            top_element = stack.pop() if stack else '#'\n            if mapping[char] != top_element:\n                return False\n        else:\n            stack.append(char)\n    return not stack\n",
-  "lean_sketch": "inductive ValidPairs : List Char → Prop where\n  | empty : ValidPairs []\n  | wrap : ValidPairs inner → ValidPairs ('(' :: inner ++ [')'])\n  | concat : ValidPairs a → ValidPairs b → ValidPairs (a ++ b)\n",
+  "lean_sketch": "inductive ValidPairs : List Char → Prop where\n  | empty : ValidPairs []\n  | wrap : ValidPairs inner → ValidPairs (['('] ++ inner ++ [')'])\n  | concat : ValidPairs a → ValidPairs b → ValidPairs (a ++ b)\n\ntheorem empty_is_valid : ValidPairs [] := ValidPairs.empty\n\ntheorem single_wrap_valid : ValidPairs ['(', ')'] :=\nby\n  have h1 : ValidPairs [] := ValidPairs.empty\n  have h2 := ValidPairs.wrap h1\n  exact h2\n",
   "reflection_questions": [
     "Warum scheitert dieser Ansatz bei sich überschneidenden, aber nicht verschachtelten Typen?",
     "Welche Invariante bewahrt der Stack?"
@@ -20,6 +20,20 @@
     {
       "atom_id": "recursion",
       "role": "Das Problem lässt sich auf eine kleinere Instanz seiner selbst reduzieren."
+    }
+  ],
+  "test_cases": [
+    {
+      "input": "'()'",
+      "expected": "True"
+    },
+    {
+      "input": "'()[]{}'",
+      "expected": "True"
+    },
+    {
+      "input": "'(]'",
+      "expected": "False"
     }
   ]
 }

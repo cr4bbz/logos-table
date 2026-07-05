@@ -5,7 +5,7 @@
   "deep_structure": "Induktiver Aufbau einer Lösung aus exakt bestimmbaren Vorgängerzuständen.",
   "proof_sketch": "Der letzte Schritt muss entweder 1 oder 2 Stufen groß sein. Die Gesamtzahl der Wege zur Stufe n ist exakt die Summe der Wege zu n-1 und n-2.",
   "python_solution": "def climbStairs(n: int) -> int:\n    if n <= 2: return n\n    a, b = 1, 2\n    for _ in range(3, n + 1):\n        a, b = b, a + b\n    return b\n",
-  "lean_sketch": "def climb (n : Nat) : Nat :=\n  match n with\n  | 0 => 1\n  | 1 => 1\n  | n + 2 => climb (n + 1) + climb n\n",
+  "lean_sketch": "def climb : Nat → Nat\n| 0 => 1\n| 1 => 1\n| (n + 2) => climb (n + 1) + climb n\n\ntheorem climb_step (n : Nat) : climb (n + 2) = climb (n + 1) + climb n :=\nby rfl\n",
   "reflection_questions": [
     "Warum ist dies äquivalent zur Fibonacci-Folge?",
     "Warum können wir den Speicherbedarf auf O(1) reduzieren?"
@@ -20,6 +20,20 @@
     {
       "atom_id": "memoization",
       "role": "Bereits berechnete Teilergebnisse werden gespeichert, um redundante Rekursionszweige abzuschneiden."
+    }
+  ],
+  "test_cases": [
+    {
+      "input": "2",
+      "expected": "2"
+    },
+    {
+      "input": "3",
+      "expected": "3"
+    },
+    {
+      "input": "5",
+      "expected": "8"
     }
   ]
 }

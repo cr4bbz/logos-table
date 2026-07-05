@@ -1,0 +1,22 @@
+{
+  "id": "kausalitaet",
+  "name": "Kausalität",
+  "symbol": "K",
+  "family": "Relation",
+  "core_sentence": "Ein System von Abhängigkeiten ist nur dann sequenzierbar, wenn es paradoxiefrei (azyklisch) ist.",
+  "description": "Kausalität erzwingt eine absolute Richtung der Zeit oder Ausführung. Eine Zirkularität bedeutet einen unauflösbaren Widerspruch in der Abhängigkeitskette. Jeder Prozess, der auf Voraussetzungen aufbaut, muss topologisch geordnet werden können, wofür absolute Zyklenfreiheit die notwendige und hinreichende Bedingung ist.",
+  "formal_shape": "∀x, y: (x → y) ⇒ ¬(y →* x)",
+  "algorithmic_patterns": [
+    "Topological Sorting",
+    "Kahn's Algorithm",
+    "Cycle Detection via DFS"
+  ],
+  "requirements": [
+    "Ein gerichteter Graph als Zustands- oder Abhängigkeitsraum",
+    "Keine versteckten zyklischen Verweise"
+  ],
+  "python_template": "def topological_sort(graph, num_nodes):\n    indegree = [0] * num_nodes\n    for u in graph:\n        for v in graph[u]:\n            indegree[v] += 1\n    \n    queue = [i for i in range(num_nodes) if indegree[i] == 0]\n    order = []\n    \n    while queue:\n        u = queue.pop(0)\n        order.append(u)\n        for v in graph[u]:\n            indegree[v] -= 1\n            if indegree[v] == 0:\n                queue.append(v)\n                \n    if len(order) == num_nodes:\n        return order\n    return []  # Zyklus erkannt!",
+  "lean_sketch": "def IsAcyclic {α : Type} (adj : α → α → Prop) : Prop :=\n  ¬ ∃ a, Reachable adj a a",
+  "related_atoms": ["cycle", "order"],
+  "tags": ["graph", "dependency", "ordering", "causality"]
+}

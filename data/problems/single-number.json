@@ -1,0 +1,26 @@
+{
+  "id": "single-number",
+  "title": "Single Number",
+  "surface": "Finde die einzige Zahl in einem Array, die nicht doppelt vorkommt.",
+  "deep_structure": "Die strukturelle Symmetrie (Duplikate) neutralisiert sich selbst unter einer involutorischen Operation, sodass nur das asymmetrische Element verbleibt.",
+  "proof_sketch": "XOR ist kommutativ und assoziativ. Außerdem gilt a ^ a = 0 und a ^ 0 = a. Daher löschen sich alle paarweisen Zahlen zu 0 auf. Übrig bleibt 0 ^ single_number = single_number.",
+  "python_solution": "from typing import List\n\ndef singleNumber(nums: List[int]) -> int:\n    res = 0\n    for num in nums:\n        res ^= num\n    return res\n",
+  "lean_sketch": "def XorSelfNilpotent (xor : Nat → Nat → Nat) : Prop :=\n  ∀ a, xor a a = 0\n\ntheorem const_xor_nilpotent : XorSelfNilpotent (fun a b => a - a) :=\nby\n  dsimp [XorSelfNilpotent]\n  intro a\n  omega\n",
+  "reflection_questions": [
+    "Welche Rolle spielt die Kommutativität von XOR für Arrays?",
+    "Was passiert, wenn eine Zahl dreimal vorkommt?"
+  ],
+  "source": "leetcode",
+  "difficulty": "easy",
+  "atom_roles": [
+    {
+      "atom_id": "boolesche-ausloeschung",
+      "role": "Die Operation löscht identische Paare aus und hinterlässt das singuläre Element."
+    }
+  ],
+  "test_cases": [
+    {"input": "[2,2,1]", "expected": "1"},
+    {"input": "[4,1,2,1,2]", "expected": "4"},
+    {"input": "[1]", "expected": "1"}
+  ]
+}

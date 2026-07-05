@@ -1,0 +1,22 @@
+{
+  "id": "zustand",
+  "name": "Zustand (State)",
+  "symbol": "Z",
+  "family": "Struktur",
+  "core_sentence": "Die Wahrheit des Ganzen ergibt sich zwingend aus der optimalen Struktur seiner isolierbaren Vorgängerzustände.",
+  "description": "Zustand abstrahiert die gesamte Vergangenheit in eine kondensierte Gegenwarts-Variable. Ein dynamisches System besitzt die Eigenschaft der 'Optimalen Teilstruktur', wenn der optimale Zustand N aus den optimalen Zuständen N-k berechnet werden kann. Jeder Zustand ist in sich abgeschlossen und überschneidungsfrei zu seinen Ursprüngen.",
+  "formal_shape": "DP(n) = min_{k} (DP(n-k) + cost(k))",
+  "algorithmic_patterns": [
+    "Dynamic Programming",
+    "State Machine",
+    "Memoization"
+  ],
+  "requirements": [
+    "Optimale Teilstruktur (Optimal Substructure)",
+    "Überlappende Teilprobleme (Overlapping Subproblems)"
+  ],
+  "python_template": "def solve_dp(target, choices):\n    dp = [float('inf')] * (target + 1)\n    dp[0] = 0\n    \n    for i in range(1, target + 1):\n        for choice in choices:\n            if i - choice >= 0:\n                dp[i] = min(dp[i], dp[i - choice] + 1)\n                \n    return dp[target] if dp[target] != float('inf') else -1",
+  "lean_sketch": "def dp_state (n : Nat) : Nat :=\n  -- Konzeptuelle Zustandstransition\n  n",
+  "related_atoms": ["memoization", "recursion"],
+  "tags": ["dp", "state", "optimization"]
+}

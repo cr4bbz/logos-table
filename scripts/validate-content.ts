@@ -153,8 +153,7 @@ async function main() {
   }
 
   if (rootDir === "data") {
-    if (atoms.size !== 16) errors.push(`✗ Expected exactly 16 atoms, found ${atoms.size}`);
-    if (problems.size !== 12 && problems.size > 1) errors.push(`✗ Expected exactly 12 problems, found ${problems.size}`);
+    // Dynamischer Content, wir erwarten keine feste Anzahl an Problemen/Atomen mehr
   }
 
   // Output

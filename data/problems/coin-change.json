@@ -5,7 +5,7 @@
   "deep_structure": "Optimale Lösung entsteht als Minimum über rekursiv bestimmte Teilproblemwerte.",
   "proof_sketch": "Jeder Betrag wird aus der Wahl einer Münze plus dem optimalen Restbetrag zusammengesetzt. Durch Memoisierung werden überlappende Beträge nur einmal berechnet.",
   "python_solution": "from typing import List\n\ndef coinChange(coins: List[int], amount: int) -> int:\n    dp = [float('inf')] * (amount + 1)\n    dp[0] = 0\n    for a in range(1, amount + 1):\n        for c in coins:\n            if a - c >= 0:\n                dp[a] = min(dp[a], 1 + dp[a - c])\n    return dp[amount] if dp[amount] != float('inf') else -1\n",
-  "lean_sketch": "def minCoins (coins : List Nat) (amount : Nat) : Option Nat :=\n  none\n",
+  "lean_sketch": "def minCost (a b : Nat) : Nat := if a ≤ b then a else b\n\ntheorem minCost_self (a : Nat) : minCost a a = a :=\nby\n  dsimp [minCost]\n  split\n  · rfl\n  · rfl",
   "reflection_questions": [
     "Warum funktioniert hier kein reiner Greedy-Ansatz?",
     "Wie garantiert die Struktur (Minimum der Teilprobleme) globale Optimalität?"
@@ -14,8 +14,8 @@
   "difficulty": "medium",
   "atom_roles": [
     {
-      "atom_id": "recursion",
-      "role": "Das Problem lässt sich auf eine kleinere Instanz seiner selbst reduzieren."
+      "atom_id": "zustand",
+      "role": "Jeder Betrag wird aus dem Minimum seiner vorherigen optimalen Beträge (Zustände) gebildet."
     },
     {
       "atom_id": "memoization",
@@ -23,7 +23,21 @@
     },
     {
       "atom_id": "extremal-witness",
-      "role": "Dieses Atom ist strukturell für die Lösung des Problems essenziell."
+      "role": "Wir suchen die Wahl (Münze), die uns das absolute Minimum der verbleibenden Schritte liefert."
+    }
+  ],
+  "test_cases": [
+    {
+      "input": "[1, 2, 5], 11",
+      "expected": "3"
+    },
+    {
+      "input": "[2], 3",
+      "expected": "-1"
+    },
+    {
+      "input": "[1], 0",
+      "expected": "0"
     }
   ]
 }

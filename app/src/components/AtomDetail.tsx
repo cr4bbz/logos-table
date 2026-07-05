@@ -82,7 +82,7 @@ export function AtomDetail({ atom, relatedAtoms, relatedProblems, onSelectAtom, 
                   key={related.id}
                   type="button"
                   onClick={() => onSelectAtom?.(related.id)}
-                  className={`${buttons.chip} ${getFamilyStyle(related.family).chip}`}
+                  className="suggestion-chip"
                 >
                   {related.name}
                 </button>

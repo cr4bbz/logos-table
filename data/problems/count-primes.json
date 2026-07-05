@@ -1,0 +1,26 @@
+{
+  "id": "count-primes",
+  "title": "Count Primes",
+  "surface": "Finde die Anzahl der Primzahlen, die strikt kleiner als n sind.",
+  "deep_structure": "Iteratives Aussieben von Vielfachen eliminiert sukzessive alle zusammengesetzten Zahlen, sodass nur die wahren irreduziblen Atome übrig bleiben.",
+  "proof_sketch": "Wenn eine Zahl k zusammengesetzt ist, muss sie einen Primfaktor p <= sqrt(k) haben. Das Sieb des Eratosthenes markiert alle Vielfachen iterativ, sodass die unmarkierten Zahlen zwingend prim sind.",
+  "python_solution": "def countPrimes(n: int) -> int:\n    if n <= 2:\n        return 0\n    primes = [True] * n\n    primes[0] = primes[1] = False\n    for i in range(2, int(n**0.5) + 1):\n        if primes[i]:\n            for j in range(i*i, n, i):\n                primes[j] = False\n    return sum(primes)\n",
+  "lean_sketch": "def Divides (a b : Nat) : Prop := ∃ c, a * c = b\n\ntheorem divides_refl (a : Nat) : Divides a a :=\nby\n  apply Exists.intro 1\n  simp\n",
+  "reflection_questions": [
+    "Warum iterieren wir nur bis zur Quadratwurzel von n?",
+    "Wie demonstriert das Sieb den Fundamentalsatz der Arithmetik?"
+  ],
+  "source": "leetcode",
+  "difficulty": "medium",
+  "atom_roles": [
+    {
+      "atom_id": "primalitaet",
+      "role": "Die Unterscheidung zwischen irreduziblen Zahlen und ihren Komposita ist der Kern des Algorithmus."
+    }
+  ],
+  "test_cases": [
+    {"input": "10", "expected": "4"},
+    {"input": "0", "expected": "0"},
+    {"input": "1", "expected": "0"}
+  ]
+}

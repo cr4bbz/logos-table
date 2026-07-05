@@ -1,0 +1,23 @@
+{
+  "id": "identitaet",
+  "name": "Identität / Äquivalenz",
+  "symbol": "≡",
+  "family": "Identität",
+  "core_sentence": "Getrennte Entitäten bilden eine Identität, sobald sie durch eine ununterbrochene Kette transitiver Nähe verbunden sind.",
+  "description": "Die Frage der Identität ist in der Informatik das Problem der Verbundenheit. Wenn zwei Knoten über einen Pfad erreichbar sind, gehören sie zur selben Äquivalenzklasse (Zusammenhangskomponente). Algorithmen wie DFS/BFS 'entdecken' diese verborgene Identität, indem sie lokale Nachbarschaft in globale Zugehörigkeit überführen.",
+  "formal_shape": "x ~ y ⇔ ∃ path(x, y)",
+  "algorithmic_patterns": [
+    "Connected Components",
+    "Depth First Search",
+    "Breadth First Search",
+    "Union-Find"
+  ],
+  "requirements": [
+    "Eine symmetrische und transitive Adjazenzrelation",
+    "Ein diskreter Zustandsraum (z.B. 2D-Grid oder Graph)"
+  ],
+  "python_template": "def find_components(grid):\n    if not grid: return 0\n    rows, cols = len(grid), len(grid[0])\n    visited = set()\n    components = 0\n    \n    def dfs(r, c):\n        if (r < 0 or r >= rows or c < 0 or c >= cols or \n            grid[r][c] == '0' or (r, c) in visited):\n            return\n        visited.add((r, c))\n        dfs(r+1, c)\n        dfs(r-1, c)\n        dfs(r, c+1)\n        dfs(r, c-1)\n        \n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == '1' and (r, c) not in visited:\n                components += 1\n                dfs(r, c)\n                \n    return components",
+  "lean_sketch": "def IsTransitive {α : Type} (R : α → α → Prop) : Prop :=\n  ∀ a b c, R a b → R b c → R a c\n\n-- Konnektivität ist der transitive Abschluss der direkten Nachbarschaft.",
+  "related_atoms": ["equivalence-class", "component", "reachability"],
+  "tags": ["dfs", "bfs", "connected-components", "identity", "graph"]
+}

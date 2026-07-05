@@ -5,7 +5,7 @@
   "deep_structure": "Identifikation maximaler Äquivalenzklassen über räumliche Nachbarschaftsbeziehungen.",
   "proof_sketch": "Jedes Stück Land (1) ist Knoten eines ungerichteten Graphen. Die Nachbarschaft (oben, unten, links, rechts) bildet Kanten. Die Anzahl der Inseln entspricht der Anzahl der zusammenhängenden Komponenten.",
   "python_solution": "from typing import List\n\ndef numIslands(grid: List[List[str]]) -> int:\n    if not grid: return 0\n    rows, cols = len(grid), len(grid[0])\n    count = 0\n    def dfs(r, c):\n        if r < 0 or c < 0 or r >= rows or c >= cols or grid[r][c] == '0':\n            return\n        grid[r][c] = '0'\n        dfs(r+1, c)\n        dfs(r-1, c)\n        dfs(r, c+1)\n        dfs(r, c-1)\n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == '1':\n                count += 1\n                dfs(r, c)\n    return count\n",
-  "lean_sketch": "def IsIsland {α : Type} (R : α → α → Prop) (C : Set α) : Prop :=\n  ∀ a b ∈ C, Reachable R a b ∧ ∀ x ∉ C, ¬Reachable R a x\n",
+  "lean_sketch": "def IsEquivalent (R : Nat → Nat → Prop) : Prop :=\n  (∀ a, R a a) ∧ (∀ a b, R a b → R b a) ∧ (∀ a b c, R a b → R b c → R a c)\n\ntheorem equality_is_equivalent : IsEquivalent (fun a b => a = b) :=\nby\n  dsimp [IsEquivalent]\n  apply And.intro\n  · intro a; rfl\n  · apply And.intro\n    · intro a b h; rw [h]\n    · intro a b c h1 h2; rw [h1, h2]\n",
   "reflection_questions": [
     "Warum modifiziert die DFS-Schleife das Gitter direkt (grid[r][c] = '0')?",
     "Wie hängt die Erreichbarkeit mit der Komponente zusammen?"
@@ -14,12 +14,26 @@
   "difficulty": "medium",
   "atom_roles": [
     {
+      "atom_id": "identitaet",
+      "role": "Traversierung (DFS/BFS) verschmilzt benachbarte Land-Zellen (1) zur selben Äquivalenzklasse (Insel)."
+    },
+    {
       "atom_id": "reachability",
-      "role": "Die Lösung beruht darauf zu prüfen, ob von einem Startzustand ein Zielzustand erreichbar ist."
+      "role": "Die Lösung beruht darauf zu prüfen, ob von einem Stück Land ein anderes erreichbar ist."
     },
     {
       "atom_id": "component",
       "role": "Das Problem verlangt das Identifizieren zusammenhängender Teilstrukturen im Graphen."
+    }
+  ],
+  "test_cases": [
+    {
+      "input": "[['1','1','1','1','0'],['1','1','0','1','0'],['1','1','0','0','0'],['0','0','0','0','0']]",
+      "expected": "1"
+    },
+    {
+      "input": "[['1','1','0','0','0'],['1','1','0','0','0'],['0','0','1','0','0'],['0','0','0','1','1']]",
+      "expected": "3"
     }
   ]
 }

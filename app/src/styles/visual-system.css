@@ -21,7 +21,7 @@
 /* App world */
 .app-scene {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
   color: var(--lab-text);
   background: var(--lab-bg);
@@ -314,6 +314,10 @@
   font-weight: 600;
   line-height: 1.1;
   margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
 .atom-tile__family {
@@ -322,6 +326,10 @@
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
 /* Heroes */

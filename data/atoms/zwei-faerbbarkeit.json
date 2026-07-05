@@ -1,0 +1,15 @@
+{
+  "id": "zwei-faerbbarkeit",
+  "symbol": "2F",
+  "name": "Zwei-Färbbarkeit",
+  "family": "Struktur",
+  "core_sentence": "Ein System ist bipartit, wenn es keinen ungeraden Zyklus (logischen Widerspruch) enthält.",
+  "description": "Die Dichotomie von Systemen. Ein ungerader Zyklus ist die graphentheoretische Repräsentation des Lügner-Paradoxons – ein unausweichlicher logischer Konflikt.",
+  "formal_shape": "∀ a b, adj a b → color(a) ≠ color(b)",
+  "algorithmic_patterns": ["BFS Färbung", "DFS Färbung"],
+  "requirements": ["Ungerichteter Graph", "Konsistenzprüfung"],
+  "python_template": "color[node] = color[parent] ^ 1\n",
+  "lean_sketch": "def ValidColoring (adj : α → α → Prop) (color : α → Bool) : Prop :=\n  ∀ a b, adj a b → color a ≠ color b\n",
+  "related_atoms": ["cycle", "reachability"],
+  "tags": ["graphen", "widerspruch"]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "primalitaet",
+  "symbol": "Pm",
+  "name": "Primalität",
+  "family": "Identität",
+  "core_sentence": "Die Unteilbarkeit als fundamentales Konstruktionsprinzip.",
+  "description": "Primzahlen sind die unteilbaren Atome der Arithmetik, aus denen sich alle anderen diskreten Konstrukte zusammensetzen.",
+  "formal_shape": "∀ a b, p = a * b → a = 1 ∨ b = 1",
+  "algorithmic_patterns": ["Sieve of Eratosthenes", "Modulo-Arithmetik"],
+  "requirements": ["Natürliche Zahlen", "Teilbarkeitsrelation"],
+  "python_template": "def is_prime(n):\n    if n < 2: return False\n    for i in range(2, int(n**0.5)+1):\n        if n % i == 0: return False\n    return True\n",
+  "lean_sketch": "def IsPrime (p : Nat) : Prop :=\n  p ≥ 2 ∧ ∀ k, 1 < k → k < p → p % k ≠ 0\n",
+  "related_atoms": ["identitaet"],
+  "tags": ["zahlen", "arithmetik"]
+}

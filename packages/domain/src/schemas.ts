@@ -41,6 +41,11 @@ export const ProblemAtomRoleSchema = z.object({
   role: NonEmptyString
 }).strict();
 
+export const TestCaseSchema = z.object({
+  input: NonEmptyString,
+  expected: NonEmptyString
+}).strict();
+
 export const ProblemSchema = z.object({
   id: IdSchema,
   title: NonEmptyString,
@@ -52,7 +57,8 @@ export const ProblemSchema = z.object({
   lean_sketch: NonEmptyString,
   reflection_questions: z.array(NonEmptyString),
   source: z.enum(["leetcode", "custom", "book", "other"]).optional(),
-  difficulty: z.enum(["easy", "medium", "hard"]).optional()
+  difficulty: z.enum(["easy", "medium", "hard"]).optional(),
+  test_cases: z.array(TestCaseSchema).optional()
 }).strict();
 
 export const UserNoteSchema = z.object({

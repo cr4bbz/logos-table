@@ -1,0 +1,22 @@
+{
+  "id": "grenze",
+  "name": "Grenze",
+  "symbol": "∂",
+  "family": "Ordnung",
+  "core_sentence": "Ein Raum existiert nur durch das absolute Minimum seiner umschließenden Schranken.",
+  "description": "Die Grenze (Boundary) determiniert das Innere. In algorithmischen Problemen definiert die strikte obere oder untere Schranke die Kapazität eines Systems. Ohne eine begrenzende Hülle kann sich kein Zustand (wie Wasser oder Information) manifestieren. Das Fassungsvermögen ist immer das Minimum der umgebenden absoluten Schranken.",
+  "formal_shape": "Capacity(x) = max(0, min(max_L, max_R) - H(x))",
+  "algorithmic_patterns": [
+    "Two Pointers",
+    "Monotonic Stack",
+    "Precomputed Max Arrays"
+  ],
+  "requirements": [
+    "Eine totale Ordnung auf den Elementen",
+    "Lokale Extrema definieren globale Schranken"
+  ],
+  "python_template": "def boundary_two_pointers(heights):\n    if not heights: return 0\n    left, right = 0, len(heights) - 1\n    max_left, max_right = heights[left], heights[right]\n    total = 0\n    \n    while left < right:\n        if max_left < max_right:\n            left += 1\n            max_left = max(max_left, heights[left])\n            total += max_left - heights[left]\n        else:\n            right -= 1\n            max_right = max(max_right, heights[right])\n            total += max_right - heights[right]\n            \n    return total",
+  "lean_sketch": "def IsBoundary {α : Type} [LinearOrder α] (S : Set α) (b : α) : Prop :=\n  ∀ x ∈ S, x ≤ b",
+  "related_atoms": ["order", "sliding-window"],
+  "tags": ["two-pointers", "boundary", "limits", "capacity"]
+}

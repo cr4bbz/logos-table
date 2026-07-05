@@ -1,0 +1,35 @@
+{
+  "id": "trapping-rain-water",
+  "title": "Trapping Rain Water",
+  "surface": "Berechne, wie viel Wasser nach einem Regen in einer durch Höhenbalken gegebenen Landschaft gehalten werden kann.",
+  "deep_structure": "Das Fassungsvermögen an einer Stelle ist durch das Minimum der absoluten Maxima links und rechts von ihr begrenzt.",
+  "proof_sketch": "Ein Raum kann nur dort Wasser halten, wo er von beiden Seiten eingeschlossen ist. An Index i ist die Wassermenge: min(max_left, max_right) - height[i]. Durch Zwei-Zeiger (Two Pointers) können wir diese Schranken effizient von außen nach innen iterativ verengen.",
+  "python_solution": "from typing import List\n\ndef trap(height: List[int]) -> int:\n    if not height:\n        return 0\n    \n    l, r = 0, len(height) - 1\n    max_l, max_r = height[l], height[r]\n    res = 0\n    \n    while l < r:\n        if max_l < max_r:\n            l += 1\n            max_l = max(max_l, height[l])\n            res += max_l - height[l]\n        else:\n            r -= 1\n            max_r = max(max_r, height[r])\n            res += max_r - height[r]\n            \n    return res\n",
+  "lean_sketch": "def myMin (a b : Nat) : Nat := if a ≤ b then a else b\ndef myMax (a b : Nat) : Nat := if a ≤ b then b else a\n\ntheorem min_le_max (a b : Nat) : myMin a b ≤ myMax a b :=\nby\n  dsimp [myMin, myMax]\n  split\n  · rename_i h1\n    exact h1\n  · rename_i h1\n    omega\n",
+  "reflection_questions": [
+    "Warum können wir sicher sein, dass max_l das Limit bestimmt, wenn max_l < max_r?",
+    "Wie verhält sich das Problem zu einer monoton fallenden Folge von Balken?"
+  ],
+  "source": "leetcode",
+  "difficulty": "hard",
+  "atom_roles": [
+    {
+      "atom_id": "grenze",
+      "role": "Die absoluten Maxima zu beiden Seiten fungieren als die Grenzen, die den Raum (Kapazität) für das Wasser determinieren."
+    },
+    {
+      "atom_id": "extremal-witness",
+      "role": "Wir suchen an jedem Punkt den extremalen Zeugen (höchster Balken) auf der linken und rechten Seite."
+    }
+  ],
+  "test_cases": [
+    {
+      "input": "[0,1,0,2,1,0,1,3,2,1,2,1]",
+      "expected": "6"
+    },
+    {
+      "input": "[4,2,0,3,2,5]",
+      "expected": "9"
+    }
+  ]
+}
