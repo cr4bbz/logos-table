@@ -1414,6 +1414,46 @@ export const problems: Problem[] = [
     ]
   },
   {
+    "id": "sqrt-x",
+    "title": "Sqrt(x) (Zenons Paradoxien)",
+    "surface": "Berechne die ganzzahlige Quadratwurzel einer nicht-negativen Zahl `x`. Da der Rückgabetyp ein Integer sein muss, werden die Nachkommastellen abgeschnitten.",
+    "deep_structure": "Der algorithmische Kampf gegen das Kontinuum. Während die reelle Quadratwurzel eine irrationale Zahl mit unendlicher Präzision sein kann, erzwingt die diskrete Mathematik (Integer) eine harte Grenze (Truncation).",
+    "atom_roles": [
+      {
+        "atom_id": "unendliche-teilbarkeit",
+        "role": "Die Halbierung des Suchraums (Bisektion) kann nicht unendlich weitergehen. Sie muss an der Grenze der Ganzzahligkeit terminieren."
+      },
+      {
+        "atom_id": "boundary",
+        "role": "Gesucht ist nicht der exakte Wert, sondern die größte Ganzzahl `k`, für die `k*k <= x` gilt."
+      }
+    ],
+    "proof_sketch": "Da der Suchraum geordnet ist ($0 \\le k \\le x$), können wir ihn wiederholt halbieren. Anstatt wie in Zenons Paradoxon unendlich oft zu halbieren, terminiert der Algorithmus, sobald der diskrete Abstand zwischen `left` und `right` auf $1$ schrumpft.",
+    "python_solution": "def mySqrt(x):\n    if x < 2: return x\n    left, right = 1, x // 2\n    ans = 0\n    while left <= right:\n        mid = left + (right - left) // 2\n        if mid * mid <= x:\n            ans = mid\n            left = mid + 1\n        else:\n            right = mid - 1\n    return ans",
+    "lean_sketch": "-- In Lean wird die Quadratwurzel auf Nat als die größte Zahl k definiert, für die k*k ≤ n gilt.\n-- Dies ist eine strikte, endliche Grenze im Gegensatz zum kontinuierlichen Limes.\n\ndef is_integer_sqrt (k n : Nat) : Prop :=\n  k * k ≤ n ∧ n < (k + 1) * (k + 1)\n\ntheorem sqrt_exists_and_unique (n : Nat) : ∃! k, is_integer_sqrt k n := \n  sorry -- Beweis durch Induktion über n",
+    "reflection_questions": [
+      "Wie löst der Datentyp 'Integer' das Paradoxon der unendlichen Teilbarkeit?",
+      "Was würde passieren, wenn wir stattdessen Float64 benutzen würden? Gäbe es dann Zenons Paradoxon in der Maschine?",
+      "Inwiefern ist die Bedingung `mid * mid <= x` eine Trennlinie (Boundary) im Suchraum?"
+    ],
+    "source": "leetcode",
+    "difficulty": "easy",
+    "test_cases": [
+      {
+        "input": "4",
+        "expected": "2"
+      },
+      {
+        "input": "8",
+        "expected": "2"
+      },
+      {
+        "input": "1",
+        "expected": "1"
+      }
+    ]
+  },
+  {
     "id": "subsets",
     "title": "Subsets",
     "surface": "Erzeuge alle möglichen Teilmengen eines Arrays (die Potenzmenge).",
