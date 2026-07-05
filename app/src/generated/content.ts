@@ -954,8 +954,8 @@ export const problems: Problem[] = [
       }
     ],
     "proof_sketch": "Wir können den Graphen nicht in einem Durchlauf kopieren, da ein `random`-Pointer auf einen Knoten zeigen könnte, den wir noch nicht physisch erschaffen haben. Daher trennen wir die Erschaffung (Pass 1) von der Vernetzung (Pass 2) und nutzen eine Hash-Map, um alte Speicheradressen auf neue Speicheradressen abzubilden.",
-    "python_solution": "def copyRandomList(head):\\n    if not head: return None\\n    old_to_new = {}\\n    \\n    # Pass 1: Copy values (Neue Bretter sägen)\\n    curr = head\\n    while curr:\\n        old_to_new[curr] = Node(curr.val)\\n        curr = curr.next\\n        \\n    # Pass 2: Copy pointers (Neue Bretter exakt wie alte verknüpfen)\\n    curr = head\\n    while curr:\\n        if curr.next: old_to_new[curr].next = old_to_new[curr.next]\\n        if curr.random: old_to_new[curr].random = old_to_new[curr.random]\\n        curr = curr.next\\n        \\n    return old_to_new[head]\\n",
-    "lean_sketch": "-- In funktionalen Programmiersprachen existiert Referential Identity nicht auf Sprachebene.\\n-- Ein 'Deep Copy' ist mathematisch sinnlos, da Variablen unveränderlich sind.\\n-- Ein Klon ist identisch zum Original.\\n\\ntheorem deep_copy_pure {α : Type} (l : List α) : id l = l := rfl\\n",
+    "python_solution": "def copyRandomList(head):\n    if not head: return None\n    old_to_new = {}\n    \n    # Pass 1: Copy values (Neue Bretter sägen)\n    curr = head\n    while curr:\n        old_to_new[curr] = Node(curr.val)\n        curr = curr.next\n        \n    # Pass 2: Copy pointers (Neue Bretter exakt wie alte verknüpfen)\n    curr = head\n    while curr:\n        if curr.next: old_to_new[curr].next = old_to_new[curr.next]\n        if curr.random: old_to_new[curr].random = old_to_new[curr.random]\n        curr = curr.next\n        \n    return old_to_new[head]",
+    "lean_sketch": "-- In funktionalen Programmiersprachen existiert Referential Identity nicht auf Sprachebene.\n-- Ein 'Deep Copy' ist mathematisch sinnlos, da Variablen unveränderlich sind.\n-- Ein Klon ist identisch zum Original.\n\ntheorem deep_copy_pure {α : Type} (l : List α) : id l = l := rfl",
     "reflection_questions": [
       "Warum existiert dieses Problem in C oder Python, aber nicht in funktionalen Programmiersprachen wie Haskell oder Lean?",
       "Was passiert, wenn die Hash-Map weggelassen wird und wir stattdessen die neuen Knoten direkt hinter die alten in die originale Liste einschieben? (O(1) Space Trick)",
@@ -1107,6 +1107,32 @@ export const problems: Problem[] = [
         "expected": "23"
       }
     ]
+  },
+  {
+    "id": "linked-list-cycle",
+    "title": "Linked List Cycle (Lügner-Paradoxon)",
+    "surface": "Gegeben ist der Head einer verketteten Liste. Stelle fest, ob die Liste einen Zyklus enthält. Ein Zyklus liegt vor, wenn ein Knoten über den `next`-Pointer erneut erreicht werden kann.",
+    "deep_structure": "Das Problem der Selbstreferenz: Eine endliche Struktur, die durch ihre Pointersystematik Unendlichkeit simuliert. Jede naive Traversierung verfängt sich in einem zirkulären Pfad, analog zum logischen Zirkelschluss.",
+    "atom_roles": [
+      {
+        "atom_id": "selbstreferenz",
+        "role": "Die Liste verweist physisch auf ihre eigene Vergangenheit und zerstört damit die lineare Ordnung."
+      },
+      {
+        "atom_id": "cycle",
+        "role": "Die algorithmische Manifestation der Selbstreferenz. Sie muss durch Floyd's Tortoise and Hare aktiv erkannt werden."
+      }
+    ],
+    "proof_sketch": "Da der Speicher endlich ist, muss ein unendlicher Pfad zwangsläufig Knoten wiederholen. Zwei Zeiger, die sich mit unterschiedlichen Geschwindigkeiten bewegen (Floyd's Algorithm), müssen in einem Zyklus kollidieren, da der schnellere Zeiger den langsameren im Zyklus irgendwann 'überrundet'.",
+    "python_solution": "def hasCycle(head):\n    slow = head\n    fast = head\n    while fast and fast.next:\n        slow = slow.next\n        fast = fast.next.next\n        if slow == fast:\n            return True\n    return False",
+    "lean_sketch": "-- In Lean 4 sind induktive Typen streng 'well-founded'.\n-- Eine unendliche zirkuläre Liste kann als 'Inductive' nicht existieren,\n-- sondern höchstens als Coinductive Type (Stream).\n-- Selbstreferenz ist in reiner Prädikatenlogik durch Universen-Hierarchien blockiert.\n\ninductive FiniteList (α : Type)\n  | nil : FiniteList α\n  | cons : α → FiniteList α → FiniteList α\n\n-- Ein Zyklus ist für FiniteList unmöglich zu konstruieren.",
+    "reflection_questions": [
+      "Warum kann man in Python so einfach einen Zyklus im Speicher bauen, aber in Lean 4 nicht?",
+      "Wie verhält sich Floyd's Cycle Detection zu Russells Typentheorie (Lösung des Lügner-Paradoxons)?",
+      "Was wäre die Bedeutung von 'slow == fast' in der Philosophie der Logik?"
+    ],
+    "source": "leetcode",
+    "difficulty": "easy"
   },
   {
     "id": "longest-substring-without-repeating-characters",

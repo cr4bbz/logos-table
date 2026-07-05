@@ -1,0 +1,26 @@
+{
+  "id": "linked-list-cycle",
+  "title": "Linked List Cycle (Lügner-Paradoxon)",
+  "surface": "Gegeben ist der Head einer verketteten Liste. Stelle fest, ob die Liste einen Zyklus enthält. Ein Zyklus liegt vor, wenn ein Knoten über den `next`-Pointer erneut erreicht werden kann.",
+  "deep_structure": "Das Problem der Selbstreferenz: Eine endliche Struktur, die durch ihre Pointersystematik Unendlichkeit simuliert. Jede naive Traversierung verfängt sich in einem zirkulären Pfad, analog zum logischen Zirkelschluss.",
+  "atom_roles": [
+    {
+      "atom_id": "selbstreferenz",
+      "role": "Die Liste verweist physisch auf ihre eigene Vergangenheit und zerstört damit die lineare Ordnung."
+    },
+    {
+      "atom_id": "cycle",
+      "role": "Die algorithmische Manifestation der Selbstreferenz. Sie muss durch Floyd's Tortoise and Hare aktiv erkannt werden."
+    }
+  ],
+  "proof_sketch": "Da der Speicher endlich ist, muss ein unendlicher Pfad zwangsläufig Knoten wiederholen. Zwei Zeiger, die sich mit unterschiedlichen Geschwindigkeiten bewegen (Floyd's Algorithm), müssen in einem Zyklus kollidieren, da der schnellere Zeiger den langsameren im Zyklus irgendwann 'überrundet'.",
+  "python_solution": "def hasCycle(head):\n    slow = head\n    fast = head\n    while fast and fast.next:\n        slow = slow.next\n        fast = fast.next.next\n        if slow == fast:\n            return True\n    return False\n",
+  "lean_sketch": "-- In Lean 4 sind induktive Typen streng 'well-founded'.\n-- Eine unendliche zirkuläre Liste kann als 'Inductive' nicht existieren,\n-- sondern höchstens als Coinductive Type (Stream).\n-- Selbstreferenz ist in reiner Prädikatenlogik durch Universen-Hierarchien blockiert.\n\ninductive FiniteList (α : Type)\n  | nil : FiniteList α\n  | cons : α → FiniteList α → FiniteList α\n\n-- Ein Zyklus ist für FiniteList unmöglich zu konstruieren.\n",
+  "reflection_questions": [
+    "Warum kann man in Python so einfach einen Zyklus im Speicher bauen, aber in Lean 4 nicht?",
+    "Wie verhält sich Floyd's Cycle Detection zu Russells Typentheorie (Lösung des Lügner-Paradoxons)?",
+    "Was wäre die Bedeutung von 'slow == fast' in der Philosophie der Logik?"
+  ],
+  "source": "leetcode",
+  "difficulty": "easy"
+}
