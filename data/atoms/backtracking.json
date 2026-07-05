@@ -19,7 +19,8 @@
   "lean_sketch": "inductive ValidPath {α : Type} (valid : List α → Prop) : List α → Prop where\n  | empty : ValidPath []\n  | step {p : List α} {x : α} : ValidPath p → valid (x :: p) → ValidPath (x :: p)\n",
   "related_atoms": [
     "recursion",
-    "invariant"
+    "invariant",
+    "unentscheidbarkeit"
   ],
   "tags": [
     "suche",

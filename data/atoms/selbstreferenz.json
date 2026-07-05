@@ -1,0 +1,30 @@
+{
+  "id": "selbstreferenz",
+  "symbol": "Sf",
+  "name": "Selbstreferenz",
+  "family": "Relation",
+  "core_sentence": "Eine Entität definiert ihren Wahrheitsgehalt oder ihre Struktur durch den Verweis auf sich selbst.",
+  "description": "Die formale Basis für das Lügner-Paradoxon und das Halteproblem. Selbstreferenz zerstört lineare Kausalität und erzeugt unendliche Zyklen oder logische Inkonsistenzen (Widersprüche), wenn sie nicht durch eine Typenhierarchie oder einen strikten Base-Case terminiert wird.",
+  "formal_shape": "f(x) = f(x) ∨ X = {x | x ∉ X}",
+  "algorithmic_patterns": [
+    "Zyklenerkennung (Cycle Detection)",
+    "DFS mit Visited-Sets",
+    "Unendliche Rekursion verhindern",
+    "Topologisches Sortieren"
+  ],
+  "requirements": [
+    "Ein Graph oder Speicherraum muss Zustände (z.B. visited/unvisited/processing) haben, um den Zirkelschluss zu erkennen."
+  ],
+  "python_template": "def is_cyclic(node, visiting, visited):\n    if node in visiting: return True\n    if node in visited: return False\n    visiting.add(node)\n    for neighbor in graph[node]:\n        if is_cyclic(neighbor, visiting, visited): return True\n    visiting.remove(node)\n    visited.add(node)\n    return False",
+  "lean_sketch": "def liar : Prop := ¬liar -- Unprovable without strict universes",
+  "related_atoms": [
+    "cycle",
+    "recursion",
+    "identitaet"
+  ],
+  "tags": [
+    "paradox",
+    "russell",
+    "graph"
+  ]
+}

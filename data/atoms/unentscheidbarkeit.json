@@ -1,0 +1,29 @@
+{
+  "id": "unentscheidbarkeit",
+  "symbol": "Un",
+  "name": "Unentscheidbarkeit",
+  "family": "Wissen",
+  "core_sentence": "Es existiert keine analytische A-Priori-Formel, um die Gültigkeit aller Systemzustände ohne vollständige Simulation zu bestimmen.",
+  "description": "Spiegelt Gödels Unvollständigkeit und das Halteproblem (Turing) wider. Bestimmte algorithmische Probleme sind formal irreduzibel und zwingen uns zur Brute-Force-Simulation des Zustandsbaums (Backtracking).",
+  "formal_shape": "∃x. (True(x) ∧ ¬Provable(x))",
+  "algorithmic_patterns": [
+    "Backtracking mit Pruning",
+    "Simulation",
+    "NP-Complete Reduktion"
+  ],
+  "requirements": [
+    "Ein Suchbaum, der Schritt für Schritt materialisiert und evaluiert werden muss."
+  ],
+  "python_template": "def solve(state):\n    if is_goal(state): return True\n    for next_state in expand(state):\n        if solve(next_state): return True\n    return False",
+  "lean_sketch": "axiom incompleteness : ∃ P : Prop, P ∧ ¬(True ⊢ P)",
+  "related_atoms": [
+    "backtracking",
+    "globale-konsistenz",
+    "zustand"
+  ],
+  "tags": [
+    "paradox",
+    "goedel",
+    "np-complete"
+  ]
+}

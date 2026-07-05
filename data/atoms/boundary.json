@@ -19,7 +19,8 @@
   "lean_sketch": "def IsBoundaryValid (leftMax rightMin : Int) : Prop :=\n  leftMax ≤ rightMin\n",
   "related_atoms": [
     "monotone-threshold",
-    "partition"
+    "partition",
+    "unendliche-teilbarkeit"
   ],
   "tags": [
     "teilung",

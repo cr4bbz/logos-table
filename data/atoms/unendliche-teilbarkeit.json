@@ -1,0 +1,29 @@
+{
+  "id": "unendliche-teilbarkeit",
+  "symbol": "UdT",
+  "name": "Unendliche Teilbarkeit",
+  "family": "Ordnung",
+  "core_sentence": "Ein kontinuierlicher Suchraum kann unendlich oft halbiert werden, ohne jemals vollständig zu verschwinden.",
+  "description": "Die Basis für Zenons Pfeil-Paradoxon. In der reinen Mathematik konvergiert das unendliche Integral. In der Informatik muss die Halbierung zwangsläufig an der Grenze des diskreten Datentyps (Integer) enden. Das Paradoxon zerbricht an der Realität der Bits.",
+  "formal_shape": "lim (n→∞) Σ (1/2^n) = 1",
+  "algorithmic_patterns": [
+    "Binary Search auf kontinuierlichen Räumen",
+    "Gleitkomma-Präzisionsgrenzen (Epsilon)",
+    "Bisektion"
+  ],
+  "requirements": [
+    "Eine monotone Funktion und eine Abbruchbedingung (Epsilon oder Ganzzahligkeit)."
+  ],
+  "python_template": "while right - left > 1e-6:\n    mid = (left + right) / 2.0\n    if is_valid(mid): left = mid\n    else: right = mid",
+  "lean_sketch": "def limit_seq : Nat → Rat := fun n => 1 / (2^n)",
+  "related_atoms": [
+    "monotone-threshold",
+    "grenze",
+    "reachability"
+  ],
+  "tags": [
+    "paradox",
+    "zeno",
+    "calculus"
+  ]
+}

@@ -18,7 +18,8 @@
   "lean_sketch": "def RecStep {α : Type} (base : α) (step : Nat → α → α) : Nat → α\n  | 0 => base\n  | n + 1 => step n (RecStep base step n)\n",
   "related_atoms": [
     "memoization",
-    "backtracking"
+    "backtracking",
+    "selbstreferenz"
   ],
   "tags": [
     "struktur"

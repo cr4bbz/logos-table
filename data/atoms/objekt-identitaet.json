@@ -1,0 +1,29 @@
+{
+  "id": "objekt-identitaet",
+  "symbol": "IdO",
+  "name": "Objekt-Identität",
+  "family": "Identität",
+  "core_sentence": "Die Essenz einer Struktur bleibt an ihre Referenz gebunden, auch wenn sich all ihre konstituierenden Werte über die Zeit ändern.",
+  "description": "Die formale Basis für das Paradoxon des Schiff des Theseus. Es zwingt Systeme dazu, streng zwischen Wertgleichheit (Value Equality) und Referenzgleichheit (Referential Identity im Arbeitsspeicher) zu unterscheiden.",
+  "formal_shape": "ptr(A) == ptr(B) ≢ val(A) == val(B)",
+  "algorithmic_patterns": [
+    "Deep Copy",
+    "HashMaps zur Adress-Verknüpfung",
+    "Immutable State Management"
+  ],
+  "requirements": [
+    "Ein Dictionary oder Mapping, das alte Speicheradressen explizit auf neue Speicheradressen abbildet, um isomorph zu kopieren ohne Referenzen zu vermischen."
+  ],
+  "python_template": "old_to_new = {None: None}\nfor node in nodes:\n    old_to_new[node] = Node(node.val)\nfor node in nodes:\n    old_to_new[node].next = old_to_new[node.next]",
+  "lean_sketch": "theorem obj_id : a = b → f a = f b -- In Lean values define identity, not addresses",
+  "related_atoms": [
+    "identitaet",
+    "zustand",
+    "component"
+  ],
+  "tags": [
+    "paradox",
+    "theseus",
+    "memory"
+  ]
+}

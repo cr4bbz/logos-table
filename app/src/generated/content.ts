@@ -22,7 +22,8 @@ export const atoms: Atom[] = [
     "lean_sketch": "inductive ValidPath {α : Type} (valid : List α → Prop) : List α → Prop where\n  | empty : ValidPath []\n  | step {p : List α} {x : α} : ValidPath p → valid (x :: p) → ValidPath (x :: p)",
     "related_atoms": [
       "recursion",
-      "invariant"
+      "invariant",
+      "unentscheidbarkeit"
     ],
     "tags": [
       "suche",
@@ -104,7 +105,8 @@ export const atoms: Atom[] = [
     "lean_sketch": "def IsBoundaryValid (leftMax rightMin : Int) : Prop :=\n  leftMax ≤ rightMin",
     "related_atoms": [
       "monotone-threshold",
-      "partition"
+      "partition",
+      "unendliche-teilbarkeit"
     ],
     "tags": [
       "teilung",
@@ -327,7 +329,8 @@ export const atoms: Atom[] = [
     "related_atoms": [
       "equivalence-class",
       "component",
-      "reachability"
+      "reachability",
+      "objekt-identitaet"
     ],
     "tags": [
       "dfs",
@@ -446,6 +449,35 @@ export const atoms: Atom[] = [
     "tags": [
       "suche",
       "logik"
+    ]
+  },
+  {
+    "id": "objekt-identitaet",
+    "symbol": "IdO",
+    "name": "Objekt-Identität",
+    "family": "Identität",
+    "core_sentence": "Die Essenz einer Struktur bleibt an ihre Referenz gebunden, auch wenn sich all ihre konstituierenden Werte über die Zeit ändern.",
+    "description": "Die formale Basis für das Paradoxon des Schiff des Theseus. Es zwingt Systeme dazu, streng zwischen Wertgleichheit (Value Equality) und Referenzgleichheit (Referential Identity im Arbeitsspeicher) zu unterscheiden.",
+    "formal_shape": "ptr(A) == ptr(B) ≢ val(A) == val(B)",
+    "algorithmic_patterns": [
+      "Deep Copy",
+      "HashMaps zur Adress-Verknüpfung",
+      "Immutable State Management"
+    ],
+    "requirements": [
+      "Ein Dictionary oder Mapping, das alte Speicheradressen explizit auf neue Speicheradressen abbildet, um isomorph zu kopieren ohne Referenzen zu vermischen."
+    ],
+    "python_template": "old_to_new = {None: None}\nfor node in nodes:\n    old_to_new[node] = Node(node.val)\nfor node in nodes:\n    old_to_new[node].next = old_to_new[node.next]",
+    "lean_sketch": "theorem obj_id : a = b → f a = f b -- In Lean values define identity, not addresses",
+    "related_atoms": [
+      "identitaet",
+      "zustand",
+      "component"
+    ],
+    "tags": [
+      "paradox",
+      "theseus",
+      "memory"
     ]
   },
   {
@@ -600,10 +632,41 @@ export const atoms: Atom[] = [
     "lean_sketch": "def RecStep {α : Type} (base : α) (step : Nat → α → α) : Nat → α\n  | 0 => base\n  | n + 1 => step n (RecStep base step n)",
     "related_atoms": [
       "memoization",
-      "backtracking"
+      "backtracking",
+      "selbstreferenz"
     ],
     "tags": [
       "struktur"
+    ]
+  },
+  {
+    "id": "selbstreferenz",
+    "symbol": "Sf",
+    "name": "Selbstreferenz",
+    "family": "Relation",
+    "core_sentence": "Eine Entität definiert ihren Wahrheitsgehalt oder ihre Struktur durch den Verweis auf sich selbst.",
+    "description": "Die formale Basis für das Lügner-Paradoxon und das Halteproblem. Selbstreferenz zerstört lineare Kausalität und erzeugt unendliche Zyklen oder logische Inkonsistenzen (Widersprüche), wenn sie nicht durch eine Typenhierarchie oder einen strikten Base-Case terminiert wird.",
+    "formal_shape": "f(x) = f(x) ∨ X = {x | x ∉ X}",
+    "algorithmic_patterns": [
+      "Zyklenerkennung (Cycle Detection)",
+      "DFS mit Visited-Sets",
+      "Unendliche Rekursion verhindern",
+      "Topologisches Sortieren"
+    ],
+    "requirements": [
+      "Ein Graph oder Speicherraum muss Zustände (z.B. visited/unvisited/processing) haben, um den Zirkelschluss zu erkennen."
+    ],
+    "python_template": "def is_cyclic(node, visiting, visited):\n    if node in visiting: return True\n    if node in visited: return False\n    visiting.add(node)\n    for neighbor in graph[node]:\n        if is_cyclic(neighbor, visiting, visited): return True\n    visiting.remove(node)\n    visited.add(node)\n    return False",
+    "lean_sketch": "def liar : Prop := ¬liar -- Unprovable without strict universes",
+    "related_atoms": [
+      "cycle",
+      "recursion",
+      "identitaet"
+    ],
+    "tags": [
+      "paradox",
+      "russell",
+      "graph"
     ]
   },
   {
@@ -631,6 +694,64 @@ export const atoms: Atom[] = [
     "tags": [
       "zeit",
       "lokalität"
+    ]
+  },
+  {
+    "id": "unendliche-teilbarkeit",
+    "symbol": "UdT",
+    "name": "Unendliche Teilbarkeit",
+    "family": "Ordnung",
+    "core_sentence": "Ein kontinuierlicher Suchraum kann unendlich oft halbiert werden, ohne jemals vollständig zu verschwinden.",
+    "description": "Die Basis für Zenons Pfeil-Paradoxon. In der reinen Mathematik konvergiert das unendliche Integral. In der Informatik muss die Halbierung zwangsläufig an der Grenze des diskreten Datentyps (Integer) enden. Das Paradoxon zerbricht an der Realität der Bits.",
+    "formal_shape": "lim (n→∞) Σ (1/2^n) = 1",
+    "algorithmic_patterns": [
+      "Binary Search auf kontinuierlichen Räumen",
+      "Gleitkomma-Präzisionsgrenzen (Epsilon)",
+      "Bisektion"
+    ],
+    "requirements": [
+      "Eine monotone Funktion und eine Abbruchbedingung (Epsilon oder Ganzzahligkeit)."
+    ],
+    "python_template": "while right - left > 1e-6:\n    mid = (left + right) / 2.0\n    if is_valid(mid): left = mid\n    else: right = mid",
+    "lean_sketch": "def limit_seq : Nat → Rat := fun n => 1 / (2^n)",
+    "related_atoms": [
+      "monotone-threshold",
+      "grenze",
+      "reachability"
+    ],
+    "tags": [
+      "paradox",
+      "zeno",
+      "calculus"
+    ]
+  },
+  {
+    "id": "unentscheidbarkeit",
+    "symbol": "Un",
+    "name": "Unentscheidbarkeit",
+    "family": "Wissen",
+    "core_sentence": "Es existiert keine analytische A-Priori-Formel, um die Gültigkeit aller Systemzustände ohne vollständige Simulation zu bestimmen.",
+    "description": "Spiegelt Gödels Unvollständigkeit und das Halteproblem (Turing) wider. Bestimmte algorithmische Probleme sind formal irreduzibel und zwingen uns zur Brute-Force-Simulation des Zustandsbaums (Backtracking).",
+    "formal_shape": "∃x. (True(x) ∧ ¬Provable(x))",
+    "algorithmic_patterns": [
+      "Backtracking mit Pruning",
+      "Simulation",
+      "NP-Complete Reduktion"
+    ],
+    "requirements": [
+      "Ein Suchbaum, der Schritt für Schritt materialisiert und evaluiert werden muss."
+    ],
+    "python_template": "def solve(state):\n    if is_goal(state): return True\n    for next_state in expand(state):\n        if solve(next_state): return True\n    return False",
+    "lean_sketch": "axiom incompleteness : ∃ P : Prop, P ∧ ¬(True ⊢ P)",
+    "related_atoms": [
+      "backtracking",
+      "globale-konsistenz",
+      "zustand"
+    ],
+    "tags": [
+      "paradox",
+      "goedel",
+      "np-complete"
     ]
   },
   {
