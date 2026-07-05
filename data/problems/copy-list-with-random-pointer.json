@@ -1,0 +1,40 @@
+{
+  "id": "copy-list-with-random-pointer",
+  "title": "Copy List with Random Pointer (Schiff des Theseus)",
+  "surface": "Gegeben ist eine verkettete Liste, in der jeder Knoten neben dem `next`-Pointer auch einen `random`-Pointer besitzt. Erstelle einen Deep Copy (eine exakte physische Kopie) der gesamten Liste.",
+  "deep_structure": "Eine Abbildung (Isomorphismus) zwischen zwei identischen, aber physisch getrennten Speicherstrukturen. Die Referenzen (Pointers) im Graph erzwingen eine Unterscheidung zwischen Value Equality und Referential Equality.",
+  "atom_roles": [
+    {
+      "atom_id": "objekt-identitaet",
+      "role": "Das Grundproblem: Die Erschaffung eines Value-Klons, dessen physische Referenzen strikt vom Original getrennt sind."
+    },
+    {
+      "atom_id": "zustand",
+      "role": "Der schrittweise Aufbau der neuen Speicheradressen durch Iteration."
+    },
+    {
+      "atom_id": "identitaet",
+      "role": "Die Hash-Map fungiert als historisches Register, das beweist, welches neue Brett (Knoten) welchem alten Brett entspricht."
+    }
+  ],
+  "proof_sketch": "Wir können den Graphen nicht in einem Durchlauf kopieren, da ein `random`-Pointer auf einen Knoten zeigen könnte, den wir noch nicht physisch erschaffen haben. Daher trennen wir die Erschaffung (Pass 1) von der Vernetzung (Pass 2) und nutzen eine Hash-Map, um alte Speicheradressen auf neue Speicheradressen abzubilden.",
+  "python_solution": "def copyRandomList(head):\\n    if not head: return None\\n    old_to_new = {}\\n    \\n    # Pass 1: Copy values (Neue Bretter sägen)\\n    curr = head\\n    while curr:\\n        old_to_new[curr] = Node(curr.val)\\n        curr = curr.next\\n        \\n    # Pass 2: Copy pointers (Neue Bretter exakt wie alte verknüpfen)\\n    curr = head\\n    while curr:\\n        if curr.next: old_to_new[curr].next = old_to_new[curr.next]\\n        if curr.random: old_to_new[curr].random = old_to_new[curr.random]\\n        curr = curr.next\\n        \\n    return old_to_new[head]\\n",
+  "lean_sketch": "-- In funktionalen Programmiersprachen existiert Referential Identity nicht auf Sprachebene.\\n-- Ein 'Deep Copy' ist mathematisch sinnlos, da Variablen unveränderlich sind.\\n-- Ein Klon ist identisch zum Original.\\n\\ntheorem deep_copy_pure {α : Type} (l : List α) : id l = l := rfl\\n",
+  "reflection_questions": [
+    "Warum existiert dieses Problem in C oder Python, aber nicht in funktionalen Programmiersprachen wie Haskell oder Lean?",
+    "Was passiert, wenn die Hash-Map weggelassen wird und wir stattdessen die neuen Knoten direkt hinter die alten in die originale Liste einschieben? (O(1) Space Trick)",
+    "Inwiefern beweist die Hash-Map, dass das Originalschiff und das Neuschiff isomorph zueinander sind?"
+  ],
+  "source": "leetcode",
+  "difficulty": "medium",
+  "test_cases": [
+    {
+      "input": "[[7,null],[13,0],[11,4],[10,2],[1,0]]",
+      "expected": "[[7,null],[13,0],[11,4],[10,2],[1,0]]"
+    },
+    {
+      "input": "[[1,1],[2,1]]",
+      "expected": "[[1,1],[2,1]]"
+    }
+  ]
+}
