@@ -1,5 +1,7 @@
 # MVP Roadmap
 
+> **Scope:** Diese Roadmap beschreibt Produktfeatures und Nutzerfunktionen. Die epistemischen, ontologischen und formalen Qualitätsanforderungen des Content-Systems werden normativ in [`RIGOR_ROADMAP.md`](./RIGOR_ROADMAP.md) definiert. Content-, Ontologie- und Formalisierungsänderungen müssen beide Roadmaps respektieren.
+
 ## Phase 0: Produktkern schärfen
 
 **Ziel:** Eine präzise Produktidentität herstellen.
