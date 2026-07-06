@@ -54,12 +54,9 @@ Zwei Atome $A$ und $B$ befinden sich im **Comparison Neighborhood** (und erzeuge
 - **N4 (Review-Flag):** Ein Reviewer markiert das Paar mit `ontology-confusion`.
 
 ### 2.2 Formal Prerequisites vs. Facets
-Wir trennen strikt zwischen notwendigen Voraussetzungen und rein deskriptiven Merkmalen:
-- **Formal Prerequisite (Formale Voraussetzung):** Eine mathematische Struktur oder Vorbedingung, die zur Formulierung oder Erfüllung der Wahrheitsbedingungen des Atoms zwingend benötigt wird (z. B. `linear-order`, `finite-domain`, `decidable-predicate`).
-  - Ist die Voraussetzung selbst als Logos-Atom im Hauptbestand erfasst, wird die Abhängigkeit ausschließlich über die Relation `presupposes` abgebildet.
-  - Andernfalls wird sie als kontrollierte Facette oder Voraussetzung deklariert.
-  - Dopplungen (eine Atom-Abhängigkeit gleichzeitig als Facette und als Relation `presupposes` anzulegen) sind unzulässig.
-- **Facet (Facette):** Ein orthogonaler Deskriptor des formalen Gegenstands, der jedoch für dessen grundlegende Definition nicht notwendig ist.
+Eine notwendige Voraussetzung, die kein Logos-Atom ist, bleibt als kontrolliertes `formal prerequisite` deklariert. Sie darf nicht alternativ als Facette modelliert werden. Facetten sind ausschließlich orthogonale, nicht definitionsnotwendige Deskriptoren.
+- Ist die Voraussetzung selbst als Logos-Atom im Hauptbestand erfasst, wird die Abhängigkeit ausschließlich über die Relation `presupposes` abgebildet.
+- Dopplungen (eine Atom-Abhängigkeit gleichzeitig als Facette und als Relation `presupposes` anzulegen) sind unzulässig.
 
 ### 2.3 Separation Obligations und Ablauf
 $$\text{Neighborhood}(A, B) \implies \text{SeparationObligation}(A, B)$$
@@ -134,7 +131,7 @@ Jedes Atom ist aus UI-Layoutgründen genau einer Primärfamilie (`primary_family
 | **Zeit** | Historie und zeitindizierte Zustände. | Benötigt geordnete Folge von Zuständen mit temporaler Abhängigkeit. | - | `recursion` (strukturelle Induktion ist zeitlos) | **Provisional** |
 | **Wissen** | Informationstheoretische Schranken. | Unterscheidung zwischen sichtbarer Information und verdecktem Zustand. | - | `memoization` (ist reines Caching, kein Wissen) | **Provisional** |
 | **Struktur** | Topologische oder algebraische Form. | *Aktuelle Definition zu breit.* Dient als Sammelbecken. | - | - | **Provisional** |
-| **Beweis** | Maschinelle Validierbarkeit. | *Keine Abgrenzung möglich.* Jedes Atom besitzt Beweise. | - | - | **Remove Candidate** |
+| **Beweis** | Maschinelle Validierbarkeit. | Beweis bezeichnet eine Evidenz- oder Zertifizierungsdimension und keine trennscharfe Intension des formalen Gegenstands eines Atoms. | - | - | **Remove Candidate** |
 
 ### 4.3 Anomalie-Identifikation (R0 Self-Check)
 - **Die Primalitäts-Anomalie (Attack D):** `primalitaet` ist der Familie `Identität` zugeordnet. Primalität ist jedoch ein unäres Prädikat auf $\mathbb{N}$ und stellt keine Äquivalenzrelation oder Partitionierung im Sinne der Identitätsregel dar. **Disposition für R1:** Primalität muss in eine geeignetere Familie verschoben oder als mathematisches Hilfsatom ausgegliedert werden.
@@ -219,4 +216,4 @@ Vor Fertigstellung der Phase R0 wurden die sieben Adversarial Checks (A–G) auf
 - **D (Waisen-Atom):** *Identified as R1 obligation.* `primalitaet` verletzt die Familienregel von `Identität` und wurde als R1-Korrekturkandidat (Ausgliederung oder Verschiebung) markiert.
 - **E (Heimliche Atome):** *Promotion criterion defined; mechanical enforcement pending R2.* Die ontologische Unterscheidung zwischen Facetten und Atomen wurde präzisiert.
 - **F (Coverage-Exploit):** *Human review obligation.* Die Anforderung von Witness-Diversität ist definiert; da sie strukturelle Varianz bewertet, ist sie nicht maschinell entscheidbar und verbleibt als Review-Obligation.
-- **G (Kollisions-Schlupfloch):** *Canonical Pattern Identity is a normative requirement; controlled vocabulary and mechanical enforcement pending R2.* Die Definition von formellen Voraussetzungen (`formal prerequisite`) und kontrollierten algorithmischen Mustern verhindert das Umgehen des Neighborhood-Kriteriums.
+- **G (Kollisions-Schlupfloch):** *Canonical Pattern Identity is now a normative requirement. The controlled vocabulary and mechanical enforcement remain R2 work.*
